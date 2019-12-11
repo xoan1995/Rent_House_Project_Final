@@ -27,12 +27,6 @@
             height: 100vh;
         }
 
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
         .position-ref {
             position: relative;
         }
@@ -41,10 +35,6 @@
             position: absolute;
             right: 10px;
             top: 18px;
-        }
-
-        .content {
-            text-align: center;
         }
 
         .title {
@@ -139,12 +129,13 @@
         </div>
     </nav>
 </div>
-<div class="flex-center position-ref full-height">
+<div>
 
     <div class="content">
 
+
         @yield('content')
-        viết mọi thứ trong này
+
 
     </div>
 </div>
