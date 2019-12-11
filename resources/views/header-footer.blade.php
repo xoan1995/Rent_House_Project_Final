@@ -6,7 +6,7 @@
 
     <title>Vitamin hung hăng</title>
     <link rel="shortcut icon" href="{{asset('favicon.ico') }}">
-    <link href="{{asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{asset('css/register.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
