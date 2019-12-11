@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,3 +26,6 @@ Route::get('/edit', 'UserController@editUser')->name('editUser');
 Route::prefix('houses')->group(function () {
     Route::get('listHouse', 'HouseController@getAllhouse')->name('houses.list');
 });
+
+Route::get('/redirect/{social}', 'SocialAuthController@redirect');
+Route::get('/callback/{social}', 'SocialAuthController@callback');
