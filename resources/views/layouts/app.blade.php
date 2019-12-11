@@ -25,8 +25,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('storage/css/util.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('storage/css/main.css')}}">
     <!--===============================================================================================-->
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="{{asset('storage/fonts/material-icon/css/material-design-iconic-font.min.css')}}">
 
 </head>
 <body>
