@@ -21,6 +21,7 @@
 
                         Password: <input type="password" class="form-control" value="FakePSW" id="myInput"><br><br>
                         <input type="checkbox" onclick="myFunction()">Show Password
+                        <textarea type="text" class="form-control"></textarea>
 
                     </div>
                 </div>
