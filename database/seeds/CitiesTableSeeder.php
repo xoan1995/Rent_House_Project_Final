@@ -12,64 +12,79 @@ class CitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        $city= new City();
-        $city->name='Hà Nội';
+        $city = new City();
+        $city->name = 'Hà Nội';
+        $city->image = 'cities/hanoi.jpeg';
         $city->save();
 
-        $city= new City();
-        $city->name='Bắc Ninh';
+        $city = new City();
+        $city->name = 'Bắc Ninh';
+        $city->image = 'cities/hue.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Tuyên Quang';
+        $city = new City();
+        $city->name = 'Tuyên Quang';
+        $city->image = 'cities/tuyenquang.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Thái Nguyên';
+        $city = new City();
+        $city->name = 'Thái Nguyên';
+        $city->image = 'cities/thainguyen.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Lào Cai';
+        $city = new City();
+        $city->name = 'Lào Cai';
+        $city->image = 'cities/laocai.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Yên Bái';
+        $city = new City();
+        $city->name = 'Yên Bái';
+        $city->image = 'cities/yenbai.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Quảng Ninh';
+        $city = new City();
+        $city->name = 'Quảng Ninh';
+        $city->image = 'cities/quangninh.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Hải Dương';
+        $city = new City();
+        $city->name = 'Hải Dương';
+        $city->image = 'cities/haiduong.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Hòa Bình';
+        $city = new City();
+        $city->name = 'Hòa Bình';
+        $city->image = 'cities/hoabinh.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Hà Nam';
+        $city = new City();
+        $city->name = 'Hà Nam';
+        $city->image = 'cities/hanam.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Ninh Bình';
+        $city = new City();
+        $city->name = 'Ninh Bình';
+        $city->image = 'cities/ninhbinh.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Đà lạt';
+        $city = new City();
+        $city->name = 'Đà lạt';
+        $city->image = 'cities/dalat.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Đà Nẵng';
+        $city = new City();
+        $city->name = 'Đà Nẵng';
+        $city->image = 'cities/danang.jpg';
         $city->save();
 
-        $city= new City();
-        $city->name='Huế';
+        $city = new City();
+        $city->name = 'Huế';
+        $city->image = 'cities/hue.jpeg';
         $city->save();
 
-        $city= new City();
-        $city->name='Nghệ An';
+        $city = new City();
+        $city->name = 'Nghệ An';
+        $city->image = 'cities/nghean.jpg';
         $city->save();
 
 

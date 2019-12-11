@@ -9,11 +9,11 @@ class City extends Model
     protected $table = 'cities';
 
     protected $fillable = [
-        'name',
+        'name','image'
     ];
 
     public function houses()
     {
-        return $this->hasMany('App/House');
+        return $this->hasMany('App\House');
     }
 }
