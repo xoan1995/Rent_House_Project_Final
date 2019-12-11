@@ -14,50 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: Arial;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
 
-        .full-height {
-            height: 100vh;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-
-        .header-welcome {
-
-        }
     </style>
 </head>
 <body>
@@ -105,7 +62,7 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
+                    <li class=" nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
@@ -129,15 +86,24 @@
         </div>
     </nav>
 </div>
-<div>
 
-    <div class="content">
+<div class="container">
 
-
-        @yield('content')
-
+    <div>
+        @if(\Illuminate\Support\Facades\Auth::user())
+            <div style="font-size: 30px; font-weight: bold; color: #1b1e21"> Welcom To Luxury Rent
+                House, {{\Illuminate\Support\Facades\Auth::user()->name}}</div>
+        @else
+            <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Chào mừng đến với Luxury Rent House!</div>
+            <div>Đặt chỗ ở, homestay, trải nghiệm và nhiều hơn nữa trên Luxury Rent House</div>
+            <div> Đăng nhập hoặc Đăng ký để trải nghiệm !</div>
+        @endif
 
     </div>
+    <div>
+        @yield('content')
+    </div>
+
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
