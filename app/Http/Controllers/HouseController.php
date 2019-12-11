@@ -18,9 +18,4 @@ class HouseController extends Controller
         $this->user = $user;
     }
 
-    public function getAllHouse()
-    {
-        $houses = $this->house->all();
-        return view('house.list',compact('houses'));
-    }
 }
