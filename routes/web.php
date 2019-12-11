@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/edit', 'UserController@editUser')->name('editUser');
+Route::get('/edit-profile', 'UserController@editUser')->name('editUser');
 
 Route::prefix('houses')->group(function () {
 
