@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/edit', 'UserController@editUser')->name('editUser');
+Route::get('/createHouse', 'UserController@createHouse')->name('createHouse');
 
 Route::prefix('houses')->group(function () {
     Route::get('listHouse', 'HouseController@getAllhouse')->name('houses.list');
