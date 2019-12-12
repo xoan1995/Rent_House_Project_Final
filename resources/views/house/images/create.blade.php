@@ -19,15 +19,13 @@
 </head>
 <body>
 <div class="container">
-    <div class="addHouse">
-        <h2>Đăng nhiều ảnh để dễ bán hơn</h2><br/>
+        <h2 style="color: white">Đăng nhiều ảnh để dễ bán hơn</h2><br/>
         <form method="post" action="{{route('storeImage')}}" enctype="multipart/form-data"
               class="dropzone" id="dropzone" name="file">
             @csrf
         </form>
         <a class="btn btn btn-success" href="{{route('home')}}">Thêm</a>
     </div>
-</div>
 <script type="text/javascript">
     Dropzone.options.dropzone =
         {
