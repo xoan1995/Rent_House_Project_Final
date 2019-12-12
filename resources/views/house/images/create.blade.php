@@ -19,6 +19,7 @@
           class="dropzone" id="dropzone" name="file">
         @csrf
     </form>
+    <a class="btn btn btn-success" href="{{route('home')}}">Thêm</a>
 </div>
 <script type="text/javascript">
     Dropzone.options.dropzone =
