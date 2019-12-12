@@ -6,6 +6,9 @@ use App\City;
 use App\House;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+use TJGazel\Toastr\Facades\Toastr;
 
 class HomeController extends Controller
 {
@@ -34,6 +37,7 @@ class HomeController extends Controller
     {
         $cities = $this->city->all();
         $houses = $this->house->all();
+//        Toastr::info('Welcome '.Auth::user()->name.'!',"",["positionClass" => "toast-top-left"]);
 //        dd($houses[5]->images[0]->path);
         return view('home', compact('houses','cities'));
     }
