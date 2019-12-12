@@ -24,12 +24,12 @@ class EditUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'dob' => 'required',
-            'idCard' => 'required',
-            'gender' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
+            'name' => 'max:50',
+            'dob' => '',
+            'idCard' => 'numeric',
+            'gender' => '',
+            'address' => '',
+            'phone' => '',
         ];
     }
 }

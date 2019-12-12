@@ -92,8 +92,8 @@
             <div class="form-group" style="margin-bottom: -5px">
                 <input type="date" class="form-control"
                        name="dob"
-                       value="@if($user->dob){{\Carbon\Carbon::createFromDate($user->dob)->format('Y-m-d')}} @else
-                       @endif">
+                       value="{{\Carbon\Carbon::createFromDate($user->dob)->format('Y-m-d')}}">
+
                 <input type="text" name="idCard" value="{{$user->idCard}}" placeholder="Id card" class="form-control">
             </div>
             <div class="form-group">
