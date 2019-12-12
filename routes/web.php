@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/edit-profile', 'UserController@editUser')->name('editUser');
+Route::post('/update-profile', 'UserController@update')->name('users.update');
 
 Route::prefix('houses')->group(function () {
 
