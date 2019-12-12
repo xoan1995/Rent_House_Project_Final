@@ -71,7 +71,8 @@
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-                            <a href="{{route('editUser')}}" class="dropdown-item">Edit Profile</a>
+                            <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
+                            <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
