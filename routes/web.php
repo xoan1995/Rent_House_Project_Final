@@ -11,18 +11,20 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/edit', 'UserController@editUser')->name('editUser');
 Route::get('/createHouse', 'UserController@createHouse')->name('createHouse');
 
+
 Route::prefix('houses')->group(function () {
-    Route::get('listHouse', 'HouseController@getAllhouse')->name('houses.list');
+
 });
+
+Route::get('/redirect/{social}', 'SocialAuthController@redirect');
+Route::get('/callback/{social}', 'SocialAuthController@callback');

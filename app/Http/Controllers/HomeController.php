@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\House;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,9 +13,12 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    protected $house;
+
+    public function __construct(House $house)
     {
-        $this->middleware('auth');
+        $this->house = $house;
+//        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $houses = $this->house->all();
+        return view('home', compact('houses'));
     }
 }
