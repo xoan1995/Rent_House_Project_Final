@@ -13,7 +13,7 @@ class HouseRequestValidate extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,13 +25,9 @@ class HouseRequestValidate extends FormRequest
     {
         return [
             'title' => 'required|min:3|max:30',
-            'image_1' => 'required',
-            'image_2' => 'required',
-            'image_3' => 'required',
-            'image_4' => 'required',
-            'address' => 'required|min:5|max:255',
             'kindHouse' => 'required',
             'kindRoom' => 'required',
+            'address' => 'required|min:5|max:255',
             'numBedroom' => 'required',
             'numBathroom' => 'required',
             'description' => 'required|min:20',
