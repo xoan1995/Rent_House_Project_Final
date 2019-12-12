@@ -264,8 +264,8 @@ iframe {
 }
 
 .input100 {
-  display: block;
-  width: 100%;
+  /*display: block;*/
+  width: 90%;
   height: 50px;
   background: transparent;
   font-family: Poppins-Regular;
