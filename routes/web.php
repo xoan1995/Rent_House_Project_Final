@@ -18,8 +18,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
 Route::get('/edit-profile', 'UserController@editUser')->name('editUser');
 Route::post('/update-profile', 'UserController@update')->name('users.update');
+
+Route::get('/createHouse', 'UserController@createHouse')->name('createHouse');
 
 Route::prefix('houses')->group(function () {
 

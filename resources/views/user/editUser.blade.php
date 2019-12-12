@@ -28,6 +28,7 @@
             {{ config('app.name', 'Laravel') }}
         </a>
 
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
 
@@ -139,3 +140,4 @@
 
 </body>
 </html>
+

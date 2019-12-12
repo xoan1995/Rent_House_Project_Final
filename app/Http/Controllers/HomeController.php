@@ -29,8 +29,6 @@ class HomeController extends Controller
     public function index()
     {
         $houses = $this->house->all();
-//        dd($houses);
-//        dd($houses[0]->images[$houses[0]->id]->path);
         return view('home', compact('houses'));
     }
 }

@@ -36,4 +36,9 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('home');
     }
+
+    public function createHouse()
+    {
+        return view('house.create');
+    }
 }
