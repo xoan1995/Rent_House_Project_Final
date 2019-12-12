@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use TJGazel\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
@@ -28,12 +29,23 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $user->name = $request->name;
-        $user->dob = $request->dob;
-        $user->idCard = $request->idCard;
-        $user->gender = $request->gender;
-        $user->address = $request->address;
-        $user->phone = $request->phone;
+        if ($request->dob) {
+            $user->dob = $request->dob;
+        }
+        if ($request->idCard) {
+            $user->idCard = $request->idCard;
+        }
+        if ($request->gender) {
+            $user->gender = $request->gender;
+        }
+        if ($request->address) {
+            $user->address = $request->address;
+        }
+        if ($request->phone) {
+            $user->phone = $request->phone;
+        }
         $user->save();
+        Toastr::success('update thanh cong');
         return redirect()->route('home');
     }
 
