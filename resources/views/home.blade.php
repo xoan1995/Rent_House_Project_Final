@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div class="mt-5" >
+    <div class="mt-5">
         <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Địa điểm nổi bật</div>
         <div>Cùng Luxury Rent House bắt đầu chuyến hành trình chinh phục thế giới của bạn</div>
         <div class="">
@@ -47,13 +47,13 @@
                     <a href="#">
                         <div style="position: relative">
                             <img height="300px" width="440px" src="{{asset('storage/'.$city->image)}}">
-                            <div style="position: absolute; left: 50px; bottom: 50px" >
-                               <p style=" font-family: 'Arial Black' ;color: white; font-weight: bolder; font-size: 20px">{{$city->name}}</p>
+                            <div style="position: absolute; left: 50px; bottom: 50px">
+                                <p style=" font-family: 'Arial Black' ;color: white; font-weight: bolder; font-size: 20px">{{$city->name}}</p>
                                 <p style=" color: white; font-weight: bolder">Chỗ ở</p>
                             </div>
                         </div>
                     </a>
-                    @endforeach
+                @endforeach
             </section>
         </div>
     </div>
@@ -68,7 +68,9 @@
                         <div class="card" style="width: 100%">
                             <img src="{{asset('storage/'.$house->images[0]->path)}}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="">{{$house->title}}</a></h5>
+                                <h5 class="card-title">
+                                    <a href="{{route('totalHouse', $house->id)}}">{{$house->title}}</a>
+                                </h5>
                                 <h5 class="card-title">{{$house->price}}</h5>
                             </div>
                         </div>

@@ -6,9 +6,9 @@
 
     <title>Vitamin hung hăng</title>
 
+
     <link rel="stylesheet" type="text/css" href="{{asset('storage/slick/slick.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('storage/slick/slick-theme.css')}}">
-
 
 
     <link rel="shortcut icon" href="{{asset('favicon.ico') }}">
@@ -41,8 +41,6 @@
     .slick-next:before {
         color: black;
     }
-
-
 
 
 </style>
