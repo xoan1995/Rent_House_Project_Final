@@ -19,7 +19,7 @@ class CitiesTableSeeder extends Seeder
 
         $city = new City();
         $city->name = 'Bắc Ninh';
-        $city->image = 'cities/hue.jpg';
+        $city->image = 'cities/bacninh.jpg';
         $city->save();
 
         $city = new City();

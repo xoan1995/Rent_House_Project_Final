@@ -25,11 +25,11 @@ class EditUserRequest extends FormRequest
     {
         return [
             'name' => 'max:50',
-            'dob' => '',
-            'idCard' => 'numeric',
-            'gender' => '',
-            'address' => '',
-            'phone' => '',
+            'dob' => 'nullable',
+            'idCard' => 'nullable|regex:/[1-9]{9}/|max:9',
+            'gender' => 'nullable|string|',
+            'address' => 'nullable|string|max:255',
+            'phone' => "nullable|regex:/[0-9]{9}/|max:10|",
         ];
     }
 }

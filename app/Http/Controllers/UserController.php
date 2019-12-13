@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use TJGazel\Toastr\Facades\Toastr;
 
 class UserController extends Controller
@@ -49,8 +50,50 @@ class UserController extends Controller
         return redirect()->route('home');
     }
 
-    public function createHouse()
+    public function viewChangePassword()
     {
-        return view('house.create');
+        return view('user.changePassword');
     }
+
+    public function admin_credential_rules(array $data)
+    {
+        $messages = [
+            'passwordOld.required' => 'Please enter current password',
+            'passwordNew1.required' => 'Please enter password',
+        ];
+        $validator = Validator::make($data, [
+            'passwordOld' => 'required',
+            'passwordNew1' => 'required|same:passwordNew1',
+            'passwordNew2' => 'required|same:passwordNew1',
+        ], $messages);
+        return $validator;
+    }
+
+    public function changePassword(Request $request)
+    {
+        if (Auth::check()) {
+            $request_data = $request->All();
+            $validator = $this->admin_credential_rules($request_data);
+            if ($validator->fails()) {
+                Toastr::error('mat khau moi khong trung khop');
+                return view('user.changePassword');
+            } else {
+                $current_password = Auth::user()->password;
+                if (Hash::check($request_data['passwordOld'], $current_password)) {
+                    $user_id = Auth::user()->id;
+                    $obj_user = User::find($user_id);
+                    $obj_user->password = Hash::make($request_data['passwordNew1']);;
+                    $obj_user->save();
+                    Toastr::success('update thanh cong');
+                    return redirect()->route('home');
+                } else {
+                    Toastr::error('ban da nhap sai mat khau');
+                    return view('user.changePassword');
+                }
+            }
+        } else {
+            return redirect()->route('home');
+        }
+    }
+
 }
