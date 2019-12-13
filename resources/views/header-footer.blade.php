@@ -6,12 +6,47 @@
 
     <title>Vitamin hung hăng</title>
 
+    <link rel="stylesheet" type="text/css" href="{{asset('storage/slick/slick.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('storage/slick/slick-theme.css')}}">
+
 
     <link rel="shortcut icon" href="{{asset('favicon.ico') }}">
-
     <link rel="stylesheet" type="text/css" href="/css/app.css">
 
 </head>
+<style type="text/css">
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .slider {
+        width: 50%;
+        margin: 100px auto;
+    }
+
+    .slick-slide {
+        margin: 0px 10px;
+    }
+
+    .slick-slide img {
+        width: 100%;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+        color: black;
+    }
+
+
+
+
+</style>
+
 <body>
 @include('sweetalert::alert')
 <div class="header-welcome">
@@ -102,8 +137,13 @@
         @yield('content')
     </div>
 </div>
-
+<script src="{{asset('storage/showslide/slide.js')}}"></script>
 <script type="text/javascript" src="js/app.js"></script>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="{{asset('storage/slick/slick.js')}}" type="text/javascript" charset="utf-8"></script>
+<script src="{{asset('storage/slick/slideCity.js')}}"></script>
+
 {!! toastr()->render() !!}
 </body>
 </html>
