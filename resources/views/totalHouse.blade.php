@@ -143,7 +143,7 @@
                         check-in, được hoàn lại 100% tổng số tiền đã trả (trừ phí dịch vụ).</p>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5 ml-5">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="offset-1" style="float: right; font-size: 15px">
@@ -154,15 +154,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-lg-12">
-                        <div class="card" style="width: 100%;float: right">
-                            <img src="..." class="card-img-top" alt="...">
+                        <div class="card" style="width: 100%;float: right;background: #f8fafc">
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+
                             </div>
                         </div>
                     </div>
