@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="mt-5">
-        <div style="font-size: 20px; font-weight: bold; color: #1b1e21">Ưu đãi độc quyền</div>
+        <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Ưu đãi độc quyền</div>
         <div>Chỉ có tại Luxstay, hấp dẫn và hữu hạn, book ngay!</div>
         <div class="mt-4">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -39,14 +39,18 @@
     </div>
 
     <div class="mt-5" >
-        <div style="font-size: 20px; font-weight: bold; color: #1b1e21">Địa điểm nổi bật</div>
+        <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Địa điểm nổi bật</div>
         <div>Cùng Luxury Rent House bắt đầu chuyến hành trình chinh phục thế giới của bạn</div>
-        <div class="mt-4">
-            <section class="regular slider" style="width: 100%">
+        <div class="">
+            <section class="regular slider mt-4" style="width: 100%">
                 @foreach($cities as $city)
                     <a href="#">
-                        <div>
+                        <div style="position: relative">
                             <img height="300px" width="440px" src="{{asset('storage/'.$city->image)}}">
+                            <div style="position: absolute; left: 50px; bottom: 50px" >
+                               <p style=" font-family: 'Arial Black' ;color: white; font-weight: bolder; font-size: 20px">{{$city->name}}</p>
+                                <p style=" color: white; font-weight: bolder">Chỗ ở</p>
+                            </div>
                         </div>
                     </a>
                     @endforeach
@@ -54,9 +58,8 @@
         </div>
     </div>
 
-
     <div class="mt-5">
-        <div style="font-size: 20px; font-weight: bold; color: #1b1e21">Top Chỗ ở hot 10000 độ</div>
+        <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Top Chỗ ở hot 10000 độ</div>
         <div>Khám phá chỗ ở nổi tiếng đã xuất hiện trong các bộ phim & MV</div>
         <div class="mt-4">
             <div class="row">
