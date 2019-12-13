@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Vitamin hung hăng</title>
-    <script src="https://cdn.tiny.cloud/1/xcof2eix88p59ocdt888tez8f99xx2kpbh0y6jliuxozkluj/tinymce/5/tinymce.min.js"></script>
-    <script>tinymce.init({selector: 'textarea'})</script>
     <link rel="shortcut icon" href="{{asset('favicon.ico') }}">
 
     <link href="{{asset('css/register.css') }}" rel="stylesheet">
@@ -14,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- Styles -->
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>

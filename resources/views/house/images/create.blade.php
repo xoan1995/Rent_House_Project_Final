@@ -24,12 +24,14 @@
               class="dropzone" id="dropzone" name="file">
             @csrf
         </form>
-        <a class="btn btn btn-success" href="{{route('home')}}">Thêm</a>
+        <a class="btn btn btn-success" href="{{route('home')}}" id="uploadfiles">Thêm</a>
     </div>
 <script type="text/javascript">
-    Dropzone.options.dropzone =
-        {
+    Dropzone.autoDiscover = false;
+    let myDropzone = new Dropzone(".dropzone", {
+            autoProcessQueue: false,
             maxFilesize: 10,
+            parallelUploads: 10,
             renameFile: function (file) {
                 var dt = new Date();
                 var time = dt.getTime();
@@ -44,7 +46,11 @@
             error: function (file, response) {
                 return false;
             }
-        };
+        },
+        $('#uploadfiles').click(function(){
+            myDropzone.processQueue();
+        }))
+
 </script>
 </body>
 </html>
