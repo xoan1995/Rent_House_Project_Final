@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\House;
+use App\Http\Requests\HouseRequestValidate;
 use App\Image;
 use App\User;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class HouseController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(HouseRequestValidate $request)
     {
         $house = new House();
         $house->title = $request->title;

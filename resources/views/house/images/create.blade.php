@@ -4,23 +4,28 @@
     <meta charset="utf-8">
     <title>Laravel 6 Upload Image Using Dropzone Tutorial</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
+    <style>
+        body{
+            background: url("https://cdn.magdeleine.co/wp-content/uploads/2014/11/unsplash_5259a34e5d050_1-1400x927.jpg") no-repeat fixed center;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <h2>Đăng nhiều ảnh để dễ bán hơn</h2><br/>
-    <form method="post" action="{{route('storeImage')}}" enctype="multipart/form-data"
-          class="dropzone" id="dropzone" name="file">
-        @csrf
-    </form>
-    <a class="btn btn btn-success" href="{{route('home')}}">Thêm</a>
-</div>
+        <h2 style="color: white">Đăng nhiều ảnh để dễ bán hơn</h2><br/>
+        <form method="post" action="{{route('storeImage')}}" enctype="multipart/form-data"
+              class="dropzone" id="dropzone" name="file">
+            @csrf
+        </form>
+        <a class="btn btn btn-success" href="{{route('home')}}">Thêm</a>
+    </div>
 <script type="text/javascript">
     Dropzone.options.dropzone =
         {
