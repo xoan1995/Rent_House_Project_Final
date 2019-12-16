@@ -85,19 +85,22 @@
 @include('sweetalert::alert')
 <div class="header-welcome fixed-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{route('home')}}"><img class="img-fluid" width="34" src="{{asset('storage/images/logo/logo.jpg')}}" alt=""></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" href="{{route('home')}}">
+            {{--            <img class="img-fluid" width="60px" src="{{asset('storage/images/logo/logo.jpg')}}" alt="">--}}
+            <img class="img-fluid" width="150px" src="{{asset('storage/images/logo/logo_2.jpg')}}" alt="">
+        </a>
+
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0">
+                    <form class="form-inline my-2 my-lg-0 s002">
 
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <div class="form-group col-md-2">
+                            <input type="text" class="form-control">
+
+                        </div>
+
                     </form>
                 </li>
                 <li class="nav-item">
@@ -165,7 +168,7 @@
     </nav>
 </div>
 
-<div class="container mt-5">
+<div class="container" style="margin-top: 5rem">
 
     <div>
         @if(\Illuminate\Support\Facades\Auth::user())

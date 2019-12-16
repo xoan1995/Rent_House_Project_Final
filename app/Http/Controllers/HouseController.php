@@ -23,6 +23,7 @@ class HouseController extends Controller
         $this->house = $house;
         $this->user = $user;
         $this->image = $image;
+        $this->middleware('auth');
     }
 
     public function create()
