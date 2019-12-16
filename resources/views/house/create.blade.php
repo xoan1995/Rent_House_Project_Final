@@ -12,15 +12,12 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!--selector textarea-->
-    <script
-        src="https://cdn.tiny.cloud/1/xcof2eix88p59ocdt888tez8f99xx2kpbh0y6jliuxozkluj/tinymce/5/tinymce.min.js"></script>
-    <script>tinymce.init({selector: 'textarea'})</script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-
+    <script src="//cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('storage/editProfile/css/style.css')}}">
 </head>
@@ -57,7 +54,6 @@
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-
                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                   style="display: none;">
                                 @csrf
@@ -83,25 +79,23 @@
                     <div class="col-12">
                         @if(!$errors->has('title'))
                             <input type="text" class="form-control text-info" id="" name="title" placeholder="*Title"
-                                   value="" required="">
+                                   value="">
                         @else
                             <input type="text" class="form-control border-danger"
                                    name="title"
                                    placeholder="*Title"
-                                   value="" required="">
+                                   value="">
                             <i class="text-danger">{{$errors->first('title')}}</i>
                         @endif
                     </div>
                     <div class="col-12">
                         @if(!$errors->has('price'))
                             <input type="number" class="form-control text-info" id="" name="price" placeholder="$"
-                                   value=""
-                                   required="">
+                                   value="">
                         @else
                             <input type="number" class="form-control border-danger" id="" name="price"
                                    placeholder="$"
-                                   value=""
-                                   required=""><i class="text-danger">{{$errors->first('price')}}</i>
+                                   value=""><i class="text-danger">{{$errors->first('price')}}</i>
                         @endif
                     </div>
                 </div>
@@ -109,7 +103,7 @@
             <div class="row">
                 <div class="col-6">
                     @if(!$errors->has('kindHouse'))
-                        <select name="kindHouse" class="form-control " required="">
+                        <select name="kindHouse" class="form-control ">
                             <option value="" selected style="display: none">
                                 *Kind house
                             </option>
@@ -130,7 +124,7 @@
                             </option>
                         </select>
                     @else
-                        <select name="kindHouse" class="form-control border-danger" required="">
+                        <select name="kindHouse" class="form-control border-danger">
                             <option value="" selected style="display: none">
                                 * Kind house
                             </option>
@@ -155,7 +149,7 @@
                 </div>
                 <div class="col-6">
                     @if(!$errors->has('kindRoom'))
-                        <select class="form-control" name="kindRoom" required="">
+                        <select class="form-control" name="kindRoom">
                             <option value="" selected style="display: none">
                                 * Kind room
                             </option>
@@ -170,7 +164,7 @@
                             </option>
                         </select>
                     @else
-                        <select class="form-control border-danger" name="kindRoom" required="">
+                        <select class="form-control border-danger" name="kindRoom" >
                             <option value="" selected style="display: none">
                                 * Kind room
                             </option>
@@ -193,11 +187,11 @@
                     @if(!$errors->has('numBedroom'))
                         <input type="number" class="form-control" id="" name="numBedroom"
                                placeholder="*Number bedroom"
-                               value="" required="">
+                               value="">
                     @else
                         <input type="number" class="form-control border-danger" id="" name="numBedroom"
                                placeholder="*Number bedroom"
-                               value="" required="">
+                               value="">
                         <i class="text-danger">{{$errors->first('numBedroom')}}</i>
                     @endif
                 </div>
@@ -205,11 +199,11 @@
                     @if(!$errors->has('numBathroom'))
                         <input type="number" class="form-control " id="" name="numBathroom"
                                placeholder="*Number bathroom"
-                               value="" required="">
+                               value="">
                     @else
                         <input type="number" class="form-control  border-danger" id="" name="numBathroom"
                                placeholder="*Number bathroom"
-                               value="" required="">
+                               value="">
                         <i class="text-danger">{{$errors->first('numBathroom')}}</i>
                     @endif
                 </div>
@@ -220,18 +214,18 @@
                     @if(!$errors->has('address'))
                         <input type="text" class="form-control text-info" style="width: 100%" id="" name="address"
                                placeholder="*Address"
-                               value="" required="">
+                               value="" >
                     @else
                         <input type="text" class="form-control text-info border-danger" style="width: 100%" id=""
                                name="address"
                                placeholder="*Address"
-                               value="" required="">
+                               value="" >
                         <i class="text-danger">{{$errors->first('address')}}</i>
                     @endif
                 </div>
                 <div class="col-6">
                     @if(!$errors->has('city_id'))
-                        <select class="form-control" name="city_id" required="">
+                        <select class="form-control" name="city_id">
                             <option value="" selected style=" display: none">
                                 *City
                             </option>
@@ -242,7 +236,7 @@
                             @endforeach
                         </select>
                     @else
-                        <select class="form-control border-danger" name="city_id" required="">
+                        <select class="form-control border-danger" name="city_id">
                             <option value="" selected style="display: none">
                                 * City
                             </option>
@@ -260,17 +254,13 @@
             <div class="form-wrapper">
                 <label for="review-text"><span class="text-danger">*</span>Description</label>
                 @if(!$errors->has('description'))
-                    <textarea class="form-control text-info" rows="6" name="description" required=""></textarea>
-                    <div class="invalid-feedback">Details!</div>
+                    <textarea class="ckeditor" name="description" cols="80" rows="10"></textarea>
                 @else
                     <p class="text-danger">{{$errors->first('description')}}</p>
-                    <textarea class="form-control text-info" rows="6" name="description"
-                              required="">
-                       </textarea>
-                    <div class="invalid-feedback">Details!</div>
+                    <textarea class="ckeditor" name="description" cols="80" rows="10"></textarea>
                 @endif
             </div>
-            <div  class="form-wrapper" style="margin-top: -2rem">
+            <div class="form-wrapper" style="margin-top: -2rem">
                 <button type="submit">Next</button>
             </div>
         </form>
