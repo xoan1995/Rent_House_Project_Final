@@ -12,12 +12,15 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!--selector textarea-->
+    <script
+        src="https://cdn.tiny.cloud/1/xcof2eix88p59ocdt888tez8f99xx2kpbh0y6jliuxozkluj/tinymce/5/tinymce.min.js"></script>
+    <script>tinymce.init({selector: 'textarea'})</script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <script src="//cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('storage/editProfile/css/style.css')}}">
 </head>
@@ -70,7 +73,7 @@
         <div class="image-holder">
             <img src="{{asset('storage/editProfile/images/image_createHouse.jpg')}}" alt="">
         </div>
-        <form action="{{route('storeHouse')}}" method="post" novalidate>
+        <form action="{{route('storeHouse')}}" method="post">
             @csrf
             <h3>Add new House</h3>
             <div class="form-wrapper">
@@ -79,23 +82,25 @@
                     <div class="col-12">
                         @if(!$errors->has('title'))
                             <input type="text" class="form-control text-info" id="" name="title" placeholder="*Title"
-                                   value="">
+                                   value="" >
                         @else
                             <input type="text" class="form-control border-danger"
                                    name="title"
                                    placeholder="*Title"
-                                   value="">
+                                   value="" >
                             <i class="text-danger">{{$errors->first('title')}}</i>
                         @endif
                     </div>
                     <div class="col-12">
                         @if(!$errors->has('price'))
                             <input type="number" class="form-control text-info" id="" name="price" placeholder="$"
-                                   value="">
+                                   value=""
+                                   >
                         @else
                             <input type="number" class="form-control border-danger" id="" name="price"
                                    placeholder="$"
-                                   value=""><i class="text-danger">{{$errors->first('price')}}</i>
+                                   value=""
+                                   ><i class="text-danger">{{$errors->first('price')}}</i>
                         @endif
                     </div>
                 </div>
@@ -212,14 +217,14 @@
             <div class="row">
                 <div class="col-6">
                     @if(!$errors->has('address'))
-                        <input type="text" class="form-control text-info" style="width: 100%" id="" name="address"
+                        <input type="text" class="form-control" style="width: 100%" id="" name="address"
                                placeholder="*Address"
-                               value="" >
+                               value="">
                     @else
-                        <input type="text" class="form-control text-info border-danger" style="width: 100%" id=""
+                        <input type="text" class="form-control border-danger" style="width: 100%" id=""
                                name="address"
                                placeholder="*Address"
-                               value="" >
+                               value="">
                         <i class="text-danger">{{$errors->first('address')}}</i>
                     @endif
                 </div>
@@ -254,10 +259,14 @@
             <div class="form-wrapper">
                 <label for="review-text"><span class="text-danger">*</span>Description</label>
                 @if(!$errors->has('description'))
-                    <textarea class="ckeditor" name="description" cols="80" rows="10"></textarea>
+                    <textarea class="form-control" rows="6" name="description"></textarea>
+                    <div class="invalid-feedback">Details!</div>
                 @else
                     <p class="text-danger">{{$errors->first('description')}}</p>
-                    <textarea class="ckeditor" name="description" cols="80" rows="10"></textarea>
+                    <textarea class="form-control text-info" rows="6" name="description"
+                             >
+                       </textarea>
+                    <div class="invalid-feedback">Details!</div>
                 @endif
             </div>
             <div class="form-wrapper" style="margin-top: -2rem">
