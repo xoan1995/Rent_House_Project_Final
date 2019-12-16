@@ -41,13 +41,21 @@
     .slick-next:before {
         color: black;
     }
+    .fixed{
+        height: 30px;
+        line-height: 30px;
+        color: #fff;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+    }
 
 
 </style>
 
 <body>
 @include('sweetalert::alert')
-<div class="header-welcome">
+<div class="header-welcome fixed">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
