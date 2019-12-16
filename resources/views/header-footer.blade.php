@@ -94,12 +94,10 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <form class="form-inline my-2 my-lg-0 s002">
-
-                        <div class="form-group col-md-2">
-                            <input type="text" class="form-control">
-
-                        </div>
-
+                        <input name="keyword" style="width: 300px" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            <img src="https://img.icons8.com/ios-filled/23/000000/search.png">
+                        </button>
                     </form>
                 </li>
                 <li class="nav-item">
@@ -108,7 +106,6 @@
                             @auth
                             @else
                                 {{--                            <a href="{{ route('login') }}">Đăng Nhập</a>--}}
-
                                 @if (Route::has('register'))
                                     {{--                                <a href="{{ route('register') }}">Đăng ký</a>--}}
                                 @endif
