@@ -106,7 +106,7 @@
                             <p>Thứ 2 - Thứ 5</p>
                         </div>
                         <div class="col-lg-6">
-                            {{$house->price}}đ/đêm
+                            {{$house->price}}$/đêm
                         </div>
                     </div>
                     <div class="row" style="text-align: center; font-size: 17px;font-weight: bold">
@@ -114,7 +114,7 @@
                             <p>Thứ 6 - Chủ nhật</p>
                         </div>
                         <div class="col-lg-6">
-                            {{$house->price}}đ/đêm
+                            {{$house->price + ($house->price * 5 /100)}}$/đêm (+5%)
                         </div>
                     </div>
                     <div class="row"
@@ -123,7 +123,7 @@
                             <p>Thuê theo tháng</p>
                         </div>
                         <div class="col-lg-6">
-                            {{$house->price - (($house->price*3.33)/100)}}đ/đêm (-3.33%)
+                            {{$house->price - (($house->price*3.33)/100)}}$/đêm (-3.33%)
                         </div>
                     </div>
                 </div>
