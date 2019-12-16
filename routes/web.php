@@ -29,6 +29,7 @@ Route::prefix('houses')->group(function () {
     Route::get('image', 'HouseController@createImage')->name('createImage');
     Route::post('store/image', 'HouseController@storeImage')->name('storeImage');
     Route::get('totalHouse/{id}', 'HouseController@totalHouse')->name('totalHouse');
+    Route::get('search', 'HouseController@search')->name('search');
 });
 
 Route::get('/redirect/{social}', 'SocialAuthController@redirect');
