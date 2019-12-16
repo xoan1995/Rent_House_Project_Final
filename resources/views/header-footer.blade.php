@@ -50,7 +50,20 @@
         z-index: 1000;
     }
 
-
+    .parent{
+        /*width: 500px;*/
+        height: 1000px;
+        margin: 10px auto;
+    }
+    .child{
+        width: 100%;
+        height: 350px;
+        margin-top: 30px;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 100px;
+        background: #f8fafc;
+    }
 </style>
 
 <body>
