@@ -87,5 +87,6 @@ class HouseController extends Controller
             ->orwhere('numBathroom', 'like', '%' . $keyword . '%')
             ->orwhere('price', 'like', '%' . $keyword . '%');
         return view('home', compact('houses'));
+
     }
 }
