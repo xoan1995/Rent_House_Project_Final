@@ -10,15 +10,11 @@
                 <div class="carousel-item active">
                     <img src="{{asset('storage/'.$house->images[0]->path)}}" class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item">
-                    <img src="{{asset('storage/'.$house->images[1]->path)}}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{asset('storage/'.$house->images[2]->path)}}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{asset('storage/'.$house->images[3]->path)}}" class="d-block w-100" alt="...">
-                </div>
+                @for($i = 1; $i< count($house->images);$i++)
+                    <div class="carousel-item">
+                        <img src="{{asset('storage/'.$house->images[$i]->path)}}" class="d-block w-100" alt="...">
+                    </div>
+                @endfor
             </div>
             <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -156,9 +152,12 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-lg-12">
-                        <div class="card" style="width: 100%;float: right;background: #f8fafc">
+                        <div class="card" style="float: right;background: #f8fafc">
                             <div class="card-body">
-                                <div class="ml-4" style="text-align: left; font-size: 40px; font-weight: bold; float: left">{{$house->price}}/đêm</div>
+                                <div class="ml-4"
+                                     style="text-align: left; font-size: 40px; font-weight: bold; float: left">{{$house->price}}
+                                    /đêm
+                                </div>
                             </div>
                             <div class="ml-5">
                                 <p style="width: 150px;background: coral;color: white">Giảm 30% từ chủ nhà</p>
@@ -167,7 +166,8 @@
                                 <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
                             </div>
                             <div class="ml-lg-5 mr-5 mb-4">
-                                <button style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu cầu đặt phòng</button>
+                                <button style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu cầu đặt phòng
+                                </button>
                             </div>
                         </div>
                     </div>
