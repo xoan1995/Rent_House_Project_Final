@@ -52,7 +52,7 @@
                 </div>
                 <div class="offset-1 mt-4">
                     <p style="font-size: 20px">Giới thiệu:</p>
-                    <p style="font-size: 17px">{{$house->description}}</p>
+                    <p style="font-size: 17px">{!! $house->description !!}</p>
                 </div>
                 <div class="offset-1 mt-4">
                     <p style="font-size: 25px; font-weight: bold">Tiện ích phòng bếp</p>
