@@ -7,6 +7,7 @@ use App\House;
 use App\Http\Requests\HouseRequestValidate;
 use App\Image;
 use App\User;
+use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -71,6 +72,24 @@ class HouseController extends Controller
     public function totalHouse($id)
     {
         $house = $this->house->findOrFail($id);
-        return view('totalHouse',compact('house'));
+        return view('totalHouse', compact('house'));
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        if (!$keyword) {
+            return redirect()->route('home');
+        }
+        $houses = House::Where('title', 'LIKE', '%' . $keyword . '%')->simplePaginate(15)
+            ->orwhere('kindHouse', 'like', '%' . $keyword . '%')
+            ->orwhere('kindRoom', 'like', '%' . $keyword . '%')
+            ->orwhere('address', 'like', '%' . $keyword . '%')
+            ->orwhere('numBedroom', 'like', '%' . $keyword . '%')
+            ->orwhere('numBathroom', 'like', '%' . $keyword . '%')
+            ->orwhere('description', 'like', '%' . $keyword . '%')
+            ->orwhere('price', 'like', '%' . $keyword . '%')
+            ->orwhere('city_id', 'like', '%' . $keyword . '%');
+        return view('home', compact('houses', 'keyword'));
     }
 }

@@ -47,6 +47,7 @@ class HouseRequestValidate extends FormRequest
             'address.min'=>'Address too short',
             'address.max'=>'Address too long',
             'numBedroom.required'=>'Bedroom invalid',
+            'numBedroom.between:1,2'=>'kudhfdhfknjn',
             'numBathroom.required'=>'Bathroom invalid',
             'price.required'=>'Price invalid',
             'city_id.required'=>'City invalid',
