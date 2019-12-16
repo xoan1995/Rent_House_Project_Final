@@ -11,21 +11,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
     <style>
-        body{
-            background: url("https://cdn.magdeleine.co/wp-content/uploads/2014/11/unsplash_5259a34e5d050_1-1400x927.jpg") no-repeat fixed center;
+        body {
+            background: url("{{asset('storage/editProfile/images/image_createHouse.jpg')}}") no-repeat fixed center;
             width: 100%;
         }
     </style>
 </head>
 <body>
 <div class="container">
-        <h2 style="color: white">Đăng nhiều ảnh để dễ bán hơn</h2><br/>
-        <form method="post" action="{{route('storeImage')}}" enctype="multipart/form-data"
-              class="dropzone" id="dropzone" name="file">
-            @csrf
-        </form>
-        <a class="btn btn btn-success" href="{{route('home')}}" id="uploadfiles">Thêm</a>
-    </div>
+    <h2>Thêm nhiều ảnh</h2><br/>
+    <form method="post" action="{{route('storeImage')}}" enctype="multipart/form-data"
+          class="dropzone " id="dropzone" name="file">
+        @csrf
+    </form>
+    <a class="form-control btn btn btn-success" href="{{route('home')}}" id="uploadfiles">Submit</a>
+</div>
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
     let myDropzone = new Dropzone(".dropzone", {
@@ -47,7 +47,7 @@
                 return false;
             }
         },
-        $('#uploadfiles').click(function(){
+        $('#uploadfiles').click(function () {
             myDropzone.processQueue();
         }))
 
