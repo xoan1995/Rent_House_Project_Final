@@ -81,11 +81,11 @@ class HouseController extends Controller
         if (!$keyword) {
             return redirect()->route('home');
         }
-        $houses = House::Where('title', 'LIKE', '%' . $keyword . '%')->simplePaginate(15)
+        $houses = House::Where('title', 'LIKE',"%search%")->simplePaginate(15)
             ->orwhere('address', 'like', '%' . $keyword . '%')
             ->orwhere('numBedroom', 'like', '%' . $keyword . '%')
             ->orwhere('numBathroom', 'like', '%' . $keyword . '%')
             ->orwhere('price', 'like', '%' . $keyword . '%');
-        return view('home', compact('houses', 'keyword'));
+        return view('home', compact('houses'));
     }
 }
