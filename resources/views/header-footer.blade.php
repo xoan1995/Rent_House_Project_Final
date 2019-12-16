@@ -66,13 +66,26 @@
         top: 100px;
         background: #f8fafc;
     }
+
+    .gift {
+        border-radius: 35px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+        background-color: #fff;
+    }
+
+    .name {
+        font-size: .875rem;
+        background: gainsboro;
+        /*padding: .3125rem 1.75rem .3125rem .3125rem;*/
+        border-radius: 2rem;
+    }
 </style>
 
 <body>
 @include('sweetalert::alert')
 <div class="header-welcome fixed-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="{{route('home')}}"><img class="img-fluid" width="34" src="{{asset('storage/images/logo/logo.jpg')}}" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -105,10 +118,12 @@
 
             <ul class="navbar-nav ">
                 <li class="nav-item" style="margin-top: 8px">
-                    <a style="color: #1b1e21; font-size: 17px" href="" rel="nofollow" class="menu__link is-become-host d-inline-block">Host</a>
+                    <a style="color: #1b1e21; font-size: 17px" href="" rel="nofollow"
+                       class="menu__link is-become-host d-inline-block">Host</a>
                 </li>
-                <li class="nav-item ml-3" style="margin-top: 2px">
-                    <a style="color: #1b1e21; font-size: 17px" href=""><img src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
+                <li class="nav-item ml-3 gift" style="margin-top: 2px">
+                    <a style="color: #1b1e21; font-size: 17px" href=""><img
+                            src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
                 </li>
                 <li class="nav-item" style="margin-top: 5px">
                     <a style="font-size: 17px" href="{{route('createHouse')}}" class="dropdown-item">Đăng nhà</a>
@@ -123,8 +138,9 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
-                        <a style="font-size: 17px" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                    <li class="nav-item dropdown name">
+                        <a style="font-size: 17px" id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                           role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
