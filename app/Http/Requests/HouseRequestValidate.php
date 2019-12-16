@@ -38,18 +38,18 @@ class HouseRequestValidate extends FormRequest
     public function messages()
     {
         return [
-            'title.required'=>'*Title Invalid',
-            'title.min'=>'*Title too short',
-            'title.max'=>'*Title too long',
-            'kindHouse.required'=>'*Kind house invalid',
-            'kindRoom.required'=>'*Kind house invalid',
-            'address.required'=>'*Address invalid',
-            'address.min'=>'*Address too short',
-            'address.max'=>'*Address too long',
-            'numBedroom.required'=>'*Bedroom invalid',
-            'numBathroom.required'=>'*Bathroom invalid',
-            'price.required'=>'*Price invalid',
-            'city_id.required'=>'*City invalid',
+            'title.required'=>'Title Invalid',
+            'title.min'=>'Title too short',
+            'title.max'=>'Title too long',
+            'kindHouse.required'=>'Kind house invalid',
+            'kindRoom.required'=>'Kind room invalid',
+            'address.required'=>'Address invalid',
+            'address.min'=>'Address too short',
+            'address.max'=>'Address too long',
+            'numBedroom.required'=>'Bedroom invalid',
+            'numBathroom.required'=>'Bathroom invalid',
+            'price.required'=>'Price invalid',
+            'city_id.required'=>'City invalid',
         ];
     }
 }
