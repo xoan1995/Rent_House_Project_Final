@@ -32,12 +32,11 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+            <a class="navbar-brand" href="{{route('home')}}">
+                <img class="img-fluid" width="150px" src="{{asset('storage/images/logo/logo_2.jpg')}}" alt="">
             </a>
-
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
 
@@ -48,11 +47,13 @@
                     @guest
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a style="font-family: 'Abyssinica SI'; font-size: 1.25rem " class="nav-link"
+                               href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a style="font-family: 'Abyssinica SI'; font-size: 1.25rem " class="nav-link"
+                                   href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
                     @else
@@ -93,12 +94,13 @@
                         <input id="email" class="input100 @error('email') is-invalid @enderror" type="email"
                                name="email"
                                required autocomplete="email" autofocus>
-                        <span class="focus-input100 dis-flex justify-content-end"></span>
+                        <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input id="password" class="input100 @error('password') is-invalid @enderror" type="password"
+                        <input id="password" class="input100 @error('password') is-invalid @enderror"
+                               type="password"
                                name="password" required
                                autocomplete="current-password">
                         <span class="focus-input100"></span>
@@ -114,10 +116,13 @@
                     @enderror
 
                     <div class="flex-sb-m w-full p-t-3 p-b-32">
-                        <div class="contact100-form-checkbox">
-                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                            <label class="label-checkbox100" for="ckb1">
-                                Remember me
+                        <div>
+                            <label for="ckb1">
+                                <button style="font-size: 13px; font-family: Montserrat-Regular; color: #555555;"
+                                        onclick="showHidePassword()">
+                                    <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
+                                    Show Password
+                                </button>
                             </label>
                         </div>
 
@@ -159,4 +164,5 @@
 
 </div>
 </body>
+<script src="{{asset('storage/js/showHidePassword.js')}}"></script>
 </html>
