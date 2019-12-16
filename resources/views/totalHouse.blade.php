@@ -158,7 +158,16 @@
                     <div class="col-lg-12">
                         <div class="card" style="width: 100%;float: right;background: #f8fafc">
                             <div class="card-body">
-
+                                <div class="ml-4" style="text-align: left; font-size: 40px; font-weight: bold; float: left">{{$house->price}}/đêm</div>
+                            </div>
+                            <div class="ml-5">
+                                <p style="width: 150px;background: coral;color: white">Giảm 30% từ chủ nhà</p>
+                                <p>Giảm 30% cho đặt phòng có checkin từ 07/12 đến 31/12</p>
+                                <p style="width: 150px;background: coral;color: white">Giảm 40% từ chủ nhà</p>
+                                <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
+                            </div>
+                            <div class="ml-lg-5 mr-5 mb-4">
+                                <button style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu cầu đặt phòng</button>
                             </div>
                         </div>
                     </div>
