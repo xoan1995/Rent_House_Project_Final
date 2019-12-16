@@ -22,7 +22,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('storage/editProfile/css/style.css')}}">
-
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -78,21 +77,22 @@
             @csrf
             <h3>Add new House</h3>
             <div class="form-wrapper">
-                <button type="submit">Submit</button>
+                <button type="submit">Next</button>
                 @if(!$errors->has('title'))
                     <input type="text" class="form-control text-info" id="" name="title" placeholder="*Title"
                            value="" required="">
                 @else($errors->has('title'))
-                    <input type="text" class="form-control border border-danger" id="search-input" name="title"
-                           placeholder="{{$errors->first('title')}}"
-                           value="" required="">
+                    <input type="text" class="form-control text-danger border-danger"
+                           name="title"
+                           placeholder=""
+                           value="{{$errors->first('title')}}" required="">
                 @endif
                 @if(!$errors->has('price'))
-                    <input type="number" class="form-control" id="" name="price" placeholder="*vnd/hour"
+                    <input type="number" class="form-control text-info" id="" name="price" placeholder="*VND/night"
                            value=""
                            required="">
                 @else($errors->has('price'))
-                    <input type="number" class="form-control border border-danger" id="" name="price"
+                    <input type="number" class="form-control text-info border-danger" id="" name="price"
                            placeholder="{{$errors->first('price')}}"
                            value=""
                            required="">
@@ -100,7 +100,7 @@
             </div>
             <div class="form-group" style="margin-bottom: -5px">
                 @if(!$errors->has('kindHouse'))
-                    <select name="kindHouse" class="form-control" required="">
+                    <select name="kindHouse" class="form-control " required="">
                         <option value="" selected style="display: none">
                             *Kind house
                         </option>
@@ -121,7 +121,7 @@
                         </option>
                     </select>
                 @else
-                    <select name="kindHouse" class="form-control  border border-danger" required="">
+                    <select name="kindHouse" class="form-control text-info border-danger" required="">
                         <option value="" selected style="display: none">
                             <p>{{$errors->first('kindHouse')}}</p>
                         </option>
@@ -158,7 +158,7 @@
                         </option>
                     </select>
                 @else
-                    <select class="form-control border border-danger" name="kindRoom" required="">
+                    <select class="form-control text-danger border-danger" name="kindRoom" required="">
                         <option value="" selected style="display: none">
                             <p>{{$errors->first('kindRoom')}}</p>
                         </option>
@@ -176,33 +176,37 @@
             </div>
             <div class="form-group" style="margin-bottom: -5px">
                 @if(!$errors->has('numBedroom'))
-                    <input type="number" class="form-control" id="" name="numBedroom" placeholder="*Number bedroom"
+                    <input type="number" class="form-control text-info" id="" name="numBedroom"
+                           placeholder="*Number bedroom"
                            value="" required="">
                 @else($errors->has('numBedroom'))
-                    <input type="number" class="form-control border border-danger" id="" name="numBedroom"
+                    <input type="number" class="form-control text-info border-danger" id="" name="numBedroom"
                            placeholder="{{$errors->first('numBedroom')}}"
                            value="" required="">
                 @endif
                 @if(!$errors->has('numBathroom'))
-                    <input type="number" class="form-control" id="" name="numBathroom" placeholder="*Number bathroom"
+                    <input type="number" class="form-control text-info" id="" name="numBathroom"
+                           placeholder="*Number bathroom"
                            value="" required="">
                 @else
-                    <input type="number" class="form-control border border-danger" id="" name="numBathroom"
+                    <input type="number" class="form-control text-info border-danger" id="" name="numBathroom"
                            placeholder="{{$errors->first('numBathroom')}}"
                            value="" required="">
                 @endif
             </div>
             <div class="form-group">
                 @if(!$errors->has('address'))
-                    <input type="text" class="form-control" style="width: 100%" id="" name="address" placeholder="*Address"
+                    <input type="text" class="form-control text-info" style="width: 100%" id="" name="address"
+                           placeholder="*Address"
                            value="" required="">
                 @else($errors->has('address'))
-                    <input type="text" class="form-control border border-danger" style="width: 100%"  id="" name="address"
+                    <input type="text" class="form-control text-info border-danger" style="width: 100%" id=""
+                           name="address"
                            placeholder="{{$errors->first('address')}}"
                            value="" required="">
                 @endif
                 @if(!$errors->has('city_id'))
-                    <select class="form-control" name="city_id" required="">
+                    <select class="form-control text-info" name="city_id" required="">
                         <option value="" selected style="display: none">
                             *City
                         </option>
@@ -213,7 +217,7 @@
                         @endforeach
                     </select>
                 @else($errors->has('city_id'))
-                    <select class="form-control border border-danger" name="city_id" required="">
+                    <select class="form-control text-info border-danger" name="city_id" required="">
                         <option value="" selected style="display: none">
                             <p class="text-danger">{{$errors->first('city_id')}}</p>
                         </option>
@@ -228,12 +232,13 @@
             <div class="form-wrapper">
                 <label for="review-text"><span class="text-danger">*</span>Description</label>
                 @if(!$errors->has('description'))
-                <textarea class="form-control" rows="6" name="description" required=""></textarea>
-                <div class="invalid-feedback">Details!</div>
+                    <textarea class="form-control text-info" rows="6" name="description" required=""></textarea>
+                    <div class="invalid-feedback">Details!</div>
                 @else($errors->has('description'))
-                    <textarea class="form-control border border-danger" rows="6" name="description" required="">
-                       </textarea>
                     <p class="text-danger">{{$errors->first('description')}}</p>
+                    <textarea class="form-control text-info" rows="6" name="description"
+                              required="">
+                       </textarea>
                     <div class="invalid-feedback">Details!</div>
                 @endif
             </div>
