@@ -41,7 +41,8 @@
     .slick-next:before {
         color: black;
     }
-    .fixed{
+
+    .fixed {
         height: 30px;
         line-height: 30px;
         color: #fff;
@@ -50,25 +51,56 @@
         z-index: 1000;
     }
 
+    .parent {
+        /*width: 500px;*/
+        height: 1000px;
+        margin: 10px auto;
+    }
 
+    .child {
+        width: 100%;
+        height: 350px;
+        margin-top: 30px;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 100px;
+        background: #f8fafc;
+    }
+
+    .gift {
+        border-radius: 35px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+        background-color: #fff;
+    }
+
+    .name {
+        font-size: .875rem;
+        background: gainsboro;
+        /*padding: .3125rem 1.75rem .3125rem .3125rem;*/
+        border-radius: 2rem;
+    }
 </style>
 
 <body>
 @include('sweetalert::alert')
 <div class="header-welcome fixed-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" href="{{route('home')}}">
+            {{--            <img class="img-fluid" width="60px" src="{{asset('storage/images/logo/logo.jpg')}}" alt="">--}}
+            <img class="img-fluid" width="150px" src="{{asset('storage/images/logo/logo_2.jpg')}}" alt="">
+        </a>
+
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <form class="form-inline my-2 my-lg-0 s002">
+
+                        <div class="form-group col-md-2">
+                            <input type="text" class="form-control">
+
+                        </div>
+
                     </form>
                 </li>
                 <li class="nav-item">
@@ -88,8 +120,16 @@
             </ul>
 
             <ul class="navbar-nav ">
+                <li class="nav-item" style="margin-top: 8px">
+                    <a style="color: #1b1e21; font-size: 17px" href="" rel="nofollow"
+                       class="menu__link is-become-host d-inline-block">Host</a>
+                </li>
+                <li class="nav-item ml-3 gift" style="margin-top: 2px">
+                    <a style="color: #1b1e21; font-size: 17px" href=""><img
+                            src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
+                </li>
                 <li class="nav-item" style="margin-top: 5px">
-                    <a href="{{route('createHouse')}}" class="dropdown-item">Đăng nhà</a>
+                    <a style="font-size: 17px" href="{{route('createHouse')}}" class="dropdown-item">Đăng nhà</a>
                 </li>
                 @guest
                     <li class="nav-item">
@@ -101,8 +141,9 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                    <li class="nav-item dropdown name">
+                        <a style="font-size: 17px" id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                           role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
@@ -127,7 +168,7 @@
     </nav>
 </div>
 
-<div class="container mt-5">
+<div class="container" style="margin-top: 5rem">
 
     <div>
         @if(\Illuminate\Support\Facades\Auth::user())
