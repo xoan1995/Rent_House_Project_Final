@@ -41,7 +41,8 @@
     .slick-next:before {
         color: black;
     }
-    .fixed{
+
+    .fixed {
         height: 30px;
         line-height: 30px;
         color: #fff;
@@ -50,12 +51,13 @@
         z-index: 1000;
     }
 
-    .parent{
+    .parent {
         /*width: 500px;*/
         height: 1000px;
         margin: 10px auto;
     }
-    .child{
+
+    .child {
         width: 100%;
         height: 350px;
         margin-top: 30px;
@@ -80,6 +82,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <form class="form-inline my-2 my-lg-0">
+
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
@@ -101,8 +104,14 @@
             </ul>
 
             <ul class="navbar-nav ">
+                <li class="nav-item" style="margin-top: 8px">
+                    <a style="color: #1b1e21; font-size: 17px" href="" rel="nofollow" class="menu__link is-become-host d-inline-block">Host</a>
+                </li>
+                <li class="nav-item ml-3" style="margin-top: 2px">
+                    <a style="color: #1b1e21; font-size: 17px" href=""><img src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
+                </li>
                 <li class="nav-item" style="margin-top: 5px">
-                    <a href="{{route('createHouse')}}" class="dropdown-item">Đăng nhà</a>
+                    <a style="font-size: 17px" href="{{route('createHouse')}}" class="dropdown-item">Đăng nhà</a>
                 </li>
                 @guest
                     <li class="nav-item">
@@ -115,7 +124,7 @@
                     @endif
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        <a style="font-size: 17px" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
