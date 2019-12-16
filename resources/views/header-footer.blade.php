@@ -93,12 +93,21 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0 s002">
+                    <form class="form-inline" action="{{route('search')}}" enctype="multipart/form-data">
+                        @csrf
 
-                        <div class="form-group col-md-2">
-                            <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="keyword" placeholder="input address">
 
-                        </div>
+                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">bedroom</p>
+                        <input type="number" name="numBedRoom" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
+
+                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">bathroom</p>
+                        <input type="number" name="numBathRoom" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
+
+                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">price</p>
+                        <input type="number" name="price" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da"><span>$</span>
+
+                        <button type="submit" class="btn btn-success ml-3"> search</button>
 
                     </form>
                 </li>

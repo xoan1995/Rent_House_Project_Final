@@ -78,15 +78,17 @@ class HouseController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
-        if (!$keyword) {
-            return redirect()->route('home');
-        }
-        $houses = House::Where('title', 'LIKE',"%search%")->simplePaginate(15)
-            ->orwhere('address', 'like', '%' . $keyword . '%')
-            ->orwhere('numBedroom', 'like', '%' . $keyword . '%')
-            ->orwhere('numBathroom', 'like', '%' . $keyword . '%')
-            ->orwhere('price', 'like', '%' . $keyword . '%');
-        return view('home', compact('houses'));
+        $numBedRoom = $request->numBedRoom;
+        $numBathRoom = $request->numBathRoom;
+        $price = $request->price;
+        $cities = City::all();
+
+        $houses = House::where('numBedRoom','LIKE', "%$numBedRoom")
+        ->orwhere('numBathRoom','LIKE', "%$numBathRoom")
+        ->orwhere('address','LIKE', "%$keyword")
+        ->orwhere('price','LIKE', "%$price")->Paginate(15);
+
+        return view('house.list', compact('houses','cities'));
 
     }
 }
