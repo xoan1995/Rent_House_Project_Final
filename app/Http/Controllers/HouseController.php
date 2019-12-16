@@ -66,4 +66,10 @@ class HouseController extends Controller
 //        return response()->json(['success' => $path]);
         return redirect()->route('home');
     }
+
+    public function totalHouse($id)
+    {
+        $house = $this->house->findOrFail($id);
+        return view('totalHouse',compact('house'));
+    }
 }
