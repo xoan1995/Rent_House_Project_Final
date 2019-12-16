@@ -55,7 +55,7 @@
 
 <body>
 @include('sweetalert::alert')
-<div class="header-welcome fixed">
+<div class="header-welcome fixed-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -88,8 +88,10 @@
             </ul>
 
             <ul class="navbar-nav ">
+                <li class="nav-item" style="margin-top: 5px">
+                    <a href="{{route('createHouse')}}" class="dropdown-item">Đăng nhà</a>
+                </li>
                 @guest
-
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
@@ -99,7 +101,6 @@
                         </li>
                     @endif
                 @else
-                    <a href="{{route('createHouse')}}" class="dropdown-item">Đăng nhà</a>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -126,7 +127,7 @@
     </nav>
 </div>
 
-<div class="container">
+<div class="container mt-5">
 
     <div>
         @if(\Illuminate\Support\Facades\Auth::user())
