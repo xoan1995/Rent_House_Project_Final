@@ -22,19 +22,14 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class=" navbar navbar-expand-md">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+        <a class="navbar-brand" href="{{route('home')}}">
+            <img class="img-fluid" width="150px" src="{{asset('storage/images/logo/logo_2.jpg')}}" alt="">
         </a>
-
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
 
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
+            <ul class="navbar-nav ml-auto" style="border-radius: 15px; background: rgba(186,186,186,0.31)">
 
                 @guest
 
