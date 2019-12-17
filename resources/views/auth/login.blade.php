@@ -118,7 +118,7 @@
                     <div class="flex-sb-m w-full p-t-3 p-b-32">
                         <div>
                             <label for="ckb1">
-                                <button style="font-size: 13px; font-family: Montserrat-Regular; color: #555555;"
+                                <button type="button" style="font-size: 13px; font-family: Montserrat-Regular; color: #555555;"
                                         onclick="showHidePassword()">
                                     <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
                                     Show Password
