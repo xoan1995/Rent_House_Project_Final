@@ -26,13 +26,51 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+            <a class="navbar-brand" href="{{route('home')}}">
+                <img class="img-fluid" width="150px" src="{{asset('storage/images/logo/logo_2.jpg')}}" alt="">
             </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
 
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Authentication Links -->
 
+                    @guest
+
+                        <li class="nav-item" >
+                            <a style="font-family: 'Abyssinica SI'; font-size: 1.25rem " class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a style="font-family: 'Abyssinica SI'; font-size: 1.25rem " class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -41,33 +79,64 @@
             <div class="login100-more" style="background-image: url('{{asset('storage/images/bg-02.jpg')}}');"></div>
 
             <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-                <form class="login100-form validate-form">
+                <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
                     @csrf
-					<span class="login100-form-title p-b-59">
+                    <span class="login100-form-title p-b-59">
 						Sign Up
 					</span>
 
                     <div class="wrap-input100 validate-input" data-validate="Name is required">
                         <span class="label-input100">Full Name</span>
-                        <input class="input100" type="text" name="name" placeholder="Name...">
+                        <input id="name" class="input100 @error('name') is-invalid @enderror" type="text" name="name"
+                               placeholder="Name..."
+                               value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                         <span class="focus-input100"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                         <span class="label-input100">Email</span>
-                        <input class="input100" type="text" name="email" placeholder="Email addess...">
+                        <input class="input100 @error('email') is-invalid @enderror" id="email"
+                               type="email" name="email" placeholder="Email addess..." value="{{ old('email') }}"
+                               required autocomplete="email">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                         <span class="focus-input100"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
+
                         <span class="label-input100">Password</span>
-                        <input class="input100" type="text" name="pass" placeholder="*************">
+
+                        <input id="password" class=" input100 @error('password') is-invalid @enderror"
+                               type="password" placeholder="*************" name="password" required
+                               autocomplete="new-password">
+                        <button  type="button" onclick="showHidePassword()">
+                            <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
+                        </button>
+
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                         <span class="focus-input100"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Repeat Password is required">
                         <span class="label-input100">Repeat Password</span>
-                        <input class="input100" type="text" name="repeat-pass" placeholder="*************">
+                        <input id="password-confirm" class="input100" type="password" placeholder="*************"
+                               name="password_confirmation" required autocomplete="new-password">
+                        <button type="button" onclick="showHidePasswordConfirm()">
+                            <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
+                        </button>
                         <span class="focus-input100"></span>
                     </div>
 
@@ -88,83 +157,9 @@
             </div>
         </div>
     </div>
-
 </div>
+{{--script show/hide password--}}
+<script src="{{asset('storage/js/showHidePassword.js')}}"></script>
+{{--end script show/hide password--}}
 </body>
 </html>
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-

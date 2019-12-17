@@ -13,7 +13,7 @@ class Image extends Model
     ];
     public $timestamps = false;
 
-    public function houses()
+    public function house()
     {
         return $this->belongsTo('App\House');
     }
