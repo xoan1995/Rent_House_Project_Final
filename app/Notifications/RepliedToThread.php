@@ -12,55 +12,44 @@ class RepliedToThread extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $email;
+    protected $title;
+    protected $checkin;
+    protected $checkout;
+
+    public function __construct($email, $title, $checkin, $checkout)
     {
-        //
+        $this->title = $title;
+        $this->email = $email;
+        $this->checkin = $checkin;
+        $this->checkout = $checkout;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
         return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     public function toDatabase($notifiable)
     {
         return [
-            'repliedTime' => Carbon::now(),
-
+            'message' => "Bạn nhận được yêu cầu thuê nhà",
+            'title' => $this->title,
+            'checkin' => $this->checkin,
+            'checkout' => $this->checkout,
+            'receiver' => $this->email,
+            'sender' => $notifiable->email,
         ];
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function toArray($notifiable)
     {
         return [
