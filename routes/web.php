@@ -32,5 +32,9 @@ Route::prefix('houses')->group(function () {
     Route::get('search', 'HouseController@search')->name('search');
 });
 
+Route::prefix('order')->group(function () {
+    Route::get('rentHouse', 'OrderController@RentHouse')->name('order.rent');
+});
+
 Route::get('/redirect/{social}', 'SocialAuthController@redirect');
 Route::get('/callback/{social}', 'SocialAuthController@callback');
