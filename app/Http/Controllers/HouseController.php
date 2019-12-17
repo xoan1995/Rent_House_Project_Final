@@ -77,18 +77,23 @@ class HouseController extends Controller
 
     public function search(Request $request)
     {
-        $keyword = $request->input('keyword');
-        $numBedRoom = $request->numBedRoom;
-        $numBathRoom = $request->numBathRoom;
-        $price = $request->price;
+        $search = $this->house;
+        if (!empty($request->get('keyword'))) {
+            $search = $search->where('address', $request->get('keyword'));
+        }
+        if (!empty($request->get('numBedRoom'))) {
+            $search = $search->where('numBedroom', $request->get('numBedRoom'));
+        }
+        if (!empty($request->get('numBathRoom'))) {
+            $search = $search->where('numBathroom', $request->get('numBathRoom'));
+        }
+        if (!empty($request->get('price'))) {
+            $search = $search->where('price', $request->get('price'));
+        }
+
         $cities = City::all();
+        $houses = $search->get();
 
-        $houses = House::where('numBedRoom','LIKE', "%$numBedRoom")
-        ->orwhere('numBathRoom','LIKE', "%$numBathRoom")
-        ->orwhere('address','LIKE', "%$keyword")
-        ->orwhere('price','LIKE', "%$price")->Paginate(15);
-
-        return view('house.list', compact('houses','cities'));
-
+        return view('house.list', compact('houses', 'cities'));
     }
 }

@@ -53,7 +53,7 @@
 
     .parent {
         /*width: 500px;*/
-        height: 1000px;
+        height: 1300px;
         margin: 10px auto;
     }
 
@@ -96,7 +96,7 @@
                     <form class="form-inline" action="{{route('search')}}" enctype="multipart/form-data">
                         @csrf
 
-                        <input type="text" class="form-control" name="keyword" placeholder="input address">
+                        <input type="text" class="form-control" name="keyword" placeholder="Address">
 
                         <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">bedroom</p>
                         <input type="number" name="numBedRoom" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
