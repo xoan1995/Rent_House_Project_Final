@@ -53,7 +53,7 @@
 
     .parent {
         /*width: 500px;*/
-        height: 1000px;
+        height: 1300px;
         margin: 10px auto;
     }
 
@@ -96,18 +96,18 @@
                     <form class="form-inline" action="{{route('search')}}" enctype="multipart/form-data">
                         @csrf
 
-                        <input type="text" class="form-control" name="keyword" placeholder="input address">
+                        <input type="text" class="form-control" name="keyword" placeholder="Address">
 
-                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">bedroom</p>
+                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">Bedroom: </p>
                         <input type="number" name="numBedRoom" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
 
-                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">bathroom</p>
+                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">Bathroom: </p>
                         <input type="number" name="numBathRoom" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
 
-                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">price</p>
+                        <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">Price: </p>
                         <input type="number" name="price" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da"><span>$</span>
 
-                        <button type="submit" class="btn btn-success ml-3"> search</button>
+                        <button type="submit" class="btn btn-outline-danger ml-3"><img src="https://img.icons8.com/ios/20/000000/search--v1.png"></button>
 
                     </form>
                 </li>
