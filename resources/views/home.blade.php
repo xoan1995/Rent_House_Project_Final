@@ -1,6 +1,7 @@
 @extends('homeHeader')
 @section('body')
 
+    {{dd($user)}}
     <div class="mt-5">
         <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Top Chỗ ở hot 10000 độ</div>
         <div>Khám phá chỗ ở nổi tiếng đã xuất hiện trong các bộ phim & MV</div>
