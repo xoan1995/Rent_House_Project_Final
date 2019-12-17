@@ -170,6 +170,8 @@
                                 <input type="date" name="checkin" style="border-radius: 10px">
                                 <input type="date" name="checkout" style="border-radius: 10px">
                             </div>
+                            <input type="text" value="{{$house->user->email}}" name="email" style="display: none">
+                            <input type="text" value="{{$house->title}}" name="title" style="display: none">
                             <div class="ml-lg-5 mr-5 mb-4 mt-4">
                                 <button type="submit" style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu cầu đặt phòng
                                 </button>

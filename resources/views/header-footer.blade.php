@@ -99,15 +99,19 @@
                         <input type="text" class="form-control" name="keyword" placeholder="Address">
 
                         <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">Bedroom: </p>
-                        <input type="number" name="numBedRoom" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
+                        <input type="number" name="numBedRoom"
+                               style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
 
                         <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">Bathroom: </p>
-                        <input type="number" name="numBathRoom" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
+                        <input type="number" name="numBathRoom"
+                               style="width: 50px; border-radius: 4px; border: solid 1px #ced4da">
 
                         <p class="mt-3 ml-1 mr-1" style="font-family: 'Arial'; font-size: 1rem">Price: </p>
-                        <input type="number" name="price" style="width: 50px; border-radius: 4px; border: solid 1px #ced4da"><span>$</span>
+                        <input type="number" name="price"
+                               style="width: 50px; border-radius: 4px; border: solid 1px #ced4da"><span>$</span>
 
-                        <button type="submit" class="btn btn-outline-danger ml-3"><img src="https://img.icons8.com/ios/20/000000/search--v1.png"></button>
+                        <button type="submit" class="btn btn-outline-danger ml-3"><img
+                                src="https://img.icons8.com/ios/20/000000/search--v1.png"></button>
 
                     </form>
                 </li>
@@ -128,10 +132,6 @@
             </ul>
 
             <ul class="navbar-nav ">
-                <li class="nav-item" style="margin-top: 8px">
-                    <a style="color: #1b1e21; font-size: 17px" href="" rel="nofollow"
-                       class="menu__link is-become-host d-inline-block">Host</a>
-                </li>
                 <li class="nav-item ml-3 gift" style="margin-top: 2px">
                     <a style="color: #1b1e21; font-size: 17px" href=""><img
                             src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
@@ -139,6 +139,43 @@
                 <li class="nav-item" style="margin-top: 5px">
                     <a style="font-size: 17px" href="{{route('createHouse')}}" class="dropdown-item">Đăng nhà</a>
                 </li>
+
+                @guest
+                @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <span class="">
+                            <img src="https://img.icons8.com/carbon-copy/35/000000/bell.png">
+                        </span>
+                            <span class="badge-light">
+
+                                    </span>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
+                            style="width: 600px">
+                            @foreach(\App\Notification::all() as $notice)
+                                @if(json_decode($notice->data)->receiver == auth()->user()->email)
+                                    <div>
+                                        {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
+                                        từ {{json_decode($notice->data)->checkin}}
+                                        đến {{json_decode($notice->data)->checkout}}
+                                        bởi {{json_decode($notice->data)->sender}}
+                                    </div>
+                                    <div>
+                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 57px; padding-bottom: 25px"
+                                           href="" class="btn btn-success">Confirm</a>
+                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 57px; padding-bottom: 25px"
+                                           href="" class="btn btn-danger">Cancel</a>
+                                    </div>
+                                @endif
+                            @endforeach
+
+                        </ul>
+                    </li>
+                @endguest
+
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
