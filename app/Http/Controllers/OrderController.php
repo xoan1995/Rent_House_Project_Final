@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\RepliedToThread;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,8 +10,7 @@ class OrderController extends Controller
 {
     public function RentHouse(Request $request)
     {
-//        $checkin = $request->checkin;
-//        $checkout = $request->checkout;
-        return view('home',compact('user'));
+        \auth()->user()->notify(new RepliedToThread());
+//        return view('home',compact('user'));
     }
 }

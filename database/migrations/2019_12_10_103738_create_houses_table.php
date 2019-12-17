@@ -23,8 +23,14 @@ class CreateHousesTable extends Migration
             $table->integer('numBathroom');
             $table->text('description');
             $table->integer('price');
-            $table->unsignedBigInteger('city_id');
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+
+            $table->unsignedBigInteger('city_id')->index();
+            $table->foreign('city_id')->references('id')->on('cities')
+                ->onDelete('cascade')->onUpdate('restrict');
+
+            $table->unsignedBigInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade')->onUpdate('restrict');
             $table->timestamps();
         });
     }

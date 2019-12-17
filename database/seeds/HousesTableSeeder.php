@@ -20,44 +20,48 @@ class HousesTableSeeder extends Seeder
         $house->numBedroom = '2';
         $house->numBathroom = '2';
         $house->description = 'Tọa lạc tại ngay mặt đường Pham Hùng, cửa ngõ phía Tây Hà Nội. Keangnam có tổng mức đầu tư cho toàn bộ công trình là 1,05 tỷ USD, bao gồm 2 tòa chung cư cao cấp 48 tầng và tòa nhà tổ hợp văn phòng, khách sạn, trung tâm giải trí 72 tầng.';
-        $house->price = 230000;
+        $house->price = 67;
         $house->city_id = 1;
+        $house->user_id = 1;
         $house->save();
 
         $house = new House();
-        $house->title = 'Keangnam Lanmark 72 ';
+        $house->title = 'Biệt thự bên dòng sông';
         $house->kindHouse = 'Home Stay';
         $house->kindRoom = 'Phòng đôi';
-        $house->address = 'Hà Nội';
+        $house->address = 'Băc Ninh';
         $house->numBedroom = '2';
         $house->numBathroom = '2';
         $house->description = 'Tọa lạc tại ngay mặt đường Pham Hùng, cửa ngõ phía Tây Hà Nội. Keangnam có tổng mức đầu tư cho toàn bộ công trình là 1,05 tỷ USD, bao gồm 2 tòa chung cư cao cấp 48 tầng và tòa nhà tổ hợp văn phòng, khách sạn, trung tâm giải trí 72 tầng.';
-        $house->price = 230000;
+        $house->price = 24;
         $house->city_id = 2;
+        $house->user_id = 1;
         $house->save();
 
         $house = new House();
-        $house->title = 'Keangnam Lanmark 72 ';
+        $house->title = 'nhà trọ trên đỉnh everets';
         $house->kindHouse = 'Home Stay';
         $house->kindRoom = 'Phòng đôi';
-        $house->address = 'Hà Nội';
+        $house->address = 'Hòa Bình';
         $house->numBedroom = '2';
         $house->numBathroom = '2';
         $house->description = 'Tọa lạc tại ngay mặt đường Pham Hùng, cửa ngõ phía Tây Hà Nội. Keangnam có tổng mức đầu tư cho toàn bộ công trình là 1,05 tỷ USD, bao gồm 2 tòa chung cư cao cấp 48 tầng và tòa nhà tổ hợp văn phòng, khách sạn, trung tâm giải trí 72 tầng.';
-        $house->price = 230000;
+        $house->price = 41;
         $house->city_id = 3;
+        $house->user_id = 1;
         $house->save();
 
         $house = new House();
         $house->title = 'Nhà của dương';
         $house->kindHouse = 'Home Stay';
         $house->kindRoom = 'Phòng đôi';
-        $house->address = 'Hà Nội';
+        $house->address = 'Tuyên Quang';
         $house->numBedroom = '3';
         $house->numBathroom = '4';
         $house->description = 'Tọa lạc tại ngay mặt đường Pham Hùng, cửa ngõ phía Tây Hà Nội. Keangnam có tổng mức đầu tư cho toàn bộ công trình là 1,05 tỷ USD, bao gồm 2 tòa chung cư cao cấp 48 tầng và tòa nhà tổ hợp văn phòng, khách sạn, trung tâm giải trí 72 tầng.';
-        $house->price = 230000;
+        $house->price = 15;
         $house->city_id = 4;
+        $house->user_id = 1;
         $house->save();
 
     }

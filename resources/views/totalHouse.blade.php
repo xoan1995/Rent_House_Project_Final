@@ -157,8 +157,7 @@
                             <div class="card-body">
                                 <div class="ml-5"
                                      style="text-align: left; font-size: 40px; font-weight: bold; float: left">{{$house->price}}
-                                    $
-                                    /đêm
+                                    $/đêm
                                 </div>
                             </div>
                             <div class="ml-4">
