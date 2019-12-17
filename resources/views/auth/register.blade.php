@@ -118,7 +118,7 @@
                         <input id="password" class=" input100 @error('password') is-invalid @enderror"
                                type="password" placeholder="*************" name="password" required
                                autocomplete="new-password">
-                        <button onclick="showHidePassword()">
+                        <button  type="button" onclick="showHidePassword()">
                             <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
                         </button>
 
@@ -134,7 +134,7 @@
                         <span class="label-input100">Repeat Password</span>
                         <input id="password-confirm" class="input100" type="password" placeholder="*************"
                                name="password_confirmation" required autocomplete="new-password">
-                        <button onclick="showHidePasswordConfirm()">
+                        <button type="button" onclick="showHidePasswordConfirm()">
                             <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
                         </button>
                         <span class="focus-input100"></span>
