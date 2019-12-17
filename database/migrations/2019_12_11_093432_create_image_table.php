@@ -15,8 +15,9 @@ class CreateImageTable extends Migration
     {
         Schema::create('image', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('house_id')->nullable();
-            $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');
+            $table->unsignedBigInteger('house_id')->nullable()->index();
+            $table->foreign('house_id')->references('id')->on('houses')
+                ->onDelete('cascade')->onUpdate('restrict');
             $table->string('path')->nullable();
         });
     }
