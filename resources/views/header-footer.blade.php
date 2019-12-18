@@ -79,6 +79,14 @@
         /*padding: .3125rem 1.75rem .3125rem .3125rem;*/
         border-radius: 2rem;
     }
+    #carouselExampleFade {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
 </style>
 
 <body>
