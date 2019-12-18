@@ -79,6 +79,15 @@
         /*padding: .3125rem 1.75rem .3125rem .3125rem;*/
         border-radius: 2rem;
     }
+
+    #carouselExampleFade {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
 </style>
 
 <body>
@@ -149,7 +158,7 @@
                             <img src="https://img.icons8.com/carbon-copy/35/000000/bell.png">
                         </span>
                             <span class="badge-light">
-
+                                ({{count(\App\Notification::all()->jsonSerialize('data'))}})
                                     </span>
                         </a>
 
@@ -158,10 +167,12 @@
                             @foreach(\App\Notification::all() as $notice)
                                 @if(json_decode($notice->data)->receiver == auth()->user()->email)
                                     <div>
-                                        {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
-                                        từ {{json_decode($notice->data)->checkin}}
-                                        đến {{json_decode($notice->data)->checkout}}
-                                        bởi {{json_decode($notice->data)->sender}}
+                                        <a href="{{route('totalHouse', json_decode($notice->data)->house_id)}}">
+                                            {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
+                                            từ {{json_decode($notice->data)->checkin}}
+                                            đến {{json_decode($notice->data)->checkout}}
+                                            bởi {{json_decode($notice->data)->sender}}
+                                        </a>
                                     </div>
                                     <div>
                                         <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 57px; padding-bottom: 25px"
