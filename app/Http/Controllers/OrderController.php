@@ -17,8 +17,8 @@ class OrderController extends Controller
     {
         $cities = City::all();
         $houses = House::all();
+        $count = 0;
         if (auth()->user()) {
-            $count = 0;
             foreach (\App\Notification::all() as $notice) {
                 if (json_decode($notice->data)->receiver == auth()->user()->email) {
                     $count++;
@@ -33,6 +33,6 @@ class OrderController extends Controller
 
         \auth()->user()->notify(new RepliedToThread($email, $title, $checkin, $checkout, $house_id));
         \TJGazel\Toastr\Facades\Toastr::success('Gửi yêu cầu thuê nhà thành công!');
-        return redirect()->route('home', compact('cities', 'houses','count'));
+        return redirect()->route('home', compact('cities', 'houses', 'count'));
     }
 }
