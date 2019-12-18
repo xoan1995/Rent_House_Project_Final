@@ -102,7 +102,14 @@ class HouseController extends Controller
 
         $cities = City::all();
         $houses = $search->get();
-
-        return view('house.list', compact('houses', 'cities'));
+        $count=0;
+        if (auth()->user()) {
+            foreach (\App\Notification::all() as $notice) {
+                if (json_decode($notice->data)->receiver == auth()->user()->email) {
+                    $count++;
+                }
+            }
+        }
+        return view('house.list', compact('houses', 'cities','count'));
     }
 }
