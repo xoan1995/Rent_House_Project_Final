@@ -168,7 +168,13 @@
                             </div>
                             <div class="ml-5">
                                 <input type="date" name="checkin" style="border-radius: 10px">
+                                @if($errors->has('checkin'))
+                                    <p class="text-danger">{{$errors->first('checkin')}}</p>
+                                @endif
                                 <input type="date" name="checkout" style="border-radius: 10px">
+                                @if($errors->has('checkout'))
+                                    <p class="text-danger">{{$errors->first('checkout')}}</p>
+                                @endif
                             </div>
                             <input type="text" value="{{$house->user->email}}" name="email" style="display: none">
                             <input type="text" value="{{$house->title}}" name="title" style="display: none">
