@@ -159,7 +159,7 @@
                         </span>
                             <span class="badge-light">
                                 ({{$count}})
-                                    </span>
+                            </span>
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
