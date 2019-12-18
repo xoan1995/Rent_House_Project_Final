@@ -24,10 +24,10 @@ Route::get('/change-password', 'UserController@viewChangePassword')->name('user.
 Route::post('/change-password', 'UserController@changePassword')->name('user.changePassword');
 
 Route::prefix('houses')->group(function () {
-    Route::get('/create', 'HouseController@create')->name('createHouse');
-    Route::post('/store', 'HouseController@store')->name('storeHouse');
-    Route::get('image', 'HouseController@createImage')->name('createImage');
-    Route::post('store/image', 'HouseController@storeImage')->name('storeImage');
+    Route::get('/create', 'HouseController@create')->name('createHouse')->middleware('auth');
+    Route::post('/store', 'HouseController@store')->name('storeHouse')->middleware('auth');
+    Route::get('image', 'HouseController@createImage')->name('createImage')->middleware('auth');
+    Route::post('store/image', 'HouseController@storeImage')->name('storeImage')->middleware('auth');
     Route::get('totalHouse/{id}', 'HouseController@totalHouse')->name('totalHouse');
     Route::get('search', 'HouseController@search')->name('search');
 });
