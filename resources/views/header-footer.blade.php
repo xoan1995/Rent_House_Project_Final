@@ -158,7 +158,7 @@
                             <img src="https://img.icons8.com/carbon-copy/35/000000/bell.png">
                         </span>
                             <span class="badge-light">
-                                ({{count(auth()->user()->notifications)}})
+                                ({{$count}})
                                     </span>
                         </a>
 

@@ -37,8 +37,14 @@ class HomeController extends Controller
     {
         $cities = $this->city->all();
         $houses = $this->house->all();
-//        Toastr::info('Welcome '.Auth::user()->name.'!',"",["positionClass" => "toast-top-left"]);
-//        dd($houses[5]->images[0]->path);
-        return view('home', compact('houses','cities'));
+        if (auth()->user()) {
+            $count = 0;
+            foreach (\App\Notification::all() as $notice) {
+                if (json_decode($notice->data)->receiver == auth()->user()->email) {
+                    $count++;
+                }
+            }
+        }
+        return view('home', compact('houses', 'cities','count'));
     }
 }
