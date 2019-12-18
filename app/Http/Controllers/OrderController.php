@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\House;
+use App\Notification;
 use App\Notifications\RepliedToThread;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

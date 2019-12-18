@@ -179,6 +179,32 @@
                                     </button>
                                 </div>
                             </div>
+<<<<<<< HEAD
+                            <div class="ml-4">
+                                <p style="width: 150px;background: coral;color: white">Giảm 30% từ chủ nhà</p>
+                                <p>Giảm 30% cho đặt phòng có checkin từ 07/12 đến 31/12</p>
+                                <p style="width: 150px;background: coral;color: white">Giảm 40% từ chủ nhà</p>
+                                <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
+                            </div>
+                            <div class="ml-5">
+                                <input type="date" name="checkin" style="border-radius: 10px">
+                                @if($errors->has('checkin'))
+                                    <p class="text-danger">{{$errors->first('checkin')}}</p>
+                                @endif
+                                <input type="date" name="checkout" style="border-radius: 10px">
+                                @if($errors->has('checkout'))
+                                    <p class="text-danger">{{$errors->first('checkout')}}</p>
+                                @endif
+                            </div>
+                            <input type="text" value="{{$house->user->email}}" name="email" style="display: none">
+                            <input type="text" value="{{$house->title}}" name="title" style="display: none">
+                            <div class="ml-lg-5 mr-5 mb-4 mt-4">
+                                <button type="submit" style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu cầu đặt phòng
+                                </button>
+                            </div>
+                        </div>
+=======
+>>>>>>> edb9ed2852b741fe6cd737a4730652563a5b021b
                         </form>
                     </div>
                 </div>

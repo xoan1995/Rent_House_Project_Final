@@ -34,6 +34,7 @@ Route::prefix('houses')->group(function () {
 
 Route::prefix('order')->group(function () {
     Route::get('rentHouse', 'OrderController@RentHouse')->name('order.rent');
+    Route::get('{id}/showHistoriesRentHouse', 'OrderController@showHistoriesRentHouse')->name('history.rent');
 });
 
 Route::get('/redirect/{social}', 'SocialAuthController@redirect');
