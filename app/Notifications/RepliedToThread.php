@@ -16,13 +16,15 @@ class RepliedToThread extends Notification
     protected $title;
     protected $checkin;
     protected $checkout;
+    protected $house_id;
 
-    public function __construct($email, $title, $checkin, $checkout)
+    public function __construct($email, $title, $checkin, $checkout, $house_id)
     {
         $this->title = $title;
         $this->email = $email;
         $this->checkin = $checkin;
         $this->checkout = $checkout;
+        $this->house_id = $house_id;
     }
 
     public function via($notifiable)
@@ -47,6 +49,7 @@ class RepliedToThread extends Notification
             'checkout' => $this->checkout,
             'receiver' => $this->email,
             'sender' => $notifiable->email,
+            'house_id' => $this->house_id
         ];
     }
 
