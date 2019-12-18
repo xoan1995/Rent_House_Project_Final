@@ -73,8 +73,8 @@ class HouseController extends Controller
     public function totalHouse($id)
     {
         $house = $this->house->findOrFail($id);
-        if (auth()->user()){
-            $count = 0;
+        $count = 0;
+        if (auth()->user()) {
             foreach (\App\Notification::all() as $notice) {
                 if (json_decode($notice->data)->receiver == auth()->user()->email) {
                     $count++;
@@ -82,7 +82,7 @@ class HouseController extends Controller
             }
         }
 
-        return view('totalHouse', compact('house','count'));
+        return view('totalHouse', compact('house', 'count'));
     }
 
     public function search(Request $request)
