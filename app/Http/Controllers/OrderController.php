@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\House;
+use App\Http\Requests\DateCheckinValidate;
 use App\Notification;
 use App\Notifications\RepliedToThread;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use TJGazel\Toastr\Toastr;
 
 class OrderController extends Controller
 {
-    public function RentHouse(Request $request)
+    public function RentHouse(DateCheckinValidate $request)
     {
         $email = $request->email;
         $title = $request->title;
