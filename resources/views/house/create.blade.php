@@ -12,7 +12,9 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Title<span class="text-danger">*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="" name="title"
+                                    <input type="text" class="form-control"
+                                           @if($errors->has('title')) style="border:solid 1px red" @endif id=""
+                                           name="title"
                                            placeholder=""
                                            value="">
                                     @if($errors->has('title'))
@@ -24,8 +26,8 @@
                                 <label class="col-sm-3 col-form-label">Price<span class="text-danger">*</span></label>
                                 <div class="col-sm-9">
 
-                                    <input type="number" @if($errors->has('price')) style="border:solid 1px red @endif"
-                                           class="form-control text-info" id="" name="price"
+                                    <input type="number" @if($errors->has('price')) style="border:solid 1px red" @endif
+                                    class="form-control text-info" id="" name="price"
                                            placeholder="$"
                                            value="">
                                     @if($errors->has('price'))
@@ -39,7 +41,7 @@
                                 </label>
                                 <div class="col-sm-9">
 
-                                    <select name="kindHouse" class="form-control ">
+                                    <select name="kindHouse" class="form-control " @if($errors->has('kindHouse')) style="border:solid 1px red" @endif>
                                         <option value="" selected style="display: none">
                                         </option>
                                         <option value="{{\App\KindOfHouseInterface::APRTMENT}}">
@@ -68,7 +70,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="kindRoom">
+                                    <select class="form-control" name="kindRoom" @if($errors->has('kindRoom')) style="border:solid 1px red" @endif>
                                         <option value="" selected style="display: none">
                                         </option>
                                         <option value="{{\App\KindOfRoomInterface::SINGLE}}">
@@ -92,7 +94,7 @@
                                 </label>
                                 <div class="col-sm-9">
 
-                                    <input type="number" class="form-control" id="" name="numBedroom"
+                                    <input type="number" @if($errors->has('numBedroom')) style="border:solid 1px red" @endif class="form-control" id="" name="numBedroom"
                                            placeholder=""
                                            value="">
                                     @if($errors->has('numBedroom'))
@@ -105,7 +107,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control " id="" name="numBathroom"
+                                    <input type="number" @if($errors->has('numBathroom')) style="border:solid 1px red" @endif class="form-control " id="" name="numBathroom"
                                            placeholder=""
                                            value="">
                                     @if($errors->has('numBathroom'))
@@ -119,16 +121,16 @@
                                 <label class="col-sm-2 col-form-label">City<span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
 
-                                        <select class="form-control" name="city_id">
-                                            <option value="" selected style=" display: none">
-                                                Select
+                                    <select class="form-control" @if($errors->has('city_id')) style="border:solid 1px red" @endif name="city_id">
+                                        <option value="" selected style=" display: none">
+                                            Select
+                                        </option>
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}">
+                                                {{$city->name}}
                                             </option>
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}">
-                                                    {{$city->name}}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        @endforeach
+                                    </select>
                                     @if($errors->has('city_id'))
                                         <i class="text-danger">{{$errors->first('city_id')}}</i>
                                     @endif
@@ -138,19 +140,19 @@
                                 <label class="col-sm-2 col-form-label">District<span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                        <select class="form-control" name="district_id">
-                                            <option value="" selected>
-                                                Select
+                                    <select class="form-control" @if($errors->has('distric_id')) style="border:solid 1px red" @endif name="district_id">
+                                        <option value="" selected>
+                                            Select
+                                        </option>
+                                        <option value="" selected style=" display: none">
+                                            Select
+                                        </option>
+                                        @foreach($districts as $district)
+                                            <option value="{{$district->id}}">
+                                                {{$district->name}}
                                             </option>
-                                            <option value="" selected style=" display: none">
-                                                Select
-                                            </option>
-                                            @foreach($districts as $district)
-                                                <option value="{{$district->id}}">
-                                                    {{$district->name}}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        @endforeach
+                                    </select>
                                     @if($errors->has('district_id'))
                                         <i class="text-danger">{{$errors->first('district_id')}}</i>
                                     @endif
@@ -161,7 +163,7 @@
                                 <label class="col-sm-2 col-form-label">Address<span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control " id="" name="address"
+                                    <input type="text" class="form-control" @if($errors->has('address')) style="border:solid 1px red" @endif id="" name="address"
                                            placeholder=""
                                            value="">
                                     @if($errors->has('address'))
@@ -173,8 +175,8 @@
                                 <label class="col-sm-2 col-form-label">Descript<span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                        <textarea class="form-control" rows="3" name="description"></textarea>
-                                        <div class="invalid-feedback">Details!</div>
+                                    <textarea class="form-control" @if($errors->has('description')) style="border:solid 1px red" @endif rows="3" name="description"></textarea>
+                                    <div class="invalid-feedback">Details!</div>
                                     @if($errors->has('description'))
                                         <i class="text-danger">{{$errors->first('description')}}</i>
                                     @endif
@@ -184,8 +186,12 @@
                                 <label class="col-sm-2 col-form-label">Image<span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="file" multiple class="custom-file-input" name="images[]" id="inputGroupFile04" required>
+                                    <input @if($errors->has('images')) style="border:solid 1px red" @endif type="file" multiple class="custom-file-input" name="images[]"
+                                           id="inputGroupFile04" required>
                                     <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                    @if($errors->has('images'))
+                                        <i class="text-danger">{{$errors->first('images')}}</i>
+                                    @endif
                                 </div>
                             </div>
                             <button type="submit" style="text-align: right; margin-left: 45%"

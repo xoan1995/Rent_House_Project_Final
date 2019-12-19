@@ -33,7 +33,8 @@ class HouseRequestValidate extends FormRequest
             'description' => 'required|min:20',
             'price' => 'required|min:1',
             'city_id' => 'required',
-            'district_id' =>'required'
+            'district_id' =>'required',
+            'images' =>'required'
         ];
     }
     public function messages()
@@ -53,6 +54,7 @@ class HouseRequestValidate extends FormRequest
             'price.required'=>'Price invalid',
             'city_id.required'=>'City invalid',
             'district_id.required'=>'District invalid',
+            'images.required'=>'Images invalid',
         ];
     }
 }
