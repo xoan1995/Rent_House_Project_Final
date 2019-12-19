@@ -25,18 +25,20 @@ class HomeController extends Controller
     {
         $this->house = $house;
         $this->city = $city;
-//        $this->middleware('auth');
+
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $cities = $this->city->all();
         $houses = $this->house->all();
         return view('home', compact('houses', 'cities'));
+    }
+
+    public function showHouseForCity($id)
+    {
+        $city = $this->city->findOrFail($id);
+        $houses = $city->houses->all();
+        return view('house.listHouseForCity', compact('houses','city'));
     }
 }

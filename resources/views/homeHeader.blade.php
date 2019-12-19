@@ -44,7 +44,7 @@
         <div class="">
             <section class="regular slider mt-4" style="width: 100%">
                 @foreach($cities as $city)
-                    <a href="#">
+                    <a href="{{route('city.listHouse',$city->id)}}">
                         <div style="position: relative">
                             <img height="300px" width="440px" src="{{asset('storage/'.$city->image)}}">
                             <div style="position: absolute; left: 50px; bottom: 50px">
