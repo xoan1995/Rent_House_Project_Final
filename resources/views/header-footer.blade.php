@@ -234,22 +234,7 @@
 </div>
 
 <div class="container" style="margin-top: 5rem">
-
-    <div>
-        @if(\Illuminate\Support\Facades\Auth::user())
-            <div style="font-size: 30px; font-weight: bold; color: #1b1e21"> Welcom To Luxury Rent
-                House, {{\Illuminate\Support\Facades\Auth::user()->name}}</div>
-            <div>Đặt chỗ ở, homestay, cho thuê xe, trải nghiệm và nhiều hơn nữa trên Luxury Rent House</div>
-        @else
-            <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Chào mừng đến với Luxury Rent House!</div>
-            <div>Đặt chỗ ở, homestay, trải nghiệm và nhiều hơn nữa trên Luxury Rent House</div>
-            <div> Đăng nhập hoặc Đăng ký để trải nghiệm !</div>
-        @endif
-
-    </div>
-    <div>
-        @yield('content')
-    </div>
+    @yield('content')
 </div>
 <script src="{{asset('storage/showslide/slide.js')}}"></script>
 <script type="text/javascript" src="js/app.js"></script>
