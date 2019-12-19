@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\District;
 use App\House;
 use App\Http\Requests\HouseRequestValidate;
 use App\Image;
@@ -29,7 +30,7 @@ class HouseController extends Controller
     public function create()
     {
         $cities = City::all();
-        return view('house.create', compact('cities'));
+        return view('house.create', compact('cities', 'districts'));
     }
 
 
@@ -47,7 +48,7 @@ class HouseController extends Controller
         $house->city_id = $request->city_id;
         $house->user_id = auth()->user()->id;
         $house->save();
-        return view('house.images.create');
+        return view('house.create');
     }
 
     public function createImage()
