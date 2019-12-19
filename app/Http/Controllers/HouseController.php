@@ -44,7 +44,6 @@ class HouseController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->images);
         $house = new House();
         $house->title = $request->title;
         $house->kindHouse = $request->kindHouse;
