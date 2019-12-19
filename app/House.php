@@ -9,7 +9,7 @@ class House extends Model
     protected $table = 'houses';
     public $timestamps = false;
     protected $fillable = [
-        'title', 'kindHouse', 'kindRoom', 'address', 'numBedroom', 'numBathroom', 'description', 'price', 'city_id'
+        'title', 'kindHouse', 'kindRoom', 'address', 'numBedroom', 'numBathroom', 'description', 'price', 'city_id', 'district_id'
     ];
     public function city()
     {

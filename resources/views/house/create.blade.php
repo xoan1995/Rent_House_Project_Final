@@ -209,7 +209,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Number bedroom</label>
+                            <label class="col-sm-2 col-form-label">Number bathroom</label>
                             <div class="col-sm-10">
                                 @if(!$errors->has('numBathroom'))
                                     <input type="number" class="form-control " id="" name="numBathroom"
@@ -225,90 +225,92 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <form>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">City<span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    @if(!$errors->has('city_id'))
-                                        <select class="form-control" name="city_id">
-                                            <option value="" selected style=" display: none">
-                                                Select
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">City<span class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('city_id'))
+                                    <select class="form-control" name="city_id">
+                                        <option value="" selected style=" display: none">
+                                            Select
+                                        </option>
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}">
+                                                {{$city->name}}
                                             </option>
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}">
-                                                    {{$city->name}}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    @else
-                                        <select class="form-control border-danger" name="city_id">
-                                            <option value="" selected style="display: none">
-                                                Select
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <select class="form-control border-danger" name="city_id">
+                                        <option value="" selected style="display: none">
+                                            Select
+                                        </option>
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}">
+                                                {{$city->name}}
                                             </option>
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}">
-                                                    {{$city->name}}
-                                                </option>
-                                                <i class="text-danger">{{$errors->first('city_id')}}</i>
-                                            @endforeach
-                                        </select>
-                                        <i class="text-danger">{{$errors->first('city_id')}}</i>
-                                    @endif
-                                </div>
+                                            <i class="text-danger">{{$errors->first('city_id')}}</i>
+                                        @endforeach
+                                    </select>
+                                    <i class="text-danger">{{$errors->first('city_id')}}</i>
+                                @endif
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">District<span
-                                        class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    @if(!$errors->has('city_id'))
-                                        <select class="form-control" name="city_id">
-                                            <option value="" selected style=" display: none">
-                                                Select
-                                            </option>
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}">
-                                                    {{$city->name}}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    @else
-                                        <select class="form-control border-danger" name="city_id">
-                                            <option value="" selected style="display: none">
-                                                Select
-                                            </option>
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}">
-                                                    {{$city->name}}
-                                                </option>
-                                                <i class="text-danger">{{$errors->first('city_id')}}</i>
-                                            @endforeach
-                                        </select>
-                                        <i class="text-danger">{{$errors->first('city_id')}}</i>
-                                    @endif
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">District<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('district'))
+                                    <select class="form-control" name="district_id">
+{{--                                        <option value="" selected style=" display: none">--}}
+{{--                                            Select--}}
+{{--                                        </option>--}}
+{{--                                            @foreach($districts as $district)--}}
+{{--                                                <option value="{{$district->id}}">--}}
+{{--                                                    {{$district->name}}--}}
+{{--                                                </option>--}}
+{{--                                            @endforeach--}}
+                                    </select>
+                                @else
+                                    <select class="form-control border-danger" name="district_id">
+                                        <option value="" selected style="display: none">
+                                            Select
+                                        </option>
+{{--                                        @foreach($districts as $district)--}}
+{{--                                            <option value="{{$district->id}}">--}}
+{{--                                                {{$district->name}}--}}
+{{--                                            </option>--}}
+{{--                                            <i class="text-danger">{{$errors->first('city_id')}}</i>--}}
+{{--                                        @endforeach--}}
+                                    </select>
+                                    <i class="text-danger">{{$errors->first('city_id')}}</i>
+                                @endif
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Descript<span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    @if(!$errors->has('description'))
-                                        <textarea class="form-control" rows="6" name="description"></textarea>
-                                        <div class="invalid-feedback">Details!</div>
-                                    @else
-                                        <i class="text-danger">{{$errors->first('description')}}</i>
-                                        <textarea class="form-control text-info" rows="6" name="description">
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Descript<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('description'))
+                                    <textarea class="form-control" rows="6" name="description"></textarea>
+                                    <div class="invalid-feedback">Details!</div>
+                                @else
+                                    <textarea class="form-control text-info" rows="6" name="description">
                                         </textarea>
-                                        <div class="invalid-feedback">Details!</div>
-                                    @endif
-                                </div>
+                                    <div class="invalid-feedback">Details!</div>
+                                    <i class="text-danger">{{$errors->first('description')}}</i>
+                                @endif
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Title<span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="file" class="form-control" name="image" multiple>
-                                </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="col-sm-2 col-form-label">Image<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                    <input type="file" class="custom-file-input" name="file" id="inputGroupFile04" required>
+                                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                             </div>
-                            <button type="submit" style="margin-left: 77%" class="btn btn-primary mt-4">Submit</button>
-                        </form>
+                        </div>
+                    <button type="submit" style="text-align: right; margin-left: 45%" class="btn btn-primary mt-4">Submit</button>
+                    <a href="/" style="text-align: right" class="btn btn-danger mt-4">Cancel</a>
                     </div>
                 </div>
             </form>
