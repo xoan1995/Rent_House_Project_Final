@@ -41,4 +41,25 @@ class HomeController extends Controller
         $houses = $city->houses->all();
         return view('house.listHouseForCity', compact('houses','city'));
     }
+
+    public function search(Request $request)
+    {
+        $search = $this->house;
+        if (!empty($request->get('address'))) {
+            $search = $search->where('address', $request->get('address'));
+        }
+        if (!empty($request->get('numBedRoom'))) {
+            $search = $search->where('numBedroom', $request->get('numBedRoom'));
+        }
+        if (!empty($request->get('numBathRoom'))) {
+            $search = $search->where('numBathroom', $request->get('numBathRoom'));
+        }
+        if (!empty($request->get('price'))) {
+            $search = $search->where('price', $request->get('price'));
+        }
+
+        $cities = City::all();
+        $houses = $search->get();
+        return view('house.list', compact('houses', 'cities'));
+    }
 }
