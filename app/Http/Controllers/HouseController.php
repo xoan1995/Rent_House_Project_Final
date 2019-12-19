@@ -7,6 +7,7 @@ use App\District;
 use App\House;
 use App\Http\Requests\HouseRequestValidate;
 use App\Image;
+use App\StatusInterface;
 use App\User;
 use http\Client\Response;
 use Illuminate\Http\Request;
@@ -35,13 +36,15 @@ class HouseController extends Controller
 
     public function create()
     {
+        $districts = District::all();
         $cities = City::all();
-        return view('house.create', compact('cities'));
+        return view('house.create', compact('cities', 'districts'));
     }
 
 
-    public function store(HouseRequestValidate $request)
+    public function store(Request $request)
     {
+        dd($request->images);
         $house = new House();
         $house->title = $request->title;
         $house->kindHouse = $request->kindHouse;
@@ -53,26 +56,22 @@ class HouseController extends Controller
         $house->price = $request->price;
         $house->city_id = $request->city_id;
         $house->user_id = auth()->user()->id;
+        $house->status = StatusInterface::READY;
+        $house->district_id = $request->district_id;
         $house->save();
-        return view('house.create');
-    }
 
-    public function createImage()
-    {
-        return view('house.images.create');
-    }
-
-    public function storeImage(Request $request)
-    {
         $house_id = DB::table('houses')->max('id');
-        $image = $request->file('file');
-        $path = $image->store('rooms', 'public');
+        foreach ($request->images as $image) {
 
-        $imageUpload = new Image();
-        $imageUpload->path = $path;
-        $imageUpload->house_id = $house_id;
-        $imageUpload->save();
-        return redirect()->route('home');
+            $path = $image->store('rooms', 'public');
+
+            $imageUpload = new Image();
+            $imageUpload->path = $path;
+            $imageUpload->house_id = $house_id;
+            $imageUpload->save();
+        }
+
+        return redirect('/');
     }
 
     public function totalHouse($id)
