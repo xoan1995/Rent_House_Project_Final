@@ -88,8 +88,9 @@
         margin-left: -50vw;
         margin-right: -50vw;
     }
-    .card_1{
-        box-shadow: 0 2px 10px 0 rgba(0,0,0,.1)
+
+    .card_1 {
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1)
     }
 </style>
 
@@ -161,6 +162,14 @@
                             <img src="https://img.icons8.com/carbon-copy/35/000000/bell.png">
                         </span>
                             <span class="badge-light">
+                                <?php $count = 0 ?>
+                                @if (auth()->user())
+                                @foreach (\App\Notification::all() as $notice)
+                                @if(json_decode($notice->data)->receiver == auth()->user()->email)
+                               <?php $count++ ?>
+                                @endif
+                                @endforeach
+                                @endif
                                 ({{$count}})
                             </span>
                         </a>
