@@ -22,14 +22,6 @@ class OrderController extends Controller
     {
         $cities = City::all();
         $houses = House::all();
-        $count = 0;
-        if (auth()->user()) {
-            foreach (\App\Notification::all() as $notice) {
-                if (json_decode($notice->data)->receiver == auth()->user()->email) {
-                    $count++;
-                }
-            }
-        }
         $email = $request->email;
         $title = $request->title;
         $checkin = $request->checkin;
