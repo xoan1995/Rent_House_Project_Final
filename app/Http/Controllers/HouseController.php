@@ -71,15 +71,6 @@ class HouseController extends Controller
     public function totalHouse($id)
     {
         $house = $this->house->findOrFail($id);
-        $count = 0;
-        if (auth()->user()) {
-            foreach (\App\Notification::all() as $notice) {
-                if (json_decode($notice->data)->receiver == auth()->user()->email) {
-                    $count++;
-                }
-            }
-        }
-
         return view('totalHouse', compact('house', 'count'));
     }
 
@@ -101,14 +92,6 @@ class HouseController extends Controller
 
         $cities = City::all();
         $houses = $search->get();
-        $count=0;
-        if (auth()->user()) {
-            foreach (\App\Notification::all() as $notice) {
-                if (json_decode($notice->data)->receiver == auth()->user()->email) {
-                    $count++;
-                }
-            }
-        }
         return view('house.list', compact('houses', 'cities','count'));
     }
 }
