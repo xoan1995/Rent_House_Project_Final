@@ -54,7 +54,7 @@ class HouseController extends Controller
         $house->city_id = $request->city_id;
         $house->user_id = auth()->user()->id;
         $house->save();
-        return view('house.images.create');
+        return view('house.create');
     }
 
     public function createImage()
