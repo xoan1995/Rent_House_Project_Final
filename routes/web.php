@@ -22,6 +22,7 @@ Route::get('/edit-profile', 'UserController@editUser')->name('editUser');
 Route::post('/update-profile', 'UserController@update')->name('users.update');
 Route::get('/change-password', 'UserController@viewChangePassword')->name('user.changePassword');
 Route::post('/change-password', 'UserController@changePassword')->name('user.changePassword');
+Route::get('/city/{id}/list-house','HomeController@showHouseForCity')->name('city.listHouse');
 
 Route::prefix('houses')->group(function () {
     Route::get('/create', 'HouseController@create')->name('createHouse')->middleware('auth');
