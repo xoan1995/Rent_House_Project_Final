@@ -88,6 +88,9 @@
         margin-left: -50vw;
         margin-right: -50vw;
     }
+    .card_1{
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,.1)
+    }
 </style>
 
 <body>
@@ -249,7 +252,6 @@
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="{{asset('storage/slick/slick.js')}}" type="text/javascript" charset="utf-8"></script>
 <script src="{{asset('storage/slick/slideCity.js')}}"></script>
-
 {!! toastr()->render() !!}
 </body>
 </html>
