@@ -24,6 +24,9 @@ Route::get('/change-password', 'UserController@viewChangePassword')->name('user.
 Route::post('/change-password', 'UserController@changePassword')->name('user.changePassword');
 Route::get('/city/{id}/list-house','HomeController@showHouseForCity')->name('city.listHouse');
 
+Route::get('get-district-list','HomeController@getDistrictList');
+
+
 Route::prefix('houses')->group(function () {
     Route::get('/create', 'HouseController@create')->name('createHouse')->middleware('auth');
     Route::post('/store', 'HouseController@store')->name('storeHouse')->middleware('auth');
