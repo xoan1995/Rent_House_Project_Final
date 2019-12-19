@@ -37,7 +37,7 @@ class OrderController extends Controller
         $house_id = $request->house_id;
 
         \auth()->user()->notify(new RepliedToThread($email, $title, $checkin, $checkout, $house_id));
-        \TJGazel\Toastr\Facades\Toastr::success('Gửi yêu cầu thuê nhà thành công!');
+        \TJGazel\Toastr\Facades\Toastr::success('Send request success!');
         return redirect()->route('home', compact('cities', 'houses', 'count'));
     }
 }

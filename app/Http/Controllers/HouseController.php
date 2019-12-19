@@ -65,7 +65,6 @@ class HouseController extends Controller
         $imageUpload->path = $path;
         $imageUpload->house_id = $house_id;
         $imageUpload->save();
-//        return response()->json(['success' => $path]);
         return redirect()->route('home');
     }
 
