@@ -153,7 +153,7 @@
                 <div class="row mt-4 parent">
                     <div class="col-lg-12 child">
                         <form action="{{route('order.rent')}}">
-                            <div class="card" style="float: right;background: #f8fafc">
+                            <div class="card card_1" style="float: right;background: #f8fafc">
                                 <div class="card-body">
                                     <div class="ml-5"
                                          style="text-align: left; font-size: 40px; font-weight: bold; float: left">{{$house->price}}
