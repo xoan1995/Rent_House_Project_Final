@@ -20,9 +20,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('storage/editProfile/css/style.css')}}">
 </head>
 <body>
 <nav class=" navbar navbar-expand-md">
@@ -71,213 +71,259 @@
         </div>
     </div>
 </nav>
-<div class="wrapper">
-    <div class="inner">
-        <div class="image-holder">
-            <img src="{{asset('storage/editProfile/images/image_createHouse.jpg')}}" alt="">
-        </div>
-        <form action="{{route('storeHouse')}}" method="post">
-            @csrf
-            <h3>Add new House</h3>
-            <div class="form-wrapper">
-
+<div class="container center">
+    <div class="card">
+        <h5 class="card-header">Add House</h5>
+        <div class="card-body">
+            <form action="{{route('storeHouse')}}" method="post" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-12">
-                        @if(!$errors->has('title'))
-                            <input type="text" class="form-control text-info" id="" name="title" placeholder="*Title"
-                                   value="" >
-                        @else
-                            <input type="text" class="form-control border-danger"
-                                   name="title"
-                                   placeholder="*Title"
-                                   value="" >
-                            <i class="text-danger">{{$errors->first('title')}}</i>
-                        @endif
+                    <div class="col-6">
+                        @csrf
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Title<span class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('title'))
+                                    <input type="text" class="form-control" id="" name="title"
+                                           placeholder=""
+                                           value="">
+                                @else
+                                    <input type="text" class="form-control border-danger"
+                                           name="title"
+                                           placeholder=""
+                                           value="">
+                                    <i class="text-danger">{{$errors->first('title')}}</i>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Price<span class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('price'))
+                                    <input type="number" class="form-control text-info" id="" name="price"
+                                           placeholder="$"
+                                           value=""
+                                    >
+                                @else
+                                    <input type="number" class="form-control border-danger" id="" name="price"
+                                           placeholder="$"
+                                           value=""
+                                    ><i class="text-danger">{{$errors->first('price')}}</i>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kind House<span class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('kindHouse'))
+                                    <select name="kindHouse" class="form-control ">
+                                        <option value="" selected style="display: none">
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::APRTMENT}}">
+                                            {{\App\KindOfHouseInterface::APRTMENT}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::CONDOTEL}}">
+                                            {{\App\KindOfHouseInterface::CONDOTEL}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::MOTEL}}">
+                                            {{\App\KindOfHouseInterface::MOTEL}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::ENTIREHOME}}">
+                                            {{\App\KindOfHouseInterface::ENTIREHOME}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::VILA}}">
+                                            {{\App\KindOfHouseInterface::VILA}}
+                                        </option>
+                                    </select>
+                                @else
+                                    <select name="kindHouse" class="form-control border-danger">
+                                        <option value="" selected style="display: none">
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::APRTMENT}}">
+                                            {{\App\KindOfHouseInterface::APRTMENT}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::CONDOTEL}}">
+                                            {{\App\KindOfHouseInterface::CONDOTEL}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::MOTEL}}">
+                                            {{\App\KindOfHouseInterface::MOTEL}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::ENTIREHOME}}">
+                                            {{\App\KindOfHouseInterface::ENTIREHOME}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::VILA}}">
+                                            {{\App\KindOfHouseInterface::VILA}}
+                                        </option>
+                                    </select>
+                                    <i class="text-danger">{{$errors->first('kindHouse')}}</i>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kind Room<span class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('kindRoom'))
+                                    <select class="form-control" name="kindRoom">
+                                        <option value="" selected style="display: none">
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::SINGLE}}">
+                                            {{\App\KindOfRoomInterface::SINGLE}}
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::COUPLE}}">
+                                            {{\App\KindOfRoomInterface::COUPLE}}
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::FAMILY}}">
+                                            {{\App\KindOfRoomInterface::FAMILY}}
+                                        </option>
+                                    </select>
+                                @else
+                                    <select class="form-control border-danger" name="kindRoom">
+                                        <option value="" selected style="display: none">
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::SINGLE}}">
+                                            {{\App\KindOfRoomInterface::SINGLE}}
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::COUPLE}}">
+                                            {{\App\KindOfRoomInterface::COUPLE}}
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::FAMILY}}">
+                                            {{\App\KindOfRoomInterface::FAMILY}}
+                                        </option>
+                                    </select>
+                                    <i class="text-danger">{{$errors->first('kindRoom')}}</i>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Number bedroom</label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('numBedroom'))
+                                    <input type="number" class="form-control" id="" name="numBedroom"
+                                           placeholder=""
+                                           value="">
+                                @else
+                                    <input type="number" class="form-control border-danger" id="" name="numBedroom"
+                                           placeholder=""
+                                           value="">
+                                    <i class="text-danger">{{$errors->first('numBedroom')}}</i>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Number bedroom</label>
+                            <div class="col-sm-10">
+                                @if(!$errors->has('numBathroom'))
+                                    <input type="number" class="form-control " id="" name="numBathroom"
+                                           placeholder=""
+                                           value="">
+                                @else
+                                    <input type="number" class="form-control  border-danger" id="" name="numBathroom"
+                                           placeholder=""
+                                           value="">
+                                    <i class="text-danger">{{$errors->first('numBathroom')}}</i>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-12">
-                        @if(!$errors->has('price'))
-                            <input type="number" class="form-control text-info" id="" name="price" placeholder="$"
-                                   value=""
-                                   >
-                        @else
-                            <input type="number" class="form-control border-danger" id="" name="price"
-                                   placeholder="$"
-                                   value=""
-                                   ><i class="text-danger">{{$errors->first('price')}}</i>
-                        @endif
+                    <div class="col-6">
+                        <form>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">City<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    @if(!$errors->has('city_id'))
+                                        <select class="form-control" name="city_id">
+                                            <option value="" selected style=" display: none">
+                                                Select
+                                            </option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}">
+                                                    {{$city->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <select class="form-control border-danger" name="city_id">
+                                            <option value="" selected style="display: none">
+                                                Select
+                                            </option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}">
+                                                    {{$city->name}}
+                                                </option>
+                                                <i class="text-danger">{{$errors->first('city_id')}}</i>
+                                            @endforeach
+                                        </select>
+                                        <i class="text-danger">{{$errors->first('city_id')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">District<span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    @if(!$errors->has('city_id'))
+                                        <select class="form-control" name="city_id">
+                                            <option value="" selected style=" display: none">
+                                                Select
+                                            </option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}">
+                                                    {{$city->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <select class="form-control border-danger" name="city_id">
+                                            <option value="" selected style="display: none">
+                                                Select
+                                            </option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}">
+                                                    {{$city->name}}
+                                                </option>
+                                                <i class="text-danger">{{$errors->first('city_id')}}</i>
+                                            @endforeach
+                                        </select>
+                                        <i class="text-danger">{{$errors->first('city_id')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Descript<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    @if(!$errors->has('description'))
+                                        <textarea class="form-control" rows="6" name="description"></textarea>
+                                        <div class="invalid-feedback">Details!</div>
+                                    @else
+                                        <i class="text-danger">{{$errors->first('description')}}</i>
+                                        <textarea class="form-control text-info" rows="6" name="description">
+                                        </textarea>
+                                        <div class="invalid-feedback">Details!</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Title<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" name="image" multiple>
+                                </div>
+                            </div>
+                            <button type="submit" style="margin-left: 77%" class="btn btn-primary mt-4">Submit</button>
+                        </form>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    @if(!$errors->has('kindHouse'))
-                        <select name="kindHouse" class="form-control ">
-                            <option value="" selected style="display: none">
-                                *Kind house
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::APRTMENT}}">
-                                {{\App\KindOfHouseInterface::APRTMENT}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::CONDOTEL}}">
-                                {{\App\KindOfHouseInterface::CONDOTEL}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::MOTEL}}">
-                                {{\App\KindOfHouseInterface::MOTEL}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::ENTIREHOME}}">
-                                {{\App\KindOfHouseInterface::ENTIREHOME}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::VILA}}">
-                                {{\App\KindOfHouseInterface::VILA}}
-                            </option>
-                        </select>
-                    @else
-                        <select name="kindHouse" class="form-control border-danger">
-                            <option value="" selected style="display: none">
-                                * Kind house
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::APRTMENT}}">
-                                {{\App\KindOfHouseInterface::APRTMENT}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::CONDOTEL}}">
-                                {{\App\KindOfHouseInterface::CONDOTEL}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::MOTEL}}">
-                                {{\App\KindOfHouseInterface::MOTEL}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::ENTIREHOME}}">
-                                {{\App\KindOfHouseInterface::ENTIREHOME}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::VILA}}">
-                                {{\App\KindOfHouseInterface::VILA}}
-                            </option>
-                        </select>
-                        <i class="text-danger">{{$errors->first('kindHouse')}}</i>
-                    @endif
-                </div>
-                <div class="col-6">
-                    @if(!$errors->has('kindRoom'))
-                        <select class="form-control" name="kindRoom">
-                            <option value="" selected style="display: none">
-                                * Kind room
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::SINGLE}}">
-                                {{\App\KindOfRoomInterface::SINGLE}}
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::COUPLE}}">
-                                {{\App\KindOfRoomInterface::COUPLE}}
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::FAMILY}}">
-                                {{\App\KindOfRoomInterface::FAMILY}}
-                            </option>
-                        </select>
-                    @else
-                        <select class="form-control border-danger" name="kindRoom" >
-                            <option value="" selected style="display: none">
-                                * Kind room
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::SINGLE}}">
-                                {{\App\KindOfRoomInterface::SINGLE}}
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::COUPLE}}">
-                                {{\App\KindOfRoomInterface::COUPLE}}
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::FAMILY}}">
-                                {{\App\KindOfRoomInterface::FAMILY}}
-                            </option>
-                        </select>
-                        <i class="text-danger">{{$errors->first('kindRoom')}}</i>
-                    @endif
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    @if(!$errors->has('numBedroom'))
-                        <input type="number" class="form-control" id="" name="numBedroom"
-                               placeholder="*Number bedroom"
-                               value="">
-                    @else
-                        <input type="number" class="form-control border-danger" id="" name="numBedroom"
-                               placeholder="*Number bedroom"
-                               value="">
-                        <i class="text-danger">{{$errors->first('numBedroom')}}</i>
-                    @endif
-                </div>
-                <div class="col-6">
-                    @if(!$errors->has('numBathroom'))
-                        <input type="number" class="form-control " id="" name="numBathroom"
-                               placeholder="*Number bathroom"
-                               value="">
-                    @else
-                        <input type="number" class="form-control  border-danger" id="" name="numBathroom"
-                               placeholder="*Number bathroom"
-                               value="">
-                        <i class="text-danger">{{$errors->first('numBathroom')}}</i>
-                    @endif
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6">
-                    @if(!$errors->has('address'))
-                        <input type="text" class="form-control" style="width: 100%" id="" name="address"
-                               placeholder="*Address"
-                               value="">
-                    @else
-                        <input type="text" class="form-control border-danger" style="width: 100%" id=""
-                               name="address"
-                               placeholder="*Address"
-                               value="">
-                        <i class="text-danger">{{$errors->first('address')}}</i>
-                    @endif
-                </div>
-                <div class="col-6">
-                    @if(!$errors->has('city_id'))
-                        <select class="form-control" name="city_id">
-                            <option value="" selected style=" display: none">
-                                *City
-                            </option>
-                            @foreach($cities as $city)
-                                <option value="{{$city->id}}">
-                                    {{$city->name}}
-                                </option>
-                            @endforeach
-                        </select>
-                    @else
-                        <select class="form-control border-danger" name="city_id">
-                            <option value="" selected style="display: none">
-                                * City
-                            </option>
-                            @foreach($cities as $city)
-                                <option value="{{$city->id}}">
-                                    {{$city->name}}
-                                </option>
-                                <i class="text-danger">{{$errors->first('city_id')}}</i>
-                            @endforeach
-                        </select>
-                        <i class="text-danger">{{$errors->first('city_id')}}</i>
-                    @endif
-                </div>
-            </div>
-            <div class="form-wrapper">
-                <label for="review-text"><span class="text-danger">*</span>Description</label>
-                @if(!$errors->has('description'))
-                    <textarea class="form-control" rows="6" name="description"></textarea>
-                    <div class="invalid-feedback">Details!</div>
-                @else
-                    <p class="text-danger">{{$errors->first('description')}}</p>
-                    <textarea class="form-control text-info" rows="6" name="description"
-                             >
-                       </textarea>
-                    <div class="invalid-feedback">Details!</div>
-                @endif
-            </div>
-            <div class="form-wrapper" style="margin-top: -2rem">
-                <button type="submit">Next</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>
 
