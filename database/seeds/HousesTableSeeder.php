@@ -21,6 +21,8 @@ class HousesTableSeeder extends Seeder
         $house->numBathroom = '2';
         $house->description = 'Tọa lạc tại ngay mặt đường Pham Hùng, cửa ngõ phía Tây Hà Nội. Keangnam có tổng mức đầu tư cho toàn bộ công trình là 1,05 tỷ USD, bao gồm 2 tòa chung cư cao cấp 48 tầng và tòa nhà tổ hợp văn phòng, khách sạn, trung tâm giải trí 72 tầng.';
         $house->price = 67;
+        $house->district_id = 1;
+        $house->status = \App\StatusInterface::READY;
         $house->city_id = 1;
         $house->user_id = 1;
         $house->save();
@@ -34,6 +36,8 @@ class HousesTableSeeder extends Seeder
         $house->numBathroom = '2';
         $house->description = 'Tọa lạc tại ngay mặt đường Pham Hùng, cửa ngõ phía Tây Hà Nội. Keangnam có tổng mức đầu tư cho toàn bộ công trình là 1,05 tỷ USD, bao gồm 2 tòa chung cư cao cấp 48 tầng và tòa nhà tổ hợp văn phòng, khách sạn, trung tâm giải trí 72 tầng.';
         $house->price = 24;
+        $house->status = \App\StatusInterface::READY;
+        $house->district_id = 1;
         $house->city_id = 2;
         $house->user_id = 1;
         $house->save();
@@ -47,6 +51,8 @@ class HousesTableSeeder extends Seeder
         $house->numBathroom = '2';
         $house->description = 'Tọa lạc tại ngay mặt đường Pham Hùng, cửa ngõ phía Tây Hà Nội. Keangnam có tổng mức đầu tư cho toàn bộ công trình là 1,05 tỷ USD, bao gồm 2 tòa chung cư cao cấp 48 tầng và tòa nhà tổ hợp văn phòng, khách sạn, trung tâm giải trí 72 tầng.';
         $house->price = 41;
+        $house->status = \App\StatusInterface::READY;
+        $house->district_id = 1;
         $house->city_id = 3;
         $house->user_id = 1;
         $house->save();
@@ -61,6 +67,8 @@ class HousesTableSeeder extends Seeder
         $house->description = 'Tọa lạc tại ngay mặt đường Pham Hùng, cửa ngõ phía Tây Hà Nội. Keangnam có tổng mức đầu tư cho toàn bộ công trình là 1,05 tỷ USD, bao gồm 2 tòa chung cư cao cấp 48 tầng và tòa nhà tổ hợp văn phòng, khách sạn, trung tâm giải trí 72 tầng.';
         $house->price = 15;
         $house->city_id = 4;
+        $house->status = \App\StatusInterface::READY;
+        $house->district_id = 1;
         $house->user_id = 1;
         $house->save();
 

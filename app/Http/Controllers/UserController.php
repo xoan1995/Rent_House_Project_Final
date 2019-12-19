@@ -46,7 +46,7 @@ class UserController extends Controller
             $user->phone = $request->phone;
         }
         $user->save();
-        Toastr::success('update thanh cong');
+        Toastr::success('Successfully updated');
         return redirect()->route('home');
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller
             $request_data = $request->All();
             $validator = $this->admin_credential_rules($request_data);
             if ($validator->fails()) {
-                Toastr::error('mat khau moi khong trung khop');
+                Toastr::error('New password does not match');
                 return view('user.changePassword');
             } else {
                 $current_password = Auth::user()->password;
@@ -84,10 +84,10 @@ class UserController extends Controller
                     $obj_user = User::find($user_id);
                     $obj_user->password = Hash::make($request_data['passwordNew1']);;
                     $obj_user->save();
-                    Toastr::success('update thanh cong');
+                    Toastr::success('Successfully updated');
                     return redirect()->route('home');
                 } else {
-                    Toastr::error('ban da nhap sai mat khau');
+                    Toastr::error('You have entered the wrong password');
                     return view('user.changePassword');
                 }
             }

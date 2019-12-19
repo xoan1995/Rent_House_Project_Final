@@ -37,14 +37,6 @@ class HomeController extends Controller
     {
         $cities = $this->city->all();
         $houses = $this->house->all();
-        $count = 0;
-        if (auth()->user()) {
-            foreach (\App\Notification::all() as $notice) {
-                if (json_decode($notice->data)->receiver == auth()->user()->email) {
-                    $count++;
-                }
-            }
-        }
-        return view('home', compact('houses', 'cities', 'count'));
+        return view('home', compact('houses', 'cities'));
     }
 }

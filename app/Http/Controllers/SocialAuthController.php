@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use TJGazel\Toastr\Facades\Toastr;
 
 class SocialAuthController extends Controller
 {
@@ -43,6 +44,7 @@ class SocialAuthController extends Controller
             $account->save();
         }
         Auth::login($user);
+        Toastr::success('Login success!');
         return redirect()->to('/');
     }
 }

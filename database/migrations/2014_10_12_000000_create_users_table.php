@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->integer('idCard')->nullable();
             $table->string('gender')->nullable();
             $table->string('address')->nullable();
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
