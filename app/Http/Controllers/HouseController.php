@@ -71,7 +71,7 @@ class HouseController extends Controller
     public function totalHouse($id)
     {
         $house = $this->house->findOrFail($id);
-        return view('totalHouse', compact('house', 'count'));
+        return view('totalHouse', compact('house'));
     }
 
     public function search(Request $request)
@@ -92,6 +92,6 @@ class HouseController extends Controller
 
         $cities = City::all();
         $houses = $search->get();
-        return view('house.list', compact('houses', 'cities','count'));
+        return view('house.list', compact('houses', 'cities'));
     }
 }

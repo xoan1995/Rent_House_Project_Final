@@ -30,6 +30,6 @@ class OrderController extends Controller
 
         \auth()->user()->notify(new RepliedToThread($email, $title, $checkin, $checkout, $house_id));
         \TJGazel\Toastr\Facades\Toastr::success('Send request success!');
-        return redirect()->route('home', compact('cities', 'houses', 'count'));
+        return redirect()->route('home', compact('cities', 'houses'));
     }
 }

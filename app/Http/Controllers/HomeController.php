@@ -37,6 +37,6 @@ class HomeController extends Controller
     {
         $cities = $this->city->all();
         $houses = $this->house->all();
-        return view('home', compact('houses', 'cities', 'count'));
+        return view('home', compact('houses', 'cities'));
     }
 }
