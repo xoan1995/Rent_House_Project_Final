@@ -30,7 +30,7 @@ class HouseController extends Controller
     public function create()
     {
         $cities = City::all();
-        return view('house.create', compact('cities', 'districts'));
+        return view('house.create', compact('cities'));
     }
 
 

@@ -261,26 +261,26 @@
                             <div class="col-sm-10">
                                 @if(!$errors->has('district'))
                                     <select class="form-control" name="district_id">
-                                        <option value="" selected style=" display: none">
-                                            Select
-                                        </option>
-                                            @foreach($districts as $district)
-                                                <option value="{{$district->id}}">
-                                                    {{$district->name}}
-                                                </option>
-                                            @endforeach
+{{--                                        <option value="" selected style=" display: none">--}}
+{{--                                            Select--}}
+{{--                                        </option>--}}
+{{--                                            @foreach($districts as $district)--}}
+{{--                                                <option value="{{$district->id}}">--}}
+{{--                                                    {{$district->name}}--}}
+{{--                                                </option>--}}
+{{--                                            @endforeach--}}
                                     </select>
                                 @else
                                     <select class="form-control border-danger" name="district_id">
                                         <option value="" selected style="display: none">
                                             Select
                                         </option>
-                                        @foreach($districts as $district)
-                                            <option value="{{$district->id}}">
-                                                {{$district->name}}
-                                            </option>
-                                            <i class="text-danger">{{$errors->first('city_id')}}</i>
-                                        @endforeach
+{{--                                        @foreach($districts as $district)--}}
+{{--                                            <option value="{{$district->id}}">--}}
+{{--                                                {{$district->name}}--}}
+{{--                                            </option>--}}
+{{--                                            <i class="text-danger">{{$errors->first('city_id')}}</i>--}}
+{{--                                        @endforeach--}}
                                     </select>
                                     <i class="text-danger">{{$errors->first('city_id')}}</i>
                                 @endif
@@ -301,23 +301,16 @@
                                 @endif
                             </div>
                         </div>
-                        <button type="submit" style="margin-left: 77%" class="btn btn-primary mt-4">Submit</button>
-                    </div>
-                </div>
-            </form>
-            <form action="{{route('storeImage')}}">
-                @csrf
-                <div class="input-group">
-                    <label class="col-sm-2 col-form-label">Image<span
-                            class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="file" id="inputGroupFile04" required>
-                            <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                        <div class="input-group">
+                            <label class="col-sm-2 col-form-label">Image<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                    <input type="file" class="custom-file-input" name="file" id="inputGroupFile04" required>
+                                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                            </div>
                         </div>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button">Upload</button>
-                        </div>
+                    <button type="submit" style="text-align: right; margin-left: 45%" class="btn btn-primary mt-4">Submit</button>
+                    <a href="/" style="text-align: right" class="btn btn-danger mt-4">Cancel</a>
                     </div>
                 </div>
             </form>
