@@ -26,13 +26,20 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+//    protected $redirectTo;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+
+    public function redirectTo()
+    {
+        Toastr::success('Login success!');
+        return '/';
+    }
+
     public function __construct()
     {
 
