@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\District;
 use App\House;
 use App\Http\Requests\HouseRequestValidate;
 use App\Image;
@@ -16,14 +17,20 @@ class HouseController extends Controller
     protected $house;
     protected $user;
     protected $image;
+    protected $city;
+    protected $district;
 
     public function __construct(House $house,
                                 User $user,
-                                Image $image)
+                                Image $image,
+                                City $city,
+                                District $district)
     {
         $this->house = $house;
         $this->user = $user;
         $this->image = $image;
+        $this->district = $district;
+        $this->city = $city;
     }
 
     public function create()
@@ -77,8 +84,8 @@ class HouseController extends Controller
     public function search(Request $request)
     {
         $search = $this->house;
-        if (!empty($request->get('keyword'))) {
-            $search = $search->where('address', $request->get('keyword'));
+        if (!empty($request->get('address'))) {
+            $search = $search->where('address', $request->get('address'));
         }
         if (!empty($request->get('numBedRoom'))) {
             $search = $search->where('numBedroom', $request->get('numBedRoom'));
