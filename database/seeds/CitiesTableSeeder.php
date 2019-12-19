@@ -62,31 +62,5 @@ class CitiesTableSeeder extends Seeder
         $city->image = 'cities/hanam.jpg';
         $city->save();
 
-        $city = new City();
-        $city->name = 'Ninh Bình';
-        $city->image = 'cities/ninhbinh.jpg';
-        $city->save();
-
-        $city = new City();
-        $city->name = 'Đà lạt';
-        $city->image = 'cities/dalat.jpg';
-        $city->save();
-
-        $city = new City();
-        $city->name = 'Đà Nẵng';
-        $city->image = 'cities/danang.jpg';
-        $city->save();
-
-        $city = new City();
-        $city->name = 'Huế';
-        $city->image = 'cities/hue.jpeg';
-        $city->save();
-
-        $city = new City();
-        $city->name = 'Nghệ An';
-        $city->image = 'cities/nghean.jpg';
-        $city->save();
-
-
     }
 }
