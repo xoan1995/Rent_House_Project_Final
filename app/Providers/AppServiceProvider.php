@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\City;
+use App\District;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $cities = City::all();
+        $districts = District::all();
+        \Illuminate\Support\Facades\View::share('cities', $cities);
+        \Illuminate\Support\Facades\View::share('districts', $districts);
     }
 }
