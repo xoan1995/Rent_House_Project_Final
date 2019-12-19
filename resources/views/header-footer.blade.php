@@ -104,19 +104,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <form class="form-inline" action="{{route('search')}}" enctype="multipart/form-data">
+                    <form class="form-inline" method="POST" action="{{route('search')}}" enctype="multipart/form-data">
                         @csrf
-                        <select class="form-control" name="address">
-                            @foreach($cities as $city)
-                                <option value="">{{$city->name}}</option>
+                        <select class="form-control" name="city" id="city">
+                            <option value="">Chọn Thành Phố</option>
+                            @foreach($cities as $key => $city)
+                                <option value="{{1+$key}}">{{$city->name}}</option>
                             @endforeach
                         </select>
-                        <select class="form-control ml-2" name="district">
-                            @foreach($districts as $district)
-                                <option value="">
-                                    {{$district->name}}
-                                </option>
-                            @endforeach
+                        <select class="form-control ml-2" name="district" id="district">
                         </select>
                         <button type="submit" class="btn btn-outline-danger ml-3"><img
                                 src="https://img.icons8.com/ios/20/000000/search--v1.png">
@@ -242,6 +238,35 @@
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="{{asset('storage/slick/slick.js')}}" type="text/javascript" charset="utf-8"></script>
 <script src="{{asset('storage/slick/slideCity.js')}}"></script>
+<script>
+    $('#city').change(function () {
+        let cityID = $(this).val();
+        if (cityID) {
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                data: {
+                    districtID: cityID
+                },
+                url: "http://127.0.0.1:8000/get-district-list",
+                success: function (res) {
+                    if (res) {
+                        $('#district').empty();
+                        $('#district').append('<option>Chọn Huyện</option>');
+                        $.each(res, function (key, value) {
+                            $('#district').append('<option value="' + key + '">' + value.name + '</option>')
+                        });
+                    } else {
+                        $('#district').empty();
+                    }
+                }
+            })
+        } else {
+            $('#district').empty();
+            $('#city').empty();
+        }
+    })
+</script>
 {!! toastr()->render() !!}
 </body>
 </html>

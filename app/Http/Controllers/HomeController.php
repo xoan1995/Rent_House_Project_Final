@@ -7,6 +7,7 @@ use App\House;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use TJGazel\Toastr\Facades\Toastr;
 
@@ -39,7 +40,7 @@ class HomeController extends Controller
     {
         $city = $this->city->findOrFail($id);
         $houses = $city->houses->all();
-        return view('house.listHouseForCity', compact('houses','city'));
+        return view('house.listHouseForCity', compact('houses', 'city'));
     }
 
     public function search(Request $request)
@@ -61,5 +62,12 @@ class HomeController extends Controller
         $cities = City::all();
         $houses = $search->get();
         return view('house.list', compact('houses', 'cities'));
+    }
+
+    public function getDistrictList(Request $request)
+    {
+        $cities = DB::table("districts")
+            ->where('city_id', 'LIKE', $request->districtID)->get();
+        return response()->json($cities);
     }
 }
