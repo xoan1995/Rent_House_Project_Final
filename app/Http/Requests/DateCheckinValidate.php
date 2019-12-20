@@ -24,8 +24,9 @@ class DateCheckinValidate extends FormRequest
     public function rules()
     {
         return [
-            'checkin' => 'after:' . date(DATE_ATOM, time()),
-            'checkout' => 'after:' . date(DATE_ATOM, time()),
+            'checkin' => 'before:checkout|after:' . date(DATE_ATOM, time()),
+            'checkout' => 'after:checkin|after:' . date(DATE_ATOM, time()),
         ];
     }
+
 }

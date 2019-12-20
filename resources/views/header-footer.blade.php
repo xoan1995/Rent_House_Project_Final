@@ -120,24 +120,10 @@
                     </form>
 
                 </li>
-                <li class="nav-item">
-                    @if (Route::has('login'))
-                        <div class="top-right links">
-                            @auth
-                            @else
-                                {{--                            <a href="{{ route('login') }}">Đăng Nhập</a>--}}
-
-                                @if (Route::has('register'))
-                                    {{--                                <a href="{{ route('register') }}">Đăng ký</a>--}}
-                                @endif
-                            @endauth
-                        </div>
-                    @endif
-                </li>
             </ul>
 
             <ul class="navbar-nav ">
-                <li class="nav-item ml-3 gift" style="margin-top: 2px">
+                <li class="nav-item ml-3 gift" style="margin-top: 5px">
                     <a style="color: #1b1e21; font-size: 17px" href=""><img
                             src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
                 </li>
@@ -229,7 +215,7 @@
     </nav>
 </div>
 
-<div class="container" style="margin-top: 5rem">
+<div class="container" style="margin-top: 6rem">
     @yield('content')
 </div>
 <script src="{{asset('storage/showslide/slide.js')}}"></script>

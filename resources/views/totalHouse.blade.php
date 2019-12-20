@@ -1,8 +1,6 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 @extends('header-footer')
 @section('content')
-
 
     <div class="mt-4">
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
@@ -167,17 +165,32 @@
                                 <p style="width: 150px;background: coral;color: white">Giảm 40% từ chủ nhà</p>
                                 <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
                             </div>
-                            <div class="ml-5">
-                                <input type="date" name="checkin" style="border-radius: 10px">
-                                @if($errors->has('checkin'))
-                                    <p class="text-danger">{{$errors->first('checkin')}}</p>
-                                @endif
-                                <input type="date" name="checkout" style="border-radius: 10px">
-                                @if($errors->has('checkout'))
-                                    <p class="text-danger">{{$errors->first('checkout')}}</p>
-                                @endif
+                            <div class="ml-2">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="date" name="checkin" style="border-radius: 10px">
+                                        </div>
+                                        <div   class="col-6">
+                                            <input type="date" name="checkout" style="border-radius: 10px">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            @if($errors->has('checkin'))
+                                                <span class="text-danger">{{$errors->first('checkin')}}</span>
+                                            @endif
+                                        </div>
+                                        <div class="col-6">
+                                            @if($errors->has('checkout'))
+                                                <span class="text-danger">{{$errors->first('checkout')}}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <input type="text" value="{{$house->user->email}}" name="email" style="display: none">
+                            <input type="text" value="{{$house->price}}" name="price" style="display: none">
                             <input type="text" value="{{$house->title}}" name="title" style="display: none">
                             <input type="text" value="{{$house->id}}" name="house_id" style="display: none">
                             <div class="ml-lg-5 mr-5 mb-4 mt-4">

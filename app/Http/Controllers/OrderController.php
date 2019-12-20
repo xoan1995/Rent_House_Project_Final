@@ -9,6 +9,7 @@ use App\Notification;
 use App\Notifications\RepliedToThread;
 use App\Order;
 use App\StatusInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use TJGazel\Toastr\Toastr;
@@ -29,6 +30,7 @@ class OrderController extends Controller
         $checkin = $request->checkin;
         $checkout = $request->checkout;
         $house_id = $request->house_id;
+        $totalDayRent = Carbon::parse($checkout)->format('Ymd') - Carbon::parse($checkin)->format('Ymd');
 
         $order = new Order();
         $order->user_id = Auth::id();
@@ -36,6 +38,7 @@ class OrderController extends Controller
         $order->status = StatusInterface::PENDING;
         $order->checkin = $checkin;
         $order->checkout = $checkout;
+        $order->totalPrice = ($totalDayRent * $request->price);
 
         $order->save();
 
