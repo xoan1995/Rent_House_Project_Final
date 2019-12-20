@@ -11,6 +11,7 @@ class House extends Model
     protected $fillable = [
         'title', 'kindHouse', 'kindRoom', 'address', 'numBedroom', 'numBathroom', 'description', 'price', 'city_id', 'district_id'
     ];
+
     public function city()
     {
         return $this->belongsTo('App\City');
@@ -25,8 +26,14 @@ class House extends Model
     {
         return $this->hasMany('App\Image');
     }
+
     public function district()
     {
         return $this->belongsTo('App\District');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
     }
 }
