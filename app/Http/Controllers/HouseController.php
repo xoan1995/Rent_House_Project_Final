@@ -12,6 +12,8 @@ use App\User;
 use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use TJGazel\Toastr\Facades\Toastr;
+
 
 class HouseController extends Controller
 {
@@ -42,7 +44,7 @@ class HouseController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(HouseRequestValidate $request)
     {
         $house = new House();
         $house->title = $request->title;
@@ -59,17 +61,21 @@ class HouseController extends Controller
         $house->district_id = $request->district_id;
         $house->save();
 
-        $house_id = DB::table('houses')->max('id');
-        foreach ($request->images as $image) {
+        if ($request->images){
+            $house_id = DB::table('houses')->max('id');
+            foreach ($request->images as $image) {
 
-            $path = $image->store('rooms', 'public');
+                $path = $image->store('rooms', 'public');
 
-            $imageUpload = new Image();
-            $imageUpload->path = $path;
-            $imageUpload->house_id = $house_id;
-            $imageUpload->save();
+                $imageUpload = new Image();
+                $imageUpload->path = $path;
+                $imageUpload->house_id = $house_id;
+                $imageUpload->save();
+            }
+        }else {
+            return back();
         }
-
+        Toastr::success('upload house success!');
         return redirect('/');
     }
 

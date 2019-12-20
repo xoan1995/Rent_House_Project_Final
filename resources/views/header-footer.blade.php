@@ -148,7 +148,7 @@
                 @guest
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        <a id="navbarDropdown" class="nav-link" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         <span class="">
                             <img src="https://img.icons8.com/carbon-copy/35/000000/bell.png">
