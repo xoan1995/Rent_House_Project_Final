@@ -68,8 +68,8 @@
     }
 
     .gift {
-        border-radius: 35px;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+        border-radius: 25px;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .1);
         background-color: #fff;
     }
 
@@ -156,18 +156,16 @@
                             style="width: 600px">
                             @foreach(\App\Notification::all() as $notice)
                                 @if(json_decode($notice->data)->receiver == auth()->user()->email)
-                                    <div>
+                                    <div class="container">
                                         <a href="{{route('totalHouse', json_decode($notice->data)->house_id)}}">
                                             {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
                                             từ {{json_decode($notice->data)->checkin}}
                                             đến {{json_decode($notice->data)->checkout}}
                                             bởi {{json_decode($notice->data)->sender}}
                                         </a>
-                                    </div>
-                                    <div>
-                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 57px; padding-bottom: 25px"
+                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
                                            href="" class="btn btn-success">Confirm</a>
-                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 57px; padding-bottom: 25px"
+                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
                                            href="" class="btn btn-danger">Cancel</a>
                                     </div>
                                 @endif
@@ -215,7 +213,7 @@
     </nav>
 </div>
 
-<div class="container" style="margin-top: 6rem">
+<div class="container" style="margin-top: 6rem;">
     @yield('content')
 </div>
 <script src="{{asset('storage/showslide/slide.js')}}"></script>
