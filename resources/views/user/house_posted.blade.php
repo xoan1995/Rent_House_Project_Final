@@ -45,7 +45,7 @@
                             </div>
                             <div>
                                 <p style="font-family: 'Arial Rounded MT Bold'">
-                                    Address: {{$house->address}} {{$house->district->name}} {{$house->city->name}}
+                                    Address: {{$house->address}} - {{$house->district->name}} - {{$house->city->name}}
                                 </p>
                             </div>
                         </div>

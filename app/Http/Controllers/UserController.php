@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\House;
 use App\Http\Requests\EditUserRequest;
+use App\Notifications\RepliedRequestRentHouse;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 use TJGazel\Toastr\Facades\Toastr;
 
 class UserController extends Controller
@@ -100,8 +103,19 @@ class UserController extends Controller
     public function showHousePosted()
     {
         $user_id = \auth()->id();
-        $houses = House::where('user_id','LIKE',$user_id)->get();
-        return view('user.house_posted',compact('houses'));
+        $houses = House::where('user_id', 'LIKE', $user_id)->get();
+        return view('user.house_posted', compact('houses'));
+    }
+
+    public function acceptAndSendEmail()
+    {
+        \auth()->user()->notify(new RepliedRequestRentHouse('tg.bluesky66@gmail.com'));
+        return back();
+    }
+
+    public function rejectAndSendEmail()
+    {
+
     }
 
 }
