@@ -113,9 +113,12 @@
                             @endforeach
                         </select>
                         <select class="form-control ml-2" name="district" id="district">
+                            <option value="">Chọn Huyện</option>
                         </select>
-                        <button type="submit" class="btn btn-outline-danger ml-3"><img
-                                src="https://img.icons8.com/ios/20/000000/search--v1.png">
+                        <input name="numBedroom" type="text" class="form-control ml-2" style="text-align: center; width: 155px" placeholder="Số lượng phòng ngủ">
+                        <input name="numBathroom" type="text" class="form-control ml-2" style="text-align: center; width: 155px" placeholder="Số lượng phòng tắm">
+                        <button type="submit" class="btn btn-outline-danger ml-3">
+                            <img src="https://img.icons8.com/ios/20/000000/search--v1.png">
                         </button>
                     </form>
 

@@ -46,14 +46,19 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $search = $this->house;
-        if (!empty($request->get('address'))) {
-            $search = $search->where('address', $request->get('address'));
+        if (!empty($request->get('city'))) {
+            $search = $search->where('city_id', $request->get('city'));
         }
-        if (!empty($request->get('numBedRoom'))) {
-            $search = $search->where('numBedroom', $request->get('numBedRoom'));
+//        dd($request->get('city'));
+        if (!empty($request->get('district'))) {
+            $search = $search->where('district_id', $request->get('district'));
         }
-        if (!empty($request->get('numBathRoom'))) {
-            $search = $search->where('numBathroom', $request->get('numBathRoom'));
+//        dd($request->get('numBedroom'));
+        if (!empty($request->get('numBedroom'))) {
+            $search = $search->where('numBedroom', $request->get('numBedroom'));
+        }
+        if (!empty($request->get('numBathroom'))) {
+            $search = $search->where('numBathroom', $request->get('numBathroom'));
         }
         if (!empty($request->get('price'))) {
             $search = $search->where('price', $request->get('price'));
