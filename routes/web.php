@@ -23,7 +23,10 @@ Route::post('/update-profile', 'UserController@update')->name('users.update');
 Route::get('/change-password', 'UserController@viewChangePassword')->name('user.changePassword');
 Route::post('/change-password', 'UserController@changePassword')->name('user.changePassword');
 Route::get('/city/{id}/list-house','HomeController@showHouseForCity')->name('city.listHouse');
+
 Route::get('/user/house-posted','UserController@showHousePosted')->name('user.showHousePosted');
+Route::get('/user/accept','UserController@acceptAndSendEmail')->name('user.accept');
+Route::get('/user/reject','UserController@rejectAndSendEmail')->name('user.reject');
 
 Route::get('get-district-list','HomeController@getDistrictList');
 

@@ -8,11 +8,11 @@
         <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Địa điểm nổi bật</div>
         <div>Cùng Luxury Rent House bắt đầu chuyến hành trình chinh phục đất nước Việt Nam</div>
         <div class="">
-            <section class="regular slider mt-4" style="width: 100%;height: 50%">
+            <section class="regular slider mt-4" style="width: 100%;height: 30%">
                 @foreach($cities as $city)
                     <a href="{{route('city.listHouse',$city->id)}}">
                         <div style="position: relative">
-                            <img height="300px" width="440px" src="{{asset('storage/'.$city->image)}}">
+                            <img class="card-img" height="300px" width="440px" src="{{asset('storage/'.$city->image)}}">
                             <div style="position: absolute; left: 50px; bottom: 50px">
                                 <p style=" font-family: 'Arial Black' ;color: white; font-weight: bolder; font-size: 20px">{{$city->name}}</p>
                                 <p style=" color: white; font-weight: bolder">Chỗ ở</p>
