@@ -31,7 +31,7 @@
                                 width: 100%;overflow: hidden;
                                 white-space: nowrap;
                                 text-overflow: ellipsis; ">
-                                    {{$house->address}}
+                                    {{$house->address}} - {{$house->district->name}} - {{$house->city->name}}
                                 </h6>
                             </div>
                         </div>
