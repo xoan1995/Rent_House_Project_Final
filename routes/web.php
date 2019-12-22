@@ -34,7 +34,7 @@ Route::prefix('houses')->group(function () {
     Route::get('image', 'HouseController@createImage')->name('createImage')->middleware('auth');
     Route::post('store/image', 'HouseController@storeImage')->name('storeImage')->middleware('auth');
     Route::get('totalHouse/{id}', 'HouseController@totalHouse')->name('totalHouse');
-    Route::get('search', 'HomeController@search')->name('search');
+    Route::post('search', 'HomeController@search')->name('search');
 });
 
 Route::prefix('order')->group(function () {
