@@ -106,17 +106,18 @@
                 <li class="nav-item">
                     <form class="form-inline" method="POST" action="{{route('search')}}" enctype="multipart/form-data">
                         @csrf
-                        <select class="form-control" name="city" id="city">
-                            <option value="">Chọn Thành Phố</option>
+                        <select class="form-control" name="city" id="city" style="width: 120px">
+                            <option value="">Thành Phố</option>
                             @foreach($cities as $key => $city)
                                 <option value="{{1+$key}}">{{$city->name}}</option>
                             @endforeach
                         </select>
                         <select class="form-control ml-2" name="district" id="district">
-                            <option value="">Chọn Huyện</option>
+                            <option value="">Huyện</option>
                         </select>
                         <input name="numBedroom" type="text" class="form-control ml-2" style="text-align: center; width: 155px" placeholder="Số lượng phòng ngủ">
                         <input name="numBathroom" type="text" class="form-control ml-2" style="text-align: center; width: 155px" placeholder="Số lượng phòng tắm">
+                        <input name="price" type="text" class="form-control ml-2" style="text-align: center; width: 80px" placeholder="Giá/đêm">
                         <button type="submit" class="btn btn-outline-danger ml-3">
                             <img src="https://img.icons8.com/ios/20/000000/search--v1.png">
                         </button>
@@ -239,7 +240,7 @@
                 success: function (res) {
                     if (res) {
                         $('#district').empty();
-                        $('#district').append('<option>Chọn Huyện</option>');
+                        $('#district').append('<option>Huyện</option>');
                         $.each(res, function (key, value) {
                             $('#district').append('<option value="' + key + '">' + value.name + '</option>')
                         });
