@@ -26,7 +26,7 @@
 
 <div class="row">
     <p class="ml-2" style="font-size: 30px; font-weight: bold; color: #1b1e21">
-     Homestay nổi bật tại Luxstay
+        Kết qủa tìm kiếm
     </p>
 </div>
 <div class="mt-4">
