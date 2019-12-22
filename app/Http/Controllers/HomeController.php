@@ -49,11 +49,6 @@ class HomeController extends Controller
         if (!empty($request->get('city'))) {
             $search = $search->where('city_id', $request->get('city'));
         }
-//        dd($request->get('city'));
-        if (!empty($request->get('district'))) {
-            $search = $search->where('district_id', $request->get('district'));
-        }
-//        dd($request->get('numBedroom'));
         if (!empty($request->get('numBedroom'))) {
             $search = $search->where('numBedroom', $request->get('numBedroom'));
         }
