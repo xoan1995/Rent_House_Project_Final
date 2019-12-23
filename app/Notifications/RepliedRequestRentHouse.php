@@ -16,11 +16,11 @@ class RepliedRequestRentHouse extends Notification
      *
      * @return void
      */
-    protected $email;
 
-    public function __construct($email)
+
+    public function __construct()
     {
-        $this->email = $email;
+
     }
 
     /**
@@ -43,8 +43,8 @@ class RepliedRequestRentHouse extends Notification
     public function toMail($notifiable)
     {
 
-        return (new MailMessage)
-            ->from($this->email,'example')
+        return (new MailMessage)->cc('ledanhquyen1998@gmail.com')
+            ->from('tg.bluesky66@gmail.com','Admin')
             ->line('The introduction to the notification.')
             ->action('Notification Action', url('/'))
             ->line('Thank you for using our application!');
