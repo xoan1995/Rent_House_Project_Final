@@ -107,15 +107,12 @@ class UserController extends Controller
         return view('user.house_posted', compact('houses'));
     }
 
-    public function acceptAndSendEmail()
+    public function sendMail()
     {
         return view('user.sendEmail');
-//        $user->email = 'tg.bluesky65@gmail.com';
-//        $user->notify(new RepliedRequestRentHouse());
-//        return back();
     }
 
-    public function sendMail(Request $request)
+    public function send(Request $request)
     {
         $this->validate($request, [
             'from' => 'required',
@@ -123,5 +120,14 @@ class UserController extends Controller
             'message' => 'required'
         ]);
     }
-
+    public function acceptAndSendEmail()
+    {
+        $user = User::findOrFail(3);
+        $user->email = 'tg.bluesky65@gmail.com';
+        $user->notify(new RepliedRequestRentHouse());
+        return back();
+    }
+    public function rejectAndSendEmail()
+    {
+    }
 }
