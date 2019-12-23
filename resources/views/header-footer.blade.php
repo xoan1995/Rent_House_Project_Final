@@ -255,6 +255,16 @@
             $('#city').empty();
         }
     })
+    $(document).ready(function () {
+        $("#posted").click(function(){
+            $(".booking").hide();
+            $(".posted").show();
+        });
+        $("#booking").click(function(){
+            $(".posted").hide();
+            $(".booking").show();
+        });
+    })
 </script>
 {!! toastr()->render() !!}
 </body>
