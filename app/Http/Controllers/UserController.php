@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\House;
 use App\Http\Requests\EditUserRequest;
+use App\Mail\OrderShipped;
 use App\Notifications\RepliedRequestRentHouse;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
@@ -100,7 +102,7 @@ class UserController extends Controller
         }
     }
 
-    public function showHousePosted()
+    public function showHousePostedAndBooking()
     {
         $user_id = \auth()->id();
         $houses = House::where('user_id', 'LIKE', $user_id)->get();
@@ -122,9 +124,11 @@ class UserController extends Controller
     }
     public function acceptAndSendEmail()
     {
-        $user = User::findOrFail(3);
-        $user->email = 'tg.bluesky65@gmail.com';
-        $user->notify(new RepliedRequestRentHouse());
+        $sender = 'tg.bluesky66@gmail.com';
+        $receive = 'tg.bluesky65@gmail.com';
+        Mail::to($receive)
+            ->send(new \App\Mail\RepliedRequestRentHouse($sender));
+        Toastr::success('this rental is complete!');
         return back();
     }
     public function rejectAndSendEmail()

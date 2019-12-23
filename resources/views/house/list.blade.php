@@ -8,7 +8,7 @@
         <div style="font-size: 30px; font-weight: bold; color: #1b1e21">Địa điểm nổi bật</div>
         <div>Cùng Luxury Rent House bắt đầu chuyến hành trình chinh phục đất nước Việt Nam</div>
         <div class="">
-            <section class="regular slider mt-4" style="width: 100%;height: 30%">
+            <section class="regular slider mt-4" style="width: 100%;height: 40%">
                 @foreach($cities as $city)
                     <a href="{{route('city.listHouse',$city->id)}}">
                         <div style="position: relative">
