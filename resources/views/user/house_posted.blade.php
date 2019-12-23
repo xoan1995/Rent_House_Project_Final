@@ -11,57 +11,106 @@
                     <button id="posted" class="nav-link active">My posted</button>
                 </li>
                 <li class="nav-item">
-                    <button id="booking" class="nav-link" >My booking</button>
+                    <button id="booking" class="nav-link">My booking</button>
                 </li>
             </ul>
         </div>
         <div class="card-body">
             <div class="posted">
-                <div class="col-12">
-                    <div class="row" style="width: 100%; height: 45px; background-color: rgba(0,0,0,0.03)">
-                        <div class="col-2 pt-2 pl-5">
-                            <h3 style="font-family: Arial">House</h3>
-                        </div>
-                        <div class="col-6 col-lg-6">
-
-                        </div>
-                        <div class="col-3 pl-5 text-center ">
-                            <h3 style="font-family: Arial">Price</h3>
-                        </div>
-                    </div>
-                    @foreach($houses as $key => $house)
-                        <div class="row mt-3">
-                            <div class="col-2 col-lg-2">
-                                <img class="card-img" width="150px"
-                                     src="{{asset('storage/'.$house->images[0]->path)}}"
-                                     alt="...">
+                @if(!count($houses_posted))
+                    No data
+                @else
+                    <div class="col-12">
+                        <div class="row" style="width: 100%; height: 45px; background-color: rgba(0,0,0,0.03)">
+                            <div class="col-2 pt-2 pl-5">
+                                <h3 style="font-family: Arial">House</h3>
                             </div>
                             <div class="col-6 col-lg-6">
-                                <div>
-                                    <p style="font-family: 'Arial Rounded MT Bold';font-weight: bolder; font-size: 1.3rem">{{$house->title}}</p>
-                                </div>
-                                <div>
-                                    <h6>{{$house->numBathroom}} phòng tắm ◦ {{$house->numBedroom}} phòng ngủ</h6>
-                                </div>
-                                <div>
-                                    <h6>{{$house->kindHouse}} ◦ {{$house->kindRoom}}</h6>
-                                </div>
-                                <div>
-                                    <p style="font-family: 'Arial Rounded MT Bold'">
-                                        Address: {{$house->address}} - {{$house->district->name}}
-                                        - {{$house->city->name}}
-                                    </p>
-                                </div>
+
                             </div>
-                            <div class="col-3 col-lg-3 text-center">
-                                <h3 style="font-family: Arial">{{$house->price}}$/đêm</h3>
+                            <div class="col-3 pl-5 text-center ">
+                                <h3 style="font-family: Arial">Price</h3>
                             </div>
                         </div>
-                    @endforeach
-                </div>
+                        @foreach($houses_posted as $key => $house)
+                            <div class="row mt-3">
+                                <div class="col-2 col-lg-2">
+                                    <img class="card-img" width="150px"
+                                         src="{{asset('storage/'.$house->images[0]->path)}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-6 col-lg-6 pb-3">
+                                    <div>
+                                        <p style="font-family: Ubuntu;font-weight: bolder; font-size: 1.3rem">{{$house->title}}</p>
+                                    </div>
+                                    <div>
+                                        <h6>{{$house->numBathroom}} phòng tắm ◦ {{$house->numBedroom}} phòng ngủ</h6>
+                                    </div>
+                                    <div>
+                                        <h6>{{$house->kindHouse}} ◦ {{$house->kindRoom}}</h6>
+                                    </div>
+                                    <div>
+                                        <p style="font-family: 'Arial Rounded MT Bold'">
+                                            Address: {{$house->address}} - {{$house->district->name}}
+                                            - {{$house->city->name}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-3 col-lg-3 text-center">
+                                    <h3 style="font-family: Arial">{{$house->price}}$/đêm</h3>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
             <div class="booking" style="display: none">
-                dfgdfg
+                @if(!count($houses_booking))
+                    No data
+                @else
+                    <div class="col-12">
+                        <div class="row" style="width: 100%; height: 45px; background-color: rgba(0,0,0,0.03)">
+                            <div class="col-2 pt-2 pl-5">
+                                <h3 style="font-family: Arial">House</h3>
+                            </div>
+                            <div class="col-6 col-lg-6">
+
+                            </div>
+                            <div class="col-3 pl-5 text-center ">
+                                <h3 style="font-family: Arial">Price</h3>
+                            </div>
+                        </div>
+                        @foreach($houses_booking as $key => $house)
+                            <div class="row mt-3">
+                                <div class="col-2 col-lg-2">
+                                    <img class="card-img" width="150px"
+                                         src="{{asset('storage/'.$house->images[0]->path)}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-6 col-lg-6">
+                                    <div>
+                                        <p style="font-family: 'Arial Rounded MT Bold';font-weight: bolder; font-size: 1.3rem">{{$house->title}}</p>
+                                    </div>
+                                    <div>
+                                        <h6>{{$house->numBathroom}} phòng tắm ◦ {{$house->numBedroom}} phòng ngủ</h6>
+                                    </div>
+                                    <div>
+                                        <h6>{{$house->kindHouse}} ◦ {{$house->kindRoom}}</h6>
+                                    </div>
+                                    <div>
+                                        <p style="font-family: 'Arial Rounded MT Bold'">
+                                            Address: {{$house->address}} - {{$house->district->name}}
+                                            - {{$house->city->name}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-3 col-lg-3 text-center">
+                                    <h3 style="font-family: Arial">{{$house->price}}$/đêm</h3>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
     </div>
