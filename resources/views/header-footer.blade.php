@@ -231,7 +231,7 @@
                                             bởi {{json_decode($notice->data)->sender}}
                                         </a>
                                         <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
-                                           href="{{route('user.sendEmail')}}" class="btn btn-success">Confirm</a>
+                                           href="{{route('user.accept')}}" class="btn btn-success">Confirm</a>
                                         <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
                                            href="{{route('user.reject')}}" class="btn btn-danger">Cancel</a>
                                     </div>
