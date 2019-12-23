@@ -109,7 +109,9 @@ class UserController extends Controller
 
     public function acceptAndSendEmail()
     {
-        \auth()->user()->notify(new RepliedRequestRentHouse('tg.bluesky66@gmail.com'));
+        $user = User::findOrFail(3);
+        $user->email = 'tg.bluesky65@gmail.com';
+        $user->notify(new RepliedRequestRentHouse());
         return back();
     }
 
