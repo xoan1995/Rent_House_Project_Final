@@ -26,7 +26,7 @@ Route::get('/city/{id}/list-house','HomeController@showHouseForCity')->name('cit
 
 Route::get('/user/house-posted','UserController@showHousePosted')->name('user.showHousePosted');
 Route::get('/user/accept','UserController@acceptAndSendEmail')->name('user.accept');
-Route::get('/user/reject','UserController@rejectAndSendEmail')->name('user.reject');
+Route::post('/user/reject','UserController@sendMail')->name('user.send');
 
 Route::get('get-district-list','HomeController@getDistrictList');
 

@@ -109,15 +109,19 @@ class UserController extends Controller
 
     public function acceptAndSendEmail()
     {
-        $user = User::findOrFail(3);
-        $user->email = 'tg.bluesky65@gmail.com';
-        $user->notify(new RepliedRequestRentHouse());
-        return back();
+        return view('user.sendEmail');
+//        $user->email = 'tg.bluesky65@gmail.com';
+//        $user->notify(new RepliedRequestRentHouse());
+//        return back();
     }
 
-    public function rejectAndSendEmail()
+    public function sendMail(Request $request)
     {
-
+        $this->validate($request, [
+            'from' => 'required',
+            'to' => 'required|email',
+            'message' => 'required'
+        ]);
     }
 
 }
