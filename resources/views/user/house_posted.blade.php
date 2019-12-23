@@ -21,30 +21,28 @@
                     No data
                 @else
                     <div class="col-12">
-                        <div class="row" style="width: 100%; height: 45px; background-color: rgba(0,0,0,0.03)">
+                        <div class="row" style="width: 100%; height: 35px; background-color: rgba(0,0,0,0.03)">
                             <div class="col-2 pt-2 pl-5">
-                                <h3 style="font-family: Arial">House</h3>
+                                <h5 style="font-family: Arial">House</h5>
                             </div>
-                            <div class="col-6 col-lg-6">
-
+                            <div class="col-4 col-lg-4"></div>
+                            <div class="col-2 col-lg-2">
+                                <h5 style="font-family: Arial" class="text-center">Status</h5>
                             </div>
-                            <div class="col-3 pl-5 text-center ">
-                                <h3 style="font-family: Arial">Price</h3>
+                            <div class="col-3 pt-2 text-center ">
+                                <h4 style="font-family: Arial">Price</h4>
                             </div>
                         </div>
                         @foreach($houses_posted as $key => $house)
                             <div class="row mt-3">
                                 <div class="col-2 col-lg-2">
-                                    <img class="card-img" width="150px"
+                                    <img class="card-img" width="80px"
                                          src="{{asset('storage/'.$house->images[0]->path)}}"
                                          alt="...">
                                 </div>
-                                <div class="col-6 col-lg-6 pb-3">
+                                <div class="col-4 col-lg-4 pb-3">
                                     <div>
-                                        <p style="font-family: Ubuntu;font-weight: bolder; font-size: 1.3rem">{{$house->title}}</p>
-                                    </div>
-                                    <div>
-                                        <h6>{{$house->numBathroom}} phòng tắm ◦ {{$house->numBedroom}} phòng ngủ</h6>
+                                        <h4 style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem">{{$house->title}}</h4>
                                     </div>
                                     <div>
                                         <h6>{{$house->kindHouse}} ◦ {{$house->kindRoom}}</h6>
@@ -56,8 +54,13 @@
                                         </p>
                                     </div>
                                 </div>
+                                <div class="col-2 col-lg-2 text-center">
+                                    <h4 style="font-family: Arial">
+                                        Ready
+                                    </h4>
+                                </div>
                                 <div class="col-3 col-lg-3 text-center">
-                                    <h3 style="font-family: Arial">{{$house->price}}$/đêm</h3>
+                                    <h4 style="font-family: Arial">{{$house->price}}$/đêm</h4>
                                 </div>
                             </div>
                         @endforeach
@@ -89,7 +92,7 @@
                                 </div>
                                 <div class="col-6 col-lg-6">
                                     <div>
-                                        <p style="font-family: 'Arial Rounded MT Bold';font-weight: bolder; font-size: 1.3rem">{{$house->title}}</p>
+                                        <h4 style="font-family: 'Arial Rounded MT Bold';font-weight: bolder; font-size: 1rem">{{$house->title}}</h4>
                                     </div>
                                     <div>
                                         <h6>{{$house->numBathroom}} phòng tắm ◦ {{$house->numBedroom}} phòng ngủ</h6>

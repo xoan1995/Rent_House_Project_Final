@@ -28,7 +28,6 @@ Route::get('/user/house-posted','UserController@showHousePostedAndBooking')->nam
 Route::get('/user/accept','UserController@acceptAndSendEmail')->name('user.accept');
 Route::get('/user/reject','UserController@rejectAndSendEmail')->name('user.reject');
 
-Route::get('/user/reject','UserController@rejectAndSendEmail')->name('user.reject');
 
 Route::get('get-district-list','HomeController@getDistrictList');
 
