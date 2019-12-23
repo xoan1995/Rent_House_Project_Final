@@ -411,7 +411,7 @@
                 if (oldValue >= 0) {
                     var newVal = parseFloat(oldValue) + 1;
                 } else {
-                    newVal = 03
+                    newVal = 0
                 }
             }
 
