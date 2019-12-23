@@ -26,20 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <form class="form-inline" method="POST" action="{{route('search')}}" enctype="multipart/form-data">
-                        @csrf
-                        <select class="form-control" name="city" id="city">
-                            <option value="">Chọn Thành Phố</option>
-                            @foreach($cities as $key => $city)
-                                <option value="{{1+$key}}">{{$city->name}}</option>
-                            @endforeach
-                        </select>
-                        <select class="form-control ml-2" name="district" id="district">
-                        </select>
-                        <button type="submit" class="btn btn-outline-danger ml-3"><img
-                                src="https://img.icons8.com/ios/20/000000/search--v1.png">
-                        </button>
-                    </form>
+
                 </li>
             </ul>
 
@@ -113,14 +100,14 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{route('user.showHousePosted')}}" class="dropdown-item">My booking & posted</a>
+                            <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
+                            <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-                            <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
-                            <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
-                            <a href="#" class="dropdown-item">History</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
