@@ -96,6 +96,9 @@
     .el-input-number {
         opacity: .4;
     }
+    .item{
+        box-shadow: 0 5px 20px 0 rgba(0,0,0,.1);
+    }
 </style>
 
 <body>
@@ -119,14 +122,13 @@
                         <select class="form-control ml-2" name="district" id="district">
                             <option value="">Huyện</option>
                         </select>
-
                         <div class="nav-item dropdown ml-2">
                             <button style="color: #1b1e21" class="nav-link dropdown-toggle form-control"
                                     id="navbarDropdown"
                                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Tìm kiếm chi tiết
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 350px">
+                            <div class="dropdown-menu item" aria-labelledby="navbarDropdown" style="width: 350px">
                                 <div class="container">
                                     <div style="float: left; font-weight: bold; font-size: 17px">
                                         Số lượng phòng ngủ
@@ -161,11 +163,28 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <button type="submit" class="btn btn-outline-danger ml-3">
-                                <img src="https://img.icons8.com/ios/20/000000/search--v1.png">
-                            </button>
                         </div>
+
+                        <div class="nav-item dropdown ml-2">
+                            <a style="color:black;" class="nav-link dropdown-toggle form-control" id="navbarDropdown"
+                               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ngày
+                            </a>
+                            <div class="dropdown-menu item" aria-labelledby="navbarDropdown" style="width: 400px">
+                                <div style="float: left" class="pl-2">
+                                    <div style="text-align: center; font-size: 17px; font-weight: bold">Từ</div>
+                                    <input type="date" name="checkin" class="form-control">
+                                </div>
+                                <div style="float: left" class="ml-3">
+                                    <div style="text-align: center; font-size: 17px; font-weight: bold">Đến</div>
+                                    <input type="date" name="checkout" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-danger ml-3">
+                            <img src="https://img.icons8.com/ios/20/000000/search--v1.png">
+                        </button>
                     </form>
                 </li>
             </ul>
@@ -300,17 +319,16 @@
         }
     })
     $(document).ready(function () {
-        $("#posted").click(function(){
+        $("#posted").click(function () {
             $(".booking").hide();
             $(".posted").show();
         });
-        $("#booking").click(function(){
+        $("#booking").click(function () {
             $(".posted").hide();
             $(".booking").show();
         });
     })
 </script>
-
 <script>
     $(document).ready(function () {
 
@@ -353,7 +371,6 @@
         });
     });
 </script>
-
 <script>
     $(document).ready(function () {
 
@@ -396,7 +413,6 @@
         });
     });
 </script>
-
 <script>
     $(document).ready(function () {
 
@@ -411,7 +427,7 @@
                 if (oldValue >= 0) {
                     var newVal = parseFloat(oldValue) + 1;
                 } else {
-                    newVal = 03
+                    newVal = 0
                 }
             }
 
@@ -439,7 +455,6 @@
         });
     });
 </script>
-
 {!! toastr()->render() !!}
 </body>
 </html>
