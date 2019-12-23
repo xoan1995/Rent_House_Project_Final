@@ -105,10 +105,31 @@ class UserController extends Controller
     public function showHousePostedAndBooking()
     {
         $user_id = \auth()->id();
-        $houses = House::where('user_id', 'LIKE', $user_id)->get();
-        return view('user.house_posted', compact('houses'));
+        $houses_posted = House::where('user_id', 'LIKE', $user_id)->get();
+        $notifications_booking = \App\Notification::where('notifiable_id', 'LIKE', $user_id)->get();
+        $houses_booking = [];
+        foreach ($notifications_booking as $value) {
+            $house_id = json_decode($value->data)->house_id;
+            $house = House::findOrFail($house_id);
+            array_push($houses_booking, $house);
+        }
+
+        return view('user.house_posted', compact('houses_posted','houses_booking'));
     }
 
+    public function sendMail()
+    {
+        return view('user.sendEmail');
+    }
+
+    public function send(Request $request)
+    {
+        $this->validate($request, [
+            'from' => 'required',
+            'to' => 'required|email',
+            'message' => 'required'
+        ]);
+    }
     public function acceptAndSendEmail()
     {
         $sender = 'tg.bluesky66@gmail.com';
@@ -118,10 +139,7 @@ class UserController extends Controller
         Toastr::success('this rental is complete!');
         return back();
     }
-
     public function rejectAndSendEmail()
     {
-
     }
-
 }
