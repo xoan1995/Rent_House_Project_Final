@@ -38,9 +38,7 @@ class HouseController extends Controller
 
     public function create()
     {
-        $districts = District::all();
-        $cities = City::all();
-        return view('house.create', compact('cities', 'districts'));
+        return view('house.create');
     }
 
 
@@ -61,7 +59,7 @@ class HouseController extends Controller
         $house->district_id = $request->district_id;
         $house->save();
 
-        if ($request->images){
+        if ($request->images) {
             $house_id = DB::table('houses')->max('id');
             foreach ($request->images as $image) {
 
@@ -72,7 +70,7 @@ class HouseController extends Controller
                 $imageUpload->house_id = $house_id;
                 $imageUpload->save();
             }
-        }else {
+        } else {
             return back();
         }
         Toastr::success('upload house success!');
@@ -83,6 +81,14 @@ class HouseController extends Controller
     {
         $house = $this->house->findOrFail($id);
         return view('totalHouse', compact('house'));
+    }
+
+    public function selectCityandDistrict(Request $request)
+    {
+        $districts = DB::table("districts")
+            ->where('city_id', 'LIKE', $request->districtID)->get();
+
+        return response()->json($districts);
     }
 
 }

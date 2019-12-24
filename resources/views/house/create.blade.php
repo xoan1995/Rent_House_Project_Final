@@ -251,17 +251,14 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">City<span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-
-                                    <select class="form-control"
+                                    <select class="form-control" id="city"
                                             @if($errors->has('city_id')) style="border:solid 1px red"
                                             @endif name="city_id">
                                         <option value="" selected style=" display: none">
                                             Select
                                         </option>
-                                        @foreach($cities as $city)
-                                            <option value="{{$city->id}}">
-                                                {{$city->name}}
-                                            </option>
+                                        @foreach($cities as $key => $city)
+                                            <option value="{{1+$key}}">{{$city->name}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('city_id'))
@@ -273,20 +270,8 @@
                                 <label class="col-sm-2 col-form-label">District<span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <select class="form-control"
-                                            @if($errors->has('distric_id')) style="border:solid 1px red"
-                                            @endif name="district_id">
-                                        <option value="" selected>
-                                            Select
-                                        </option>
-                                        <option value="" selected style=" display: none">
-                                            Select
-                                        </option>
-                                        @foreach($districts as $district)
-                                            <option value="{{$district->id}}">
-                                                {{$district->name}}
-                                            </option>
-                                        @endforeach
+                                    <select class="form-control" name="district_id" id="district">
+                                        <option>Huyện</option>
                                     </select>
                                     @if($errors->has('district_id'))
                                         <i class="text-danger">{{$errors->first('district_id')}}</i>
@@ -354,5 +339,37 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+    $('#city').change(function () {
+        let cityID = $(this).val();
+        if (cityID) {
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                data: {
+                    districtID: cityID
+                },
+                url: "http://127.0.0.1:8000/houses/select-city-district",
+                success: function (res) {
+                    if (res) {
+                        $('#district').empty();
+                        $('#district').append('<option>Huyện</option>');
+                        $.each(res, function (key, value) {
+                            $('#district').append('<option value="' + value.id + '">' + value.name + '</option>')
+                        });
+                    } else {
+                        $('#district').empty();
+                    }
+                }
+            })
+        } else {
+            $('#district').empty();
+            $('#city').empty();
+        }
+    });
+</script>
+
 </body>
 </html>

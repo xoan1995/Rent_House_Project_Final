@@ -317,7 +317,7 @@
             $('#district').empty();
             $('#city').empty();
         }
-    })
+    });
     $(document).ready(function () {
         $("#posted").click(function () {
             $(".booking").hide();
