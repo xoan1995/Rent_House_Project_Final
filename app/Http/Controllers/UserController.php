@@ -117,19 +117,6 @@ class UserController extends Controller
         return view('user.house_posted', compact('houses_posted','houses_booking'));
     }
 
-    public function sendMail()
-    {
-        return view('user.sendEmail');
-    }
-
-    public function send(Request $request)
-    {
-        $this->validate($request, [
-            'from' => 'required',
-            'to' => 'required|email',
-            'message' => 'required'
-        ]);
-    }
     public function acceptAndSendEmail()
     {
         $sender = 'tg.bluesky66@gmail.com';
