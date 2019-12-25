@@ -92,7 +92,6 @@ class HomeController extends Controller
                     }
                 }
             }
-
         }
         return view('house.list', compact('houses', 'cities'));
     }
