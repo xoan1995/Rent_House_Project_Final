@@ -1,17 +1,27 @@
+
 function showHidePassword() {
-    let x = document.getElementById("password");
-    if (x.type === "password") {
-        x.type = "text";
+    let password = document.getElementById("password");
+
+    if (password.type === "password") {
+        password.type = "text";
+        $("#show").hide();
+        $("#hide").show();
     } else {
-        x.type = "password";
+        password.type = "password";
+        $("#show").show();
+        $("#hide").hide();
     }
 }
 
 function showHidePasswordConfirm() {
-    let x = document.getElementById("password-confirm");
-    if (x.type === "password") {
-        x.type = "text";
+    let passwordConfirm = document.getElementById("password-confirm");
+    if (passwordConfirm.type === "password") {
+        passwordConfirm.type = "text";
+        $("#show_confirm").hide();
+        $("#hide_confirm").show();
     } else {
-        x.type = "password";
+        passwordConfirm.type = "password";
+        $("#show_confirm").show();
+        $("#hide_confirm").hide();
     }
 }
