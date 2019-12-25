@@ -17,12 +17,11 @@ class RejectRequestRentHouse extends Mailable
      * @return void
      */
     protected $mail;
-    protected $houseReject;
 
-    public function __construct($mail, $houseReject)
+
+    public function __construct($mail)
     {
         $this->mail = $mail;
-        $this->houseReject = $houseReject;
     }
 
     /**
@@ -32,9 +31,8 @@ class RejectRequestRentHouse extends Mailable
      */
     public function build()
     {
-        $house = $this->houseReject;
         return $this
             ->from($this->mail)
-            ->view('content_email_reject', compact('house'));
+            ->view('content_email_reject');
     }
 }

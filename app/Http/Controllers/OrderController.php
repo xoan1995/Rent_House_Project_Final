@@ -12,6 +12,7 @@ use App\StatusInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use TJGazel\Toastr\Facades\Toastr;
 
 class OrderController extends Controller
@@ -32,7 +33,7 @@ class OrderController extends Controller
         $house_id = $request->house_id;
         $totalDayRent = Carbon::create($checkin)->diffInDays(Carbon::create($checkout));
 
-        $orders = Order::all();
+        $orders = Order::where('house_id',$house_id)->get();
         foreach ($orders as $order) {
             if (
                 (Carbon::parse($checkin)->timestamp >= Carbon::parse($order->checkin)->timestamp
@@ -56,8 +57,9 @@ class OrderController extends Controller
         $order->checkout = $checkout;
         $order->totalPrice = ($totalDayRent * $request->price);
         $order->save();
+        $order_id = DB::table('orders')->max('id');
 
-        \auth()->user()->notify(new RepliedToThread($email, $title, $checkin, $checkout, $house_id));
+        \auth()->user()->notify(new RepliedToThread($email, $title, $checkin, $checkout, $house_id,$order_id));
         \TJGazel\Toastr\Facades\Toastr::success('Send request success!');
         return redirect()->route('home', compact('cities', 'houses'));
 

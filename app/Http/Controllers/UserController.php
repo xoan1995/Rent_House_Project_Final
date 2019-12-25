@@ -118,27 +118,48 @@ class UserController extends Controller
 
     public function acceptAndSendEmail($id)
     {
-        $house = House::findOrFail($id);
-        $house->status = StatusInterface::UNREADY;
-        $house->save();
-        $sender = 'ledanhquyen1998@gmail.com';
-        $receive = 'tg.bluesky65@gmail.com';
-        Mail::to($receive)
-            ->send(new \App\Mail\RepliedRequestRentHouse($sender));
-        Toastr::success('This rental is complete!');
+        $notification = \App\Notification::where('uid', $id)->get();
+        $order_id = json_decode($notification[0]->data)->order_id;
+        $houseOrder = null;
+        try {
+            $houseOrder = Order::findOrFail($order_id);
+        } catch (\Exception $exception) {
+            Toastr::warning('this house has been canceled for rent!');
+        }
+        if ($houseOrder) {
+            $houseOrder->status = StatusInterface::UNREADY;
+            $houseOrder->save();
+            $sender = 'tg.bluesky66@gmail.com';
+            $receive = json_decode($notification[0]->data)->sender;
+            Mail::to($receive)
+                ->send(new \App\Mail\RepliedRequestRentHouse($sender));
+            Toastr::success('This rental is complete!');
+        }
+        $notification[0]->delete();
         return back();
     }
 
     public function rejectAndSendEmail($id)
     {
-        $house = House::findOrFail($id);
-        $house->status = StatusInterface::READY;
-        $house->save();
-        $sender = 'ledanhquyen1998@gmail.com';
-        $receive = $sender;
-        Mail::to($receive)
-            ->send(new RejectRequestRentHouse($sender, $house));
-        Toastr::success('Feedback decline to rent successfully');
+        $notification = \App\Notification::where('uid', $id)->get();
+        $order_id = json_decode($notification[0]->data)->order_id;
+        $houseOrder = null;
+        try {
+            $houseOrder = Order::findOrFail($order_id);
+        } catch (\Exception $exception) {
+            Toastr::warning('this house has been canceled for rent!');
+        }
+        if ($houseOrder) {
+            $houseOrder->status = StatusInterface::READY;
+            $houseOrder->save();
+            $sender = 'tg.bluesky66@gmail.com';
+            $receive = json_decode($notification[0]->data)->sender;
+            Mail::to($receive)
+                ->send(new RejectRequestRentHouse($sender));
+            Toastr::warning('Feedback decline to rent successfully');
+            $houseOrder->delete();
+        }
+        $notification[0]->delete();
         return back();
     }
 
