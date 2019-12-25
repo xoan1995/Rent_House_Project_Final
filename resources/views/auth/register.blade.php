@@ -119,7 +119,10 @@
                                type="password" placeholder="*************" name="password" required
                                autocomplete="new-password">
                         <button  type="button" onclick="showHidePassword()">
-                            <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
+                            <img class="img-fluid" id="show" width="18px"
+                                 src="{{asset('storage/images/eyes_show.png')}}">
+                            <img style="display: none" class="img-fluid" id="hide" width="18px"
+                                 src="{{asset('storage/images/eyes_hide.png')}}">
                         </button>
 
                         @error('password')
@@ -135,7 +138,10 @@
                         <input id="password-confirm" class="input100" type="password" placeholder="*************"
                                name="password_confirmation" required autocomplete="new-password">
                         <button type="button" onclick="showHidePasswordConfirm()">
-                            <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
+                            <img class="img-fluid" id="show_confirm" width="18px"
+                                 src="{{asset('storage/images/eyes_show.png')}}">
+                            <img style="display: none" class="img-fluid" id="hide_confirm" width="18px"
+                                 src="{{asset('storage/images/eyes_hide.png')}}">
                         </button>
                         <span class="focus-input100"></span>
                     </div>
