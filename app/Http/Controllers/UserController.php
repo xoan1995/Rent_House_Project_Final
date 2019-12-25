@@ -7,8 +7,10 @@ use App\Http\Requests\EditUserRequest;
 use App\Mail\OrderShipped;
 use App\Mail\RejectRequestRentHouse;
 use App\Notifications\RepliedRequestRentHouse;
+use App\Order;
 use App\StatusInterface;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -109,12 +111,7 @@ class UserController extends Controller
         $user_id = \auth()->id();
         $houses_posted = House::where('user_id', 'LIKE', $user_id)->get();
         $notifications_booking = \App\Notification::where('notifiable_id', 'LIKE', $user_id)->get();
-        $houses_booking = [];
-        foreach ($notifications_booking as $value) {
-            $house_id = json_decode($value->data)->house_id;
-            $house = House::findOrFail($house_id);
-            array_push($houses_booking, $house);
-        }
+        $houses_booking = Order::where('user_id', $user_id)->get();
 
         return view('user.house_posted', compact('houses_posted', 'houses_booking'));
     }
@@ -143,5 +140,28 @@ class UserController extends Controller
             ->send(new RejectRequestRentHouse($sender, $house));
         Toastr::success('Feedback decline to rent successfully');
         return back();
+    }
+
+    public function rejectBooking($id)
+    {
+
+        $order = Order::findOrFail($id);
+        $email_host = User::findOrFail($order->user_id)->email;
+        $timeNow = Carbon::now('Asia/Ho_Chi_Minh');
+        $nowTimestamp = strtotime($timeNow);
+        $timeCheckin = Carbon::create($order->checkin);
+        $checkInTimestamp = strtotime($timeCheckin);
+
+        if ($checkInTimestamp - $nowTimestamp >= 86400) {
+            $order->delete();
+            Toastr::success('reject booking successfully');
+
+
+        } else {
+            Toastr::warning('You cannot cancel your reservation one day in advance');
+
+
+        }
+        return redirect()->route('home');
     }
 }
