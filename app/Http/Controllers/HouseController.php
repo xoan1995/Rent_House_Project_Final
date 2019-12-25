@@ -83,7 +83,7 @@ class HouseController extends Controller
 
     public function totalHouse($id)
     {
-        $ratings= Rating::all('star');
+        $ratings= Rating::all();
         $house = $this->house->findOrFail($id);
         return view('totalHouse', compact('house', 'ratings'));
     }
@@ -98,7 +98,6 @@ class HouseController extends Controller
         $rating->star = $request->star;
         $rating->comment = $request->comment;
         $rating->save();
-        dd($rating);
-        return view('totalHouse', compact('house', 'user'));
+        return redirect()->route('home');
     }
 }
