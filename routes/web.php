@@ -43,6 +43,7 @@ Route::prefix('houses')->group(function () {
     Route::post('store/image', 'HouseController@storeImage')->name('storeImage')->middleware('auth');
     Route::get('totalHouse/{id}', 'HouseController@totalHouse')->name('totalHouse');
     Route::post('search', 'HomeController@search')->name('search');
+    Route::post('rating/{id}', 'HouseController@rating')->name('rating');
     Route::get('select-city-district', 'HouseController@selectCityandDistrict');
 });
 

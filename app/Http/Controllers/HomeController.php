@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\House;
+use App\Rating;
 use App\Order;
 use App\StatusInterface;
 use App\User;
@@ -24,20 +25,23 @@ class HomeController extends Controller
      */
     protected $house;
     protected $city;
+    protected $rating;
 
     public function __construct(House $house,
-                                City $city)
+                                City $city,
+                                Rating $rating)
     {
         $this->house = $house;
         $this->city = $city;
-
+        $this->rating = $rating;
     }
 
     public function index()
     {
         $cities = $this->city->all();
         $houses = $this->house->all();
-        return view('home', compact('houses', 'cities'));
+        $ratings = $this->rating->all();
+        return view('home', compact('houses', 'cities', 'ratings'));
     }
 
     public function showHouseForCity($id)

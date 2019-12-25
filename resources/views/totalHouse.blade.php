@@ -1,4 +1,3 @@
-
 @extends('header-footer')
 @section('content')
 
@@ -136,6 +135,38 @@
                         trước 1 ngày so với thời gian check-in. Sau đó, hủy phòng trước 1 ngày so với thời gian
                         check-in, được hoàn lại 100% tổng số tiền đã trả (trừ phí dịch vụ).</p>
                 </div>
+                <div class="offset-1 mt-4">
+
+                </div>
+
+                <form action="{{route('rating',$house->id)}}" method="post">
+                    @csrf
+                    <div class="offset-1 mt-4">
+                        <div class="rating ">
+                            <input type="radio" id="star5" name="star" value="5"/><label for="star5" title="Meh">5
+                                stars</label>
+                            <input type="radio" id="star4" name="star" value="4"/><label for="star4"
+                                                                                         title="Kinda bad">4
+                                stars</label>
+                            <input type="radio" id="star3" name="star" value="3"/><label for="star3"
+                                                                                         title="Kinda bad">3
+                                stars</label>
+                            <input type="radio" id="star2" name="star" value="2"/><label for="star2"
+                                                                                         title="Sucks big tim">2
+                                stars</label>
+                            <input type="radio" id="star1" name="star" value="1"/><label for="star1"
+                                                                                         title="Sucks big time">1
+                                star</label>
+                        </div>
+                    </div>
+                    <div class="offset-1 mt-4">
+                        <textarea class="form-control" rows="3"
+                                  name="comment"></textarea>
+                    </div>
+                    <div class="offset-1 mt-4">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
             </div>
             <div class="col-lg-5 ml-5">
                 <div class="row">
@@ -159,45 +190,46 @@
                                     </div>
                                 </div>
 
-                            <div class="ml-4">
-                                <p style="width: 150px;background: coral;color: white">Giảm 30% từ chủ nhà</p>
-                                <p>Giảm 30% cho đặt phòng có checkin từ 07/12 đến 31/12</p>
-                                <p style="width: 150px;background: coral;color: white">Giảm 40% từ chủ nhà</p>
-                                <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
-                            </div>
-                            <div class="ml-2">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <input type="date" name="checkin" style="border-radius: 10px">
+                                <div class="ml-4">
+                                    <p style="width: 150px;background: coral;color: white">Giảm 30% từ chủ nhà</p>
+                                    <p>Giảm 30% cho đặt phòng có checkin từ 07/12 đến 31/12</p>
+                                    <p style="width: 150px;background: coral;color: white">Giảm 40% từ chủ nhà</p>
+                                    <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
+                                </div>
+                                <div class="ml-2">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input type="date" name="checkin" style="border-radius: 10px">
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="date" name="checkout" style="border-radius: 10px">
+                                            </div>
                                         </div>
-                                        <div   class="col-6">
-                                            <input type="date" name="checkout" style="border-radius: 10px">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            @if($errors->has('checkin'))
-                                                <span class="text-danger">{{$errors->first('checkin')}}</span>
-                                            @endif
-                                        </div>
-                                        <div class="col-6">
-                                            @if($errors->has('checkout'))
-                                                <span class="text-danger">{{$errors->first('checkout')}}</span>
-                                            @endif
+                                        <div class="row">
+                                            <div class="col-6">
+                                                @if($errors->has('checkin'))
+                                                    <span class="text-danger">{{$errors->first('checkin')}}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-6">
+                                                @if($errors->has('checkout'))
+                                                    <span class="text-danger">{{$errors->first('checkout')}}</span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="text" value="{{$house->user->email}}" name="email" style="display: none">
+                                <input type="text" value="{{$house->price}}" name="price" style="display: none">
+                                <input type="text" value="{{$house->title}}" name="title" style="display: none">
+                                <input type="text" value="{{$house->id}}" name="house_id" style="display: none">
+                                <div class="ml-lg-5 mr-5 mb-4 mt-4">
+                                    <button type="submit" style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu
+                                        cầu đặt phòng
+                                    </button>
+                                </div>
                             </div>
-                            <input type="text" value="{{$house->user->email}}" name="email" style="display: none">
-                            <input type="text" value="{{$house->price}}" name="price" style="display: none">
-                            <input type="text" value="{{$house->title}}" name="title" style="display: none">
-                            <input type="text" value="{{$house->id}}" name="house_id" style="display: none">
-                            <div class="ml-lg-5 mr-5 mb-4 mt-4">
-                                <button type="submit" style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu cầu đặt phòng
-                                </button>
-                            </div>
-                        </div>
                         </form>
                     </div>
                 </div>
