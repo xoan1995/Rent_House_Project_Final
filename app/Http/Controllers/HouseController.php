@@ -7,10 +7,12 @@ use App\District;
 use App\House;
 use App\Http\Requests\HouseRequestValidate;
 use App\Image;
+use App\Rating;
 use App\StatusInterface;
 use App\User;
 use http\Client\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use TJGazel\Toastr\Facades\Toastr;
 
@@ -61,7 +63,7 @@ class HouseController extends Controller
         $house->district_id = $request->district_id;
         $house->save();
 
-        if ($request->images){
+        if ($request->images) {
             $house_id = DB::table('houses')->max('id');
             foreach ($request->images as $image) {
 
@@ -72,7 +74,7 @@ class HouseController extends Controller
                 $imageUpload->house_id = $house_id;
                 $imageUpload->save();
             }
-        }else {
+        } else {
             return back();
         }
         Toastr::success('upload house success!');
@@ -81,8 +83,22 @@ class HouseController extends Controller
 
     public function totalHouse($id)
     {
+        $ratings= Rating::all('star');
         $house = $this->house->findOrFail($id);
-        return view('totalHouse', compact('house'));
+        return view('totalHouse', compact('house', 'ratings'));
     }
 
+    public function rating(Request $request,$id)
+    {
+        $house = House::findOrFail($id);
+        $user = Auth::user();
+        $rating = new Rating();
+        $rating->user_id = $user->id;
+        $rating->house_id = $house->id;
+        $rating->star = $request->star;
+        $rating->comment = $request->comment;
+        $rating->save();
+        dd($rating);
+        return view('totalHouse', compact('house', 'user'));
+    }
 }

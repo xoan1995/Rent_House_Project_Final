@@ -1,4 +1,3 @@
-
 @extends('header-footer')
 @section('content')
 
@@ -136,6 +135,89 @@
                         trước 1 ngày so với thời gian check-in. Sau đó, hủy phòng trước 1 ngày so với thời gian
                         check-in, được hoàn lại 100% tổng số tiền đã trả (trừ phí dịch vụ).</p>
                 </div>
+                <div class="offset-1 mt-4">
+                    <h2>Đánh giá</h2>
+                    @if(count($ratings)>0)
+{{--                        {{dd($ratings[0]->comment)}}--}}
+                        @foreach($ratings as $rating)
+
+{{--                            @if($rating->star === 1)--}}
+                                <div data-v-730e0d8f="" class="d-inline-block pl--6">
+                                    <svg data-v-730e0d8f="" version="1.1" viewBox="0 0 14 14"
+                                                class="mr--3 svg-icon svg-fill" style="width: 16px; height: 16px;">
+                                        <path fill="#ffb025" stroke="none" pid="0"
+                                              d="M14 5.425c0 .13-.073.27-.219.424l-3.054 3.123.724 4.41c.005.042.008.1.008.177 0 .123-.03.228-.088.313a.292.292 0 0 1-.257.128.658.658 0 0 1-.336-.106L7 11.812l-3.778 2.082a.69.69 0 0 1-.336.106c-.118 0-.206-.043-.265-.128a.538.538 0 0 1-.089-.313 1.5 1.5 0 0 1 .017-.177l.724-4.41L.21 5.849C.07 5.69 0 5.549 0 5.425c0-.217.157-.353.471-.405l4.224-.644L6.588.362C6.694.12 6.832 0 7 0c.168 0 .306.12.412.362l1.893 4.014 4.224.644c.314.052.471.188.471.405z"
+                                              _fill-rule="evenodd"></path>
+                                    </svg>
+                                    <svg data-v-730e0d8f="" version="1.1" viewBox="0 0 14 14"
+                                         class="mr--3 svg-icon svg-fill" style="width: 16px; height: 16px;">
+                                        <path fill="#ffb025" stroke="none" pid="0"
+                                              d="M14 5.425c0 .13-.073.27-.219.424l-3.054 3.123.724 4.41c.005.042.008.1.008.177 0 .123-.03.228-.088.313a.292.292 0 0 1-.257.128.658.658 0 0 1-.336-.106L7 11.812l-3.778 2.082a.69.69 0 0 1-.336.106c-.118 0-.206-.043-.265-.128a.538.538 0 0 1-.089-.313 1.5 1.5 0 0 1 .017-.177l.724-4.41L.21 5.849C.07 5.69 0 5.549 0 5.425c0-.217.157-.353.471-.405l4.224-.644L6.588.362C6.694.12 6.832 0 7 0c.168 0 .306.12.412.362l1.893 4.014 4.224.644c.314.052.471.188.471.405z"
+                                              _fill-rule="evenodd"></path>
+                                    </svg>
+                                    <svg data-v-730e0d8f="" version="1.1" viewBox="0 0 14 14"
+                                         class="mr--3 svg-icon svg-fill" style="width: 16px; height: 16px;">
+                                        <path fill="#ffb025" stroke="none" pid="0"
+                                              d="M14 5.425c0 .13-.073.27-.219.424l-3.054 3.123.724 4.41c.005.042.008.1.008.177 0 .123-.03.228-.088.313a.292.292 0 0 1-.257.128.658.658 0 0 1-.336-.106L7 11.812l-3.778 2.082a.69.69 0 0 1-.336.106c-.118 0-.206-.043-.265-.128a.538.538 0 0 1-.089-.313 1.5 1.5 0 0 1 .017-.177l.724-4.41L.21 5.849C.07 5.69 0 5.549 0 5.425c0-.217.157-.353.471-.405l4.224-.644L6.588.362C6.694.12 6.832 0 7 0c.168 0 .306.12.412.362l1.893 4.014 4.224.644c.314.052.471.188.471.405z"
+                                              _fill-rule="evenodd"></path>
+                                    </svg>
+                                    <svg data-v-730e0d8f="" version="1.1" viewBox="0 0 14 14"
+                                         class="mr--3 svg-icon svg-fill" style="width: 16px; height: 16px;">
+                                        <path fill="#ffb025" stroke="none" pid="0"
+                                              d="M14 5.425c0 .13-.073.27-.219.424l-3.054 3.123.724 4.41c.005.042.008.1.008.177 0 .123-.03.228-.088.313a.292.292 0 0 1-.257.128.658.658 0 0 1-.336-.106L7 11.812l-3.778 2.082a.69.69 0 0 1-.336.106c-.118 0-.206-.043-.265-.128a.538.538 0 0 1-.089-.313 1.5 1.5 0 0 1 .017-.177l.724-4.41L.21 5.849C.07 5.69 0 5.549 0 5.425c0-.217.157-.353.471-.405l4.224-.644L6.588.362C6.694.12 6.832 0 7 0c.168 0 .306.12.412.362l1.893 4.014 4.224.644c.314.052.471.188.471.405z"
+                                              _fill-rule="evenodd"></path>
+                                    </svg>
+                                    <svg data-v-730e0d8f="" version="1.1" viewBox="0 0 14 14"
+                                         class="mr--3 svg-icon svg-fill" style="width: 16px; height: 16px;">
+                                        <path fill="#ffb025" stroke="none" pid="0"
+                                              d="M14 5.425c0 .13-.073.27-.219.424l-3.054 3.123.724 4.41c.005.042.008.1.008.177 0 .123-.03.228-.088.313a.292.292 0 0 1-.257.128.658.658 0 0 1-.336-.106L7 11.812l-3.778 2.082a.69.69 0 0 1-.336.106c-.118 0-.206-.043-.265-.128a.538.538 0 0 1-.089-.313 1.5 1.5 0 0 1 .017-.177l.724-4.41L.21 5.849C.07 5.69 0 5.549 0 5.425c0-.217.157-.353.471-.405l4.224-.644L6.588.362C6.694.12 6.832 0 7 0c.168 0 .306.12.412.362l1.893 4.014 4.224.644c.314.052.471.188.471.405z"
+                                              _fill-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+{{--                            @endif--}}
+{{--                            @if($rating->star ==2)--}}
+{{--                            @endif--}}
+{{--                            @if($rating->star ==3)--}}
+{{--                            @endif--}}
+{{--                            @if($rating->star ==4)--}}
+{{--                            @endif--}}
+{{--                            @if($rating->star ==5)--}}
+{{--                            @endif--}}
+                            <p style="font-size: 17px">jhbsjdh.skjlkj  jgh{!! $rating->comment !!}</p>
+                        @endforeach
+                    @else
+                        <span>Chưa có đánh giá</span>
+                    @endif
+                </div>
+
+                <form action="{{route('rating',$house->id)}}" method="post">
+                    @csrf
+                    <div class="offset-1 mt-4">
+                        <div class="rating ">
+                            <input type="radio" id="star5" name="star" value="5"/><label for="star5" title="Meh">5
+                                stars</label>
+                            <input type="radio" id="star4" name="star" value="4"/><label for="star4"
+                                                                                         title="Kinda bad">4
+                                stars</label>
+                            <input type="radio" id="star3" name="star" value="3"/><label for="star3"
+                                                                                         title="Kinda bad">3
+                                stars</label>
+                            <input type="radio" id="star2" name="star" value="2"/><label for="star2"
+                                                                                         title="Sucks big tim">2
+                                stars</label>
+                            <input type="radio" id="star1" name="star" value="1"/><label for="star1"
+                                                                                         title="Sucks big time">1
+                                star</label>
+                        </div>
+                    </div>
+                    <div class="offset-1 mt-4">
+                        <textarea class="form-control" rows="3"
+                                  name="comment"></textarea>
+                    </div>
+                    <div class="offset-1 mt-4">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
             </div>
             <div class="col-lg-5 ml-5">
                 <div class="row">
@@ -159,45 +241,46 @@
                                     </div>
                                 </div>
 
-                            <div class="ml-4">
-                                <p style="width: 150px;background: coral;color: white">Giảm 30% từ chủ nhà</p>
-                                <p>Giảm 30% cho đặt phòng có checkin từ 07/12 đến 31/12</p>
-                                <p style="width: 150px;background: coral;color: white">Giảm 40% từ chủ nhà</p>
-                                <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
-                            </div>
-                            <div class="ml-2">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <input type="date" name="checkin" style="border-radius: 10px">
+                                <div class="ml-4">
+                                    <p style="width: 150px;background: coral;color: white">Giảm 30% từ chủ nhà</p>
+                                    <p>Giảm 30% cho đặt phòng có checkin từ 07/12 đến 31/12</p>
+                                    <p style="width: 150px;background: coral;color: white">Giảm 40% từ chủ nhà</p>
+                                    <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
+                                </div>
+                                <div class="ml-2">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input type="date" name="checkin" style="border-radius: 10px">
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="date" name="checkout" style="border-radius: 10px">
+                                            </div>
                                         </div>
-                                        <div   class="col-6">
-                                            <input type="date" name="checkout" style="border-radius: 10px">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            @if($errors->has('checkin'))
-                                                <span class="text-danger">{{$errors->first('checkin')}}</span>
-                                            @endif
-                                        </div>
-                                        <div class="col-6">
-                                            @if($errors->has('checkout'))
-                                                <span class="text-danger">{{$errors->first('checkout')}}</span>
-                                            @endif
+                                        <div class="row">
+                                            <div class="col-6">
+                                                @if($errors->has('checkin'))
+                                                    <span class="text-danger">{{$errors->first('checkin')}}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-6">
+                                                @if($errors->has('checkout'))
+                                                    <span class="text-danger">{{$errors->first('checkout')}}</span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="text" value="{{$house->user->email}}" name="email" style="display: none">
+                                <input type="text" value="{{$house->price}}" name="price" style="display: none">
+                                <input type="text" value="{{$house->title}}" name="title" style="display: none">
+                                <input type="text" value="{{$house->id}}" name="house_id" style="display: none">
+                                <div class="ml-lg-5 mr-5 mb-4 mt-4">
+                                    <button type="submit" style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu
+                                        cầu đặt phòng
+                                    </button>
+                                </div>
                             </div>
-                            <input type="text" value="{{$house->user->email}}" name="email" style="display: none">
-                            <input type="text" value="{{$house->price}}" name="price" style="display: none">
-                            <input type="text" value="{{$house->title}}" name="title" style="display: none">
-                            <input type="text" value="{{$house->id}}" name="house_id" style="display: none">
-                            <div class="ml-lg-5 mr-5 mb-4 mt-4">
-                                <button type="submit" style="width: 100%; height: 50px" class="btn btn-info">Gửi yêu cầu đặt phòng
-                                </button>
-                            </div>
-                        </div>
                         </form>
                     </div>
                 </div>
