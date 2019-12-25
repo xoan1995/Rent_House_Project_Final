@@ -71,6 +71,9 @@
         border-radius: 25px;
         box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .1);
         background-color: #fff;
+        width: 200px;
+        padding-top: 5px;
+        padding-left: 20px;
     }
 
     .name {
@@ -191,8 +194,8 @@
             </ul>
 
             <ul class="navbar-nav ">
-                <li class="nav-item ml-3 gift" style="margin-top: 5px">
-                    <a style="color: #1b1e21; font-size: 17px" href=""><img
+                <li class="nav-item ml-3 gift">
+                    <a style="color: #1b1e21; font-size: 17px; padding-top: 20px" href=""><img
                             src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
                 </li>
                 <li class="nav-item" style="margin-top: 5px">
