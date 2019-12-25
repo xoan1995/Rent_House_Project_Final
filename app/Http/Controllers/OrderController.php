@@ -46,7 +46,7 @@ class OrderController extends Controller
                     && Carbon::parse($checkout)->timestamp >= Carbon::parse($order->checkout)->timestamp)) {
 
                 Toastr::error('You can\'t rent at this time!');
-                return back();
+                return redirect()->route('home');
             }
         }
         $order = new Order();
