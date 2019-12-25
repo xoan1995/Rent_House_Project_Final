@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\House;
 use App\Http\Requests\EditUserRequest;
 use App\Mail\OrderShipped;
+use App\Mail\RejectRequestRentHouse;
 use App\Notifications\RepliedRequestRentHouse;
+use App\StatusInterface;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -114,19 +116,32 @@ class UserController extends Controller
             array_push($houses_booking, $house);
         }
 
-        return view('user.house_posted', compact('houses_posted','houses_booking'));
+        return view('user.house_posted', compact('houses_posted', 'houses_booking'));
     }
 
-    public function acceptAndSendEmail()
+    public function acceptAndSendEmail($id)
     {
-        $sender = 'tg.bluesky66@gmail.com';
+        $house = House::findOrFail($id);
+        $house->status = StatusInterface::UNREADY;
+        $house->save();
+        $sender = 'ledanhquyen1998@gmail.com';
         $receive = 'tg.bluesky65@gmail.com';
         Mail::to($receive)
             ->send(new \App\Mail\RepliedRequestRentHouse($sender));
-        Toastr::success('this rental is complete!');
+        Toastr::success('This rental is complete!');
         return back();
     }
-    public function rejectAndSendEmail()
+
+    public function rejectAndSendEmail($id)
     {
+        $house = House::findOrFail($id);
+        $house->status = StatusInterface::READY;
+        $house->save();
+        $sender = 'ledanhquyen1998@gmail.com';
+        $receive = $sender;
+        Mail::to($receive)
+            ->send(new RejectRequestRentHouse($sender, $house));
+        Toastr::success('Feedback decline to rent successfully');
+        return back();
     }
 }

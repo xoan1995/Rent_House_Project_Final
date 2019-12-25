@@ -25,8 +25,8 @@ Route::post('/change-password', 'UserController@changePassword')->name('user.cha
 Route::get('/city/{id}/list-house','HomeController@showHouseForCity')->name('city.listHouse');
 
 Route::get('/user/house-posted','UserController@showHousePostedAndBooking')->name('user.showHousePosted');
-Route::get('/user/accept','UserController@acceptAndSendEmail')->name('user.accept');
-Route::get('/user/reject','UserController@rejectAndSendEmail')->name('user.reject');
+Route::get('/user/accept/{id}','UserController@acceptAndSendEmail')->name('user.accept');
+Route::get('/user/{id}/reject','UserController@rejectAndSendEmail')->name('user.reject');
 
 
 Route::get('get-district-list','HomeController@getDistrictList');

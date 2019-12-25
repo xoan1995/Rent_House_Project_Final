@@ -85,7 +85,7 @@ class HomeController extends Controller
                     array_splice($houses, $j, 1);
                 }
                 if (!empty($request->get('checkin')) && !empty($request->get('checkout'))) {
-                    if ((Carbon::parse($request->get('checkout'))->timestamp >= Carbon::parse($housesOrder[$i]->checkin)->timestamp
+                    if ((Carbon::parse($request->get('checkin'))->timestamp >= Carbon::parse($housesOrder[$i]->checkin)->timestamp
                             || Carbon::parse($request->get('checkout'))->timestamp >= Carbon::parse($housesOrder[$i]->checkout)->timestamp)
                         && $housesOrder[$i]['house_id'] == $houses[$j]['id']) {
                         array_splice($houses, $j, 1);
