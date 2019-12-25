@@ -22,15 +22,18 @@ Route::get('/edit-profile', 'UserController@editUser')->name('editUser');
 Route::post('/update-profile', 'UserController@update')->name('users.update');
 Route::get('/change-password', 'UserController@viewChangePassword')->name('user.changePassword');
 Route::post('/change-password', 'UserController@changePassword')->name('user.changePassword');
-Route::get('/city/{id}/list-house','HomeController@showHouseForCity')->name('city.listHouse');
+Route::get('/city/{id}/list-house', 'HomeController@showHouseForCity')->name('city.listHouse');
 
-Route::get('/user/house-posted','UserController@showHousePosted')->name('user.showHousePosted');
-Route::get('/user/accept','UserController@sendMail')->name('user.sendEmail');
-Route::post('/user/accept','UserController@send')->name('user.send');
-//Route::get('/user/accept','UserController@acceptAndSendEmail')->name('user.accept');
-Route::get('/user/reject','UserController@rejectAndSendEmail')->name('user.reject');
 
-Route::get('get-district-list','HomeController@getDistrictList');
+Route::prefix('/user')->group(function () {
+    Route::get('house-posted', 'UserController@showHousePostedAndBooking')->name('user.showHousePosted');
+    Route::get('accept/{uid}', 'UserController@acceptAndSendEmail')->name('user.accept');
+    Route::get('{uid}/reject', 'UserController@rejectAndSendEmail')->name('user.reject');
+    Route::get('{id}/reject-booking', 'UserController@rejectBooking')->name('user.rejectBooking');
+});
+
+
+Route::get('get-district-list', 'HomeController@getDistrictList');
 
 
 Route::prefix('houses')->group(function () {
@@ -41,6 +44,7 @@ Route::prefix('houses')->group(function () {
     Route::get('totalHouse/{id}', 'HouseController@totalHouse')->name('totalHouse');
     Route::post('search', 'HomeController@search')->name('search');
     Route::post('rating/{id}', 'HouseController@rating')->name('rating');
+    Route::get('select-city-district', 'HouseController@selectCityandDistrict');
 });
 
 Route::prefix('order')->group(function () {

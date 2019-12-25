@@ -40,9 +40,7 @@ class HouseController extends Controller
 
     public function create()
     {
-        $districts = District::all();
-        $cities = City::all();
-        return view('house.create', compact('cities', 'districts'));
+        return view('house.create');
     }
 
 
@@ -99,5 +97,13 @@ class HouseController extends Controller
         $rating->comment = $request->comment;
         $rating->save();
         return redirect()->route('home');
+    }
+
+    public function selectCityandDistrict(Request $request)
+    {
+        $districts = DB::table("districts")
+            ->where('city_id', 'LIKE', $request->districtID)->get();
+
+        return response()->json($districts);
     }
 }

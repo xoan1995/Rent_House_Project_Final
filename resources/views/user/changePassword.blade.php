@@ -106,7 +106,10 @@
                                type="password" placeholder="*************" name="passwordNew1" required
                                autocomplete="new-password">
                         <button type="button" onclick="showHidePassword()">
-                            <img width="22px" src="{{asset('storage/images/eyes_hide.png')}}">
+                            <img class="img-fluid" id="show" width="25px"
+                                 src="{{asset('storage/images/eyes_show.png')}}">
+                            <img style="display: none" class="img-fluid" id="hide" width="25px"
+                                 src="{{asset('storage/images/eyes_hide.png')}}">
                         </button>
 
                         <span class="focus-input100"></span>
@@ -117,7 +120,10 @@
                         <input id="password-confirm" class="input100" type="password" placeholder="*************"
                                name="passwordNew2" required autocomplete="passwordNew2">
                         <button type="button" onclick="showHidePasswordConfirm()">
-                            <img width="22px" src="{{asset('storage/images/eyes_hide.png')}}">
+                            <img class="img-fluid" id="show_confirm" width="25px"
+                                 src="{{asset('storage/images/eyes_show.png')}}">
+                            <img style="display: none" class="img-fluid" id="hide_confirm" width="25px"
+                                 src="{{asset('storage/images/eyes_hide.png')}}">
                         </button>
 
                         <span class="focus-input100"></span>

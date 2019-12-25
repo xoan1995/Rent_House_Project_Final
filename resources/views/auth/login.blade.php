@@ -26,8 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('storage/css/util.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('storage/css/main.css')}}">
     <!--===============================================================================================-->
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="{{asset('storage/fonts/material-icon/css/material-design-iconic-font.min.css')}}">
+
 
 </head>
 <body>
@@ -89,22 +88,36 @@
                     <span class="login100-form-title p-b-43">
 						Login to continue
 					</span>
-
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input id="email" class="input100 @error('email') is-invalid @enderror" type="email"
-                               name="email"
-                               required autocomplete="email" autofocus>
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Email</span>
+                    <div class="mb-3">
+                        <label for="validationServerUsername" style="font-size: 1.3rem">Username</label>
+                        <div class="input-group">
+                            <input id="email" name="email"
+                                style="height: 70px; font-size: 1.5rem; border-radius: 10px"
+                                type="email" class="form-control">
+                            <div class="input-group-prepend">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input id="password" class="input100 @error('password') is-invalid @enderror"
-                               type="password"
-                               name="password" required
-                               autocomplete="current-password">
-                        <span class="focus-input100"></span>
-                        <span class="label-input100">Password</span>
+                    <div>
+                        <label for="validationServerUsername" style="font-size: 1.3rem">Password</label>
+                        <div class="input-group">
+                            <input id="password" name="password"
+                                style="height: 70px; font-size: 1.5rem;
+                                border-top-left-radius: 10px;
+                                 border-bottom-left-radius: 10px;"
+                                type="password" class="form-control">
+                            <div class="input-group-prepend" bo>
+                                <span class="input-group-text">
+                                   <button type="button" id="loginPassword" onclick="showHidePassword()">
+                                        <img id="show" class="img-fluid" width="30px"
+                                             src="{{asset('storage/images/eyes_show.png')}}">
+                                       <img style="display: none" id="hide" class="img-fluid" width="30px"
+                                             src="{{asset('storage/images/eyes_hide.png')}}">
+                                   </button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     @error('email')
                     <div class="text-danger">
@@ -116,16 +129,6 @@
                     @enderror
 
                     <div class="flex-sb-m w-full p-t-3 p-b-32">
-                        <div>
-                            <label for="ckb1">
-                                <button type="button" style="font-size: 13px; font-family: Montserrat-Regular; color: #555555;"
-                                        onclick="showHidePassword()">
-                                    <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
-                                    Show Password
-                                </button>
-                            </label>
-                        </div>
-
                         <div>
                             <a class="txt1" href="#">
                                 {{ __('Forgot Your Password?') }}
@@ -150,10 +153,6 @@
                         <a href="redirect/facebook" class="login100-form-social-item flex-c-m bg1 m-r-5">
                             <i class="fa fa-facebook-f" aria-hidden="true"></i>
                         </a>
-
-                        <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
-                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
                     </div>
                 </form>
 
@@ -165,4 +164,13 @@
 </div>
 </body>
 <script src="{{asset('storage/js/showHidePassword.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </html>

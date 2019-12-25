@@ -74,6 +74,9 @@
         border-radius: 25px;
         box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .1);
         background-color: #fff;
+        width: 200px;
+        padding-top: 5px;
+        padding-left: 20px;
     }
 
     .name {
@@ -95,6 +98,7 @@
     .card_1 {
         box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1)
     }
+<<<<<<< HEAD
     .rating {
         float:left;
     }
@@ -148,6 +152,15 @@
         position:relative;
         top:2px;
         left:2px;
+=======
+
+    .el-input-number {
+        opacity: .4;
+    }
+
+    .item {
+        box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .1);
+>>>>>>> 299d353876bce1d6f0cee1d35dd0ac45eb6b7a1b
     }
 </style>
 
@@ -172,20 +185,76 @@
                         <select class="form-control ml-2" name="district" id="district">
                             <option value="">Huyện</option>
                         </select>
-                        <input name="numBedroom" type="text" class="form-control ml-2" style="text-align: center; width: 155px" placeholder="Số lượng phòng ngủ">
-                        <input name="numBathroom" type="text" class="form-control ml-2" style="text-align: center; width: 155px" placeholder="Số lượng phòng tắm">
-                        <input name="price" type="text" class="form-control ml-2" style="text-align: center; width: 80px" placeholder="Giá/đêm">
+                        <div class="nav-item dropdown ml-2">
+                            <button style="color: #1b1e21" class="nav-link dropdown-toggle form-control"
+                                    id="navbarDropdown"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Tìm kiếm chi tiết
+                            </button>
+                            <div class="dropdown-menu item" aria-labelledby="navbarDropdown" style="width: 350px">
+                                <div class="container">
+                                    <div style="float: left; font-weight: bold; font-size: 17px">
+                                        Số lượng phòng ngủ
+                                    </div>
+                                    <div style="float: right">
+                                        <input type="button" class="btn btn-outline-danger down_1" value="-">
+                                        <input id="number_1" name="numBedroom" type="text" value="0"
+                                               style="width: 35px;text-align: center; border: whitesmoke">
+                                        <input type="button" class="btn btn-outline-success up_1" value="+">
+                                    </div>
+                                    <div style="float: left; font-weight: bold; font-size: 17px" class="mt-3">
+                                        Số lượng phòng tắm
+                                    </div>
+                                    <div style="float: right" class="mt-3">
+                                        <input type="button" class="btn btn-outline-danger down_2" value="-">
+                                        <input id="number_2" name="numBathroom" type="text" value="0"
+                                               style="width: 35px;text-align: center; border: whitesmoke">
+                                        <input type="button" class="btn btn-outline-success up_2" value="+">
+                                    </div>
+                                    <div style="float: left; font-weight: bold; font-size: 17px" class="mt-3">
+                                        Giá tiền 1 đêm
+                                    </div>
+                                    <div style="float: left; padding-left: 65px; padding-top: 20px">
+                                        <h5>($)</h5>
+                                    </div>
+                                    <div style="float: right" class="mt-3">
+
+                                        <input type="button" class="btn btn-outline-danger down_3" value="-">
+                                        <input id="number_3" name="price" type="text" value="0"
+                                               style="width: 35px;text-align: center; border: whitesmoke">
+                                        <input type="button" class="btn btn-outline-success up_3" value="+">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-item dropdown ml-2">
+                            <a style="color:black;" class="nav-link dropdown-toggle form-control" id="navbarDropdown"
+                               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ngày
+                            </a>
+                            <div class="dropdown-menu item" aria-labelledby="navbarDropdown" style="width: 400px">
+                                <div style="float: left" class="pl-2">
+                                    <div style="text-align: center; font-size: 17px; font-weight: bold">Từ</div>
+                                    <input type="date" name="checkin" class="form-control">
+                                </div>
+                                <div style="float: left" class="ml-3">
+                                    <div style="text-align: center; font-size: 17px; font-weight: bold">Đến</div>
+                                    <input type="date" name="checkout" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-outline-danger ml-3">
                             <img src="https://img.icons8.com/ios/20/000000/search--v1.png">
                         </button>
                     </form>
-
                 </li>
             </ul>
 
             <ul class="navbar-nav ">
-                <li class="nav-item ml-3 gift" style="margin-top: 5px">
-                    <a style="color: #1b1e21; font-size: 17px" href=""><img
+                <li class="nav-item ml-3 gift">
+                    <a style="color: #1b1e21; font-size: 17px; padding-top: 20px" href=""><img
                             src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
                 </li>
                 <li class="nav-item" style="margin-top: 5px">
@@ -215,23 +284,30 @@
 
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                             style="width: 600px">
-                            @foreach(\App\Notification::all() as $notice)
-                                @if(json_decode($notice->data)->receiver == auth()->user()->email)
-                                    <div class="container">
-                                        <a href="{{route('totalHouse', json_decode($notice->data)->house_id)}}">
-                                            {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
-                                            từ {{json_decode($notice->data)->checkin}}
-                                            đến {{json_decode($notice->data)->checkout}}
-                                            bởi {{json_decode($notice->data)->sender}}
-                                        </a>
-                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
-                                           href="{{route('user.sendEmail')}}" class="btn btn-success">Confirm</a>
-                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
-                                           href="{{route('user.reject')}}" class="btn btn-danger">Cancel</a>
-                                    </div>
-                                @endif
-                            @endforeach
-
+                            @if(count(\App\Notification::all()) > 0)
+                                @foreach(\App\Notification::all() as $notice)
+                                    @if(json_decode($notice->data)->receiver == auth()->user()->email)
+                                        <div class="container">
+                                            <a href="{{route('totalHouse', json_decode($notice->data)->house_id)}}">
+                                                {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
+                                                từ {{json_decode($notice->data)->checkin}}
+                                                đến {{json_decode($notice->data)->checkout}}
+                                                bởi {{json_decode($notice->data)->sender}}
+                                            </a>
+                                            <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
+                                               href="{{route('user.accept',$notice->uid)}}"
+                                               class="btn btn-success">Confirm</a>
+                                            <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
+                                               href="{{route('user.reject',$notice->uid)}}"
+                                               class="btn btn-danger">Cancel</a>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @else
+                                <li class="container">
+                                    You have no notifications!
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endguest
@@ -280,7 +356,7 @@
 </div>
 <script src="{{asset('storage/showslide/slide.js')}}"></script>
 <script type="text/javascript" src="js/app.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="{{asset('storage/slick/slick.js')}}" type="text/javascript" charset="utf-8"></script>
 <script src="{{asset('storage/slick/slideCity.js')}}"></script>
@@ -311,7 +387,143 @@
             $('#district').empty();
             $('#city').empty();
         }
+    });
+    $(document).ready(function () {
+        $("#posted").click(function () {
+            $(".booking").hide();
+            $(".posted").show();
+        });
+        $("#booking").click(function () {
+            $(".posted").hide();
+            $(".booking").show();
+        });
     })
+</script>
+<script>
+    $(document).ready(function () {
+
+        $(".up_1").on("click", function () {
+
+            var $button = $(this);
+            var oldValue = $button.parent().find("#number_1").val();
+
+            if ($button.text() == "+") {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                if (oldValue >= 0) {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    newVal = 0;
+                }
+            }
+
+            $button.parent().find("#number_1").val(newVal);
+
+        });
+
+        $(".down_1").on("click", function () {
+
+            var $button = $(this);
+            var oldValue = $button.parent().find("#number_1").val();
+
+            if ($button.text() == "-") {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                if (oldValue >= 0) {
+                    var newVal = parseFloat(oldValue) - 1;
+                } else {
+                    newVal = 0;
+                }
+            }
+
+            $button.parent().find("#number_1").val(newVal);
+
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        $(".up_2").on("click", function () {
+
+            var $button = $(this);
+            var oldValue = $button.parent().find("#number_2").val();
+
+            if ($button.text() == "+") {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                if (oldValue >= 0) {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    newVal = 0;
+                }
+            }
+
+            $button.parent().find("#number_2").val(newVal);
+
+        });
+
+        $(".down_2").on("click", function () {
+
+            var $button = $(this);
+            var oldValue = $button.parent().find("#number_2").val();
+
+            if ($button.text() == "-") {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                if (oldValue >= 0) {
+                    var newVal = parseFloat(oldValue) - 1;
+                } else {
+                    newVal = 0;
+                }
+            }
+
+            $button.parent().find("#number_2").val(newVal);
+
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        $(".up_3").on("click", function () {
+
+            var $button = $(this);
+            var oldValue = $button.parent().find("#number_3").val();
+
+            if ($button.text() == "+") {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                if (oldValue >= 0) {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    newVal = 0
+                }
+            }
+
+            $button.parent().find("#number_3").val(newVal);
+
+        });
+
+        $(".down_3").on("click", function () {
+
+            var $button = $(this);
+            var oldValue = $button.parent().find("#number_3").val();
+
+            if ($button.text() == "-") {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                if (oldValue >= 0) {
+                    var newVal = parseFloat(oldValue) - 1;
+                } else {
+                    newVal = 0;
+                }
+            }
+
+            $button.parent().find("#number_3").val(newVal);
+
+        });
+    });
 </script>
 {!! toastr()->render() !!}
 </body>

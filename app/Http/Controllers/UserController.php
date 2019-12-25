@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\House;
 use App\Http\Requests\EditUserRequest;
+use App\Mail\OrderShipped;
+use App\Mail\RejectRequestRentHouse;
 use App\Notifications\RepliedRequestRentHouse;
+use App\Order;
+use App\StatusInterface;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
@@ -100,34 +106,89 @@ class UserController extends Controller
         }
     }
 
-    public function showHousePosted()
+    public function showHousePostedAndBooking()
     {
+        $user = Auth::user();
+        $totalPrice = $user->orders;
+        $totalPriceForMonth = 0;
+        for ($i = 0; $i < count($totalPrice); $i++) {
+            $totalPriceForMonth += +($totalPrice[$i]->totalPrice);
+        }
         $user_id = \auth()->id();
-        $houses = House::where('user_id', 'LIKE', $user_id)->get();
-        return view('user.house_posted', compact('houses'));
+        $houses_posted = House::where('user_id', 'LIKE', $user_id)->get();
+        $notifications_booking = \App\Notification::where('notifiable_id', 'LIKE', $user_id)->get();
+        $houses_booking = Order::where('user_id', $user_id)->get();
+
+        return view('user.house_posted', compact('houses_posted', 'houses_booking'));
     }
 
-    public function sendMail()
+    public function acceptAndSendEmail($id)
     {
-        return view('user.sendEmail');
-    }
-
-    public function send(Request $request)
-    {
-        $this->validate($request, [
-            'from' => 'required',
-            'to' => 'required|email',
-            'message' => 'required'
-        ]);
-    }
-    public function acceptAndSendEmail()
-    {
-        $user = User::findOrFail(3);
-        $user->email = 'tg.bluesky65@gmail.com';
-        $user->notify(new RepliedRequestRentHouse());
+        $notification = \App\Notification::where('uid', $id)->get();
+        $order_id = json_decode($notification[0]->data)->order_id;
+        $houseOrder = null;
+        try {
+            $houseOrder = Order::findOrFail($order_id);
+        } catch (\Exception $exception) {
+            Toastr::warning('this house has been canceled for rent!');
+        }
+        if ($houseOrder) {
+            $houseOrder->status = StatusInterface::UNREADY;
+            $houseOrder->save();
+            $sender = 'tg.bluesky66@gmail.com';
+            $receive = json_decode($notification[0]->data)->sender;
+            Mail::to($receive)
+                ->send(new \App\Mail\RepliedRequestRentHouse($sender));
+            Toastr::success('This rental is complete!');
+        }
+        $notification[0]->delete();
         return back();
     }
-    public function rejectAndSendEmail()
+
+    public function rejectAndSendEmail($id)
     {
+        $notification = \App\Notification::where('uid', $id)->get();
+        $order_id = json_decode($notification[0]->data)->order_id;
+        $houseOrder = null;
+        try {
+            $houseOrder = Order::findOrFail($order_id);
+        } catch (\Exception $exception) {
+            Toastr::warning('this house has been canceled for rent!');
+        }
+        if ($houseOrder) {
+            $houseOrder->status = StatusInterface::READY;
+            $houseOrder->save();
+            $sender = 'tg.bluesky66@gmail.com';
+            $receive = json_decode($notification[0]->data)->sender;
+            Mail::to($receive)
+                ->send(new RejectRequestRentHouse($sender));
+            Toastr::warning('Feedback decline to rent successfully');
+            $houseOrder->delete();
+        }
+        $notification[0]->delete();
+        return back();
+    }
+
+    public function rejectBooking($id)
+    {
+
+        $order = Order::findOrFail($id);
+        $email_host = User::findOrFail($order->user_id)->email;
+        $timeNow = Carbon::now('Asia/Ho_Chi_Minh');
+        $nowTimestamp = strtotime($timeNow);
+        $timeCheckin = Carbon::create($order->checkin);
+        $checkInTimestamp = strtotime($timeCheckin);
+
+        if ($checkInTimestamp - $nowTimestamp >= 86400) {
+            $order->delete();
+            Toastr::success('reject booking successfully');
+
+
+        } else {
+            Toastr::warning('You cannot cancel your reservation one day in advance');
+
+
+        }
+        return redirect()->route('home');
     }
 }
