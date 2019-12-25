@@ -225,25 +225,30 @@
 
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                             style="width: 600px">
-                            @foreach(\App\Notification::all() as $notice)
-                                @if(json_decode($notice->data)->receiver == auth()->user()->email)
-                                    <div class="container">
-                                        <a href="{{route('totalHouse', json_decode($notice->data)->house_id)}}">
-                                            {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
-                                            từ {{json_decode($notice->data)->checkin}}
-                                            đến {{json_decode($notice->data)->checkout}}
-                                            bởi {{json_decode($notice->data)->sender}}
-                                        </a>
-                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
-                                           href="{{route('user.accept', json_decode($notice->data)->house_id)}}"
-                                           class="btn btn-success">Confirm</a>
-                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
-                                           href="{{route('user.reject',json_decode($notice->data)->house_id)}}"
-                                           class="btn btn-danger">Cancel</a>
-                                    </div>
-                                @endif
-                            @endforeach
-
+                            @if(count(\App\Notification::all()) > 0)
+                                @foreach(\App\Notification::all() as $notice)
+                                    @if(json_decode($notice->data)->receiver == auth()->user()->email)
+                                        <div class="container">
+                                            <a href="{{route('totalHouse', json_decode($notice->data)->house_id)}}">
+                                                {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
+                                                từ {{json_decode($notice->data)->checkin}}
+                                                đến {{json_decode($notice->data)->checkout}}
+                                                bởi {{json_decode($notice->data)->sender}}
+                                            </a>
+                                            <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
+                                               href="{{route('user.accept',$notice->uid)}}"
+                                               class="btn btn-success">Confirm</a>
+                                            <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
+                                               href="{{route('user.reject',$notice->uid)}}"
+                                               class="btn btn-danger">Cancel</a>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @else
+                                <li class="container">
+                                    You have no notifications!
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endguest
