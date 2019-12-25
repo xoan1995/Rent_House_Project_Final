@@ -108,6 +108,12 @@ class UserController extends Controller
 
     public function showHousePostedAndBooking()
     {
+        $user = Auth::user();
+        $totalPrice = $user->orders;
+        $totalPriceForMonth = 0;
+        for ($i = 0; $i < count($totalPrice); $i++) {
+            $totalPriceForMonth += +($totalPrice[$i]->totalPrice);
+        }
         $user_id = \auth()->id();
         $houses_posted = House::where('user_id', 'LIKE', $user_id)->get();
         $notifications_booking = \App\Notification::where('notifiable_id', 'LIKE', $user_id)->get();
