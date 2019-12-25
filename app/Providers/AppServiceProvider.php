@@ -26,9 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $cities = City::all();
-        $districts = District::all();
-        \Illuminate\Support\Facades\View::share('cities', $cities);
-        \Illuminate\Support\Facades\View::share('districts', $districts);
+//        $cities = City::all();
+//        $districts = District::all();
+//        \Illuminate\Support\Facades\View::share('cities', $cities);
+//        \Illuminate\Support\Facades\View::share('districts', $districts);
     }
 }
