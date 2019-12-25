@@ -68,7 +68,7 @@
                                     </h5>
                                 </div>
                                 <div class="col-3 col-lg-3 text-center">
-                                    <h5 >{{$house->price}}$/đêm</h5>
+                                    <h5>{{$house->price}}$/đêm</h5>
                                 </div>
                             </div>
                         @endforeach
@@ -84,52 +84,83 @@
                             <div class="col-4 pt-2 pl-5">
                                 <h5 style="font-family: Arial">House</h5>
                             </div>
-                            <div class="col-2 col-lg-2 pt-2">
-                                <h5 style="font-family: Arial">Checkin</h5>
+                            <div class="col-2 col-lg-2 pt-2 text-center">
+                                <h6 style="font-family: Arial">Checkin</h6>
+                            </div>
+                            <div class="col-2 col-lg-2 pt-2  text-center">
+                                <h6 style="font-family: Arial">Checkout</h6>
+                            </div>
+                            <div class="col-2 col-lg-2 pt-2 text-center">
+                                <h6 style="font-family: Arial;" class="text-center ">Status</h6>
                             </div>
                             <div class="col-2 col-lg-2 pt-2">
-                                <h5 style="font-family: Arial">Checkout</h5>
-                            </div>
-                            <div class="col-2 col-lg-2 pt-2">
-                                <h5 style="font-family: Arial;" class="text-center ">Status</h5>
-                            </div>
-                            <div class="col-2 pt-2 text-center ">
-                                <h5 style="font-family: Arial">Price</h5>
+                                <h6 style="font-family: Arial; margin-left: 25px">Price</h6>
                             </div>
                         </div>
+
                         @foreach($houses_booking as $key => $house)
                             <div class="row mt-3">
                                 <div class="col-4 col-lg-4">
                                     <div class="row">
                                         <div class="col-6">
                                             <img class="card-img" width="80px"
-                                                 src="{{asset('storage/'.$house->images[0]->path)}}"
+                                                 src="{{asset('storage/'.$house->house->images[0]->path)}}"
                                                  alt="...">
                                         </div>
                                         <div class="col-6">
                                             <div>
                                                 <a href="{{route('totalHouse',$house->id)}}"
-                                                   style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem">{{$house->title}}</a>
+                                                   style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem">{{$house->house->title}}</a>
                                             </div>
                                             <div>
-                                                <h6>{{$house->kindHouse}} ◦ {{$house->kindRoom}}</h6>
+                                                <h6>{{$house->house->kindHouse}} ◦ {{$house->house->kindRoom}}</h6>
                                             </div>
                                             <div>
                                                 <p style="font-family: 'Arial Rounded MT Bold'">
-                                                    Address: {{$house->address}} - {{$house->district->name}}
-                                                    - {{$house->city->name}}
+                                                    Address: {{$house->house->address}}
+                                                    - {{$house->house->district->name}}
+                                                    - {{$house->house->city->name}}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-2 col-lg-2 text-center">
-                                    <h5>
-
-                                    </h5>
+                                    <h6 class="mr-4">
+                                        {{$house->checkin}}
+                                    </h6>
                                 </div>
-                                <div class="col-3 col-lg-3 text-center">
-                                    <h5 ></h5>
+                                <div class="col-2 col-lg-2 text-center">
+                                    <h6 class="mr-4">
+                                        {{$house->checkout}}
+                                    </h6>
+                                </div>
+                                <div class="col-2 col-lg-2 text-center">
+                                    <h6 class="mr-4">
+                                        @if($house->status == \App\StatusInterface::PENDING)
+                                            Pending Request
+                                        @elseif($house->status == \App\StatusInterface::READY)
+                                            Ready
+                                        @else
+                                            Unready
+                                        @endif
+                                    </h6>
+                                </div>
+                                <div class="col-2 col-lg-2 ">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6>
+                                                $ {{number_format($house->totalPrice)}}
+                                            </h6>
+                                        </div>
+                                        <div class="col-6">
+                                            <a onclick="return confirm('You definitely want to cancel this reservation')"
+                                               href="{{route('user.rejectBooking',$house->id)}}">
+                                                <img src="https://img.icons8.com/android/20/000000/delete.png">
+                                            </a>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         @endforeach
@@ -150,3 +181,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
