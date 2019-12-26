@@ -15,7 +15,7 @@
                             <img class="card-img" height="300px" width="440px" src="{{asset('storage/'.$city->image)}}">
                             <div style="position: absolute; left: 50px; bottom: 50px">
                                 <p style=" font-family: 'Arial Black' ;color: white; font-weight: bolder; font-size: 20px">{{$city->name}}</p>
-                                <p style=" color: white; font-weight: bolder">Chỗ ở</p>
+                                <p style=" color: white; font-weight: bolder">{{count($city->houses)}} Chỗ ở</p>
                             </div>
                         </div>
                     </a>
