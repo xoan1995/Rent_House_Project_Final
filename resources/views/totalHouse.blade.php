@@ -191,9 +191,9 @@
                                 </div>
 
                                 <div class="ml-4">
-                                    <p style="width: 150px;background: coral;color: white">Giảm 30% từ chủ nhà</p>
+                                    <p style="width: 200px;text-align: center;background: coral;color: white">Giảm 30% từ chủ nhà</p>
                                     <p>Giảm 30% cho đặt phòng có checkin từ 07/12 đến 31/12</p>
-                                    <p style="width: 150px;background: coral;color: white">Giảm 40% từ chủ nhà</p>
+                                    <p style="width: 200px;text-align: center;background: coral;color: white">Giảm 40% từ chủ nhà</p>
                                     <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
                                 </div>
                                 <div class="ml-2">
