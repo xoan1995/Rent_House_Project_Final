@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\House;
 use App\Http\Requests\EditUserRequest;
 use App\Mail\OrderShipped;
+use App\Mail\Reject_rent_house_by_the_host;
 use App\Mail\RejectRequestRentHouse;
 use App\Notifications\RepliedRequestRentHouse;
 use App\Order;
@@ -145,8 +146,20 @@ class UserController extends Controller
         return back();
     }
 
-    public function rejectAndSendEmail($id)
+    public function rejectAndSendEmail(Request $request)
     {
+        $id = $request->notice_id;
+
+        $reasonOne = $request->reasonOne;
+        $reasonTwo = $request->reasonTwo;
+        $reasonThree = $request->reasonThree;
+        $reasonFour = $request->reasonFour;
+        $reasons = [];
+        array_push($reasons, $reasonOne);
+        array_push($reasons, $reasonTwo);
+        array_push($reasons, $reasonThree);
+        array_push($reasons, $reasonFour);
+
         $notification = \App\Notification::where('uid', $id)->get();
         $order_id = json_decode($notification[0]->data)->order_id;
         $houseOrder = null;
@@ -161,7 +174,7 @@ class UserController extends Controller
             $sender = 'tg.bluesky66@gmail.com';
             $receive = json_decode($notification[0]->data)->sender;
             Mail::to($receive)
-                ->send(new RejectRequestRentHouse($sender));
+                ->send(new Reject_rent_house_by_the_host($sender, $reasons));
             Toastr::warning('Feedback decline to rent successfully');
             $houseOrder->delete();
         }
@@ -169,25 +182,32 @@ class UserController extends Controller
         return back();
     }
 
-    public function rejectBooking($id)
+    public function rejectBooking(Request $request)
     {
+        $id = $request->houseIdBooking;
+        $reasonOne = $request->reasonOne;
+        $reasonTwo = $request->reasonTwo;
+        $reasonThree = $request->reasonThree;
+        $reasonFour = $request->reasonFour;
+        $reasons = [];
+        array_push($reasons, $reasonOne);
+        array_push($reasons, $reasonTwo);
+        array_push($reasons, $reasonThree);
+        array_push($reasons, $reasonFour);
 
         $order = Order::findOrFail($id);
         $email_host = User::findOrFail($order->user_id)->email;
-        $timeNow = Carbon::now('Asia/Ho_Chi_Minh');
-        $nowTimestamp = strtotime($timeNow);
-        $timeCheckin = Carbon::create($order->checkin);
-        $checkInTimestamp = strtotime($timeCheckin);
+        $nowTimestamp = Carbon::now('Asia/Ho_Chi_Minh')->timestamp;
+        $checkInTimestamp = Carbon::parse($order->checkin)->timestamp;
+        $sender = 'tg.bluesky66@gmail.com';
 
         if ($checkInTimestamp - $nowTimestamp >= 86400) {
             $order->delete();
+            Mail::to($email_host)
+                ->send(new RejectRequestRentHouse($sender, $reasons));
             Toastr::success('reject booking successfully');
-
-
         } else {
             Toastr::warning('You cannot cancel your reservation one day in advance');
-
-
         }
         return redirect()->route('home');
     }
