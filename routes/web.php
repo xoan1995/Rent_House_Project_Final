@@ -28,8 +28,8 @@ Route::get('/city/{id}/list-house', 'HomeController@showHouseForCity')->name('ci
 Route::prefix('/user')->group(function () {
     Route::get('house-posted', 'UserController@showHousePostedAndBooking')->name('user.showHousePosted');
     Route::get('accept/{uid}', 'UserController@acceptAndSendEmail')->name('user.accept');
-    Route::get('{uid}/reject', 'UserController@rejectAndSendEmail')->name('user.reject');
-    Route::get('{id}/reject-booking', 'UserController@rejectBooking')->name('user.rejectBooking');
+    Route::post('reject', 'UserController@rejectAndSendEmail')->name('user.reject');
+    Route::post('reject-booking', 'UserController@rejectBooking')->name('user.rejectBooking');
 });
 
 

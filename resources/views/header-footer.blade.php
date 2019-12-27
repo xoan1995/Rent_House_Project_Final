@@ -98,30 +98,30 @@
     .card_1 {
         box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1)
     }
-<<<<<<< HEAD
+
     .rating {
-        float:left;
+        float: left;
     }
 
     /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
       follow these rules. Every browser that supports :checked also supports :not(), so
       it doesn’t make the test unnecessarily selective */
     .rating:not(:checked) > input {
-        position:absolute;
-        top:-9999px;
-        clip:rect(0,0,0,0);
+        position: absolute;
+        top: -9999px;
+        clip: rect(0, 0, 0, 0);
     }
 
     .rating:not(:checked) > label {
-        float:right;
-        width:1em;
+        float: right;
+        width: 1em;
         /* padding:0 .1em; */
-        overflow:hidden;
-        white-space:nowrap;
-        cursor:pointer;
-        font-size:300%;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 300%;
         /* line-height:1.2; */
-        color:#ddd;
+        color: #ddd;
     }
 
     .rating:not(:checked) > label:before {
@@ -149,10 +149,10 @@
     }
 
     .rating > label:active {
-        position:relative;
-        top:2px;
-        left:2px;
-=======
+        position: relative;
+        top: 2px;
+        left: 2px;
+    }
 
     .el-input-number {
         opacity: .4;
@@ -160,7 +160,14 @@
 
     .item {
         box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .1);
->>>>>>> 299d353876bce1d6f0cee1d35dd0ac45eb6b7a1b
+    }
+    input[type=checkbox] {
+        /* Double-sized Checkboxes */
+        -ms-transform: scale(2); /* IE */
+        -moz-transform: scale(2); /* FF */
+        -webkit-transform: scale(2); /* Safari and Chrome */
+        -o-transform: scale(2); /* Opera */
+        padding: 10px;
     }
 </style>
 
@@ -297,9 +304,17 @@
                                             <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
                                                href="{{route('user.accept',$notice->uid)}}"
                                                class="btn btn-success">Confirm</a>
-                                            <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 56px; padding-bottom: 25px"
-                                               href="{{route('user.reject',$notice->uid)}}"
-                                               class="btn btn-danger">Cancel</a>
+
+                                            <a data-id="{{$notice->uid}}"
+                                                style="width: 55px; height: 21px; font-size: 0.85rem;
+                                             font-family: Montserrat-Regular; padding-right: 56px;
+                                              padding-bottom: 25px"
+                                                type="button" class="btn btn-danger modalNotice" data-backdrop="false"
+                                                data-toggle="modal"
+                                                data-target="#exampleModal_1">
+                                                Cancel
+                                            </a>
+
                                         </div>
                                     @endif
                                 @endforeach
@@ -354,12 +369,93 @@
 <div class="container" style="margin-top: 6rem;">
     @yield('content')
 </div>
+
+<div class="modal fade" id="exampleModal_1" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal
+                    title</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" enctype="multipart/form-data"
+                  action="{{route('user.reject')}}">
+                @csrf
+                <input style="display: none" name="notice_id" type="text" id="modalNotice">
+                <div class="modal-body">
+                    <div>
+                        <div style="font-size: 1.25rem" class="pl-3">
+                            <input type="checkbox"
+                                   name="reasonOne" value="Lý do cá nhân">
+                            &nbsp; Lý do cá nhân
+                        </div>
+
+                    </div>
+                    <div>
+                        <div style="font-size: 1.25rem" class="pl-3">
+                            <input type="checkbox"
+                                   name="reasonTwo"
+                                   value="Đổi ngày hoặc điểm đến">
+                            &nbsp; Đổi ngày hoặc điểm đến
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.25rem" class="pl-3">
+                            <input type="checkbox"
+                                   name="reasonThree"
+                                   value="Số lượng hoặc nhu cầu thay đổi">
+                            &nbsp; Số lượng hoặc nhu cầu thay đổi
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.25rem" class="pl-3">
+                            <input type="checkbox"
+                                   name="reasonFour" value="other...">
+                            &nbsp; other...
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="{{asset('storage/showslide/slide.js')}}"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="{{asset('storage/slick/slick.js')}}" type="text/javascript" charset="utf-8"></script>
 <script src="{{asset('storage/slick/slideCity.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        $(".modalNotice").click(function () {
+            let id = $(this).data('id');
+            $("#modalNotice").val(id);
+        })
+    });
+</script>
+<script>
+    $('.modal').on('show.bs.modal', function (event) {
+        var idx = $('.modal:visible').length;
+        $(this).css('z-index', 1040 + (10 * idx));
+    });
+    $('.modal').on('shown.bs.modal', function (event) {
+        var idx = ($('.modal:visible').length) - 1; // raise backdrop after animation.
+        $('.modal-backdrop').not('.stacked').css('z-index', 1039 + (10 * idx));
+        $('.modal-backdrop').not('.stacked').addClass('stacked');
+    });
+</script>
 <script>
     $('#city').change(function () {
         let cityID = $(this).val();
