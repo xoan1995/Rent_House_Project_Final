@@ -121,7 +121,15 @@
                                         <div class="col-6">
                                             <div>
                                                 <a href="{{route('totalHouse',$house->id)}}"
-                                                   style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem">{{$house->house->title}}</a>
+                                                   style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem;
+                                                   font-weight: bold;
+                                                   display: block;
+                                                   width: 100%; max-lines: 2;
+                                                   overflow: hidden;
+                                                   white-space: nowrap;
+                                                   text-overflow: ellipsis;">
+                                                    {{$house->house->title}}
+                                                </a>
                                             </div>
                                             <div>
                                                 <h6>{{$house->house->kindHouse}} ◦ {{$house->house->kindRoom}}</h6>
