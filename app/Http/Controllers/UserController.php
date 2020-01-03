@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\House;
 use App\Http\Requests\EditUserRequest;
-use App\Mail\OrderShipped;
 use App\Mail\Reject_rent_house_by_the_host;
 use App\Mail\RejectRequestRentHouse;
-use App\Notifications\RepliedRequestRentHouse;
 use App\Order;
 use App\StatusInterface;
 use App\User;
