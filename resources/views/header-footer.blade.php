@@ -161,6 +161,7 @@
     .item {
         box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .1);
     }
+
     input[type=checkbox] {
         /* Double-sized Checkboxes */
         -ms-transform: scale(2); /* IE */
@@ -306,12 +307,12 @@
                                                class="btn btn-success">Confirm</a>
 
                                             <a data-id="{{$notice->uid}}"
-                                                style="width: 55px; height: 21px; font-size: 0.85rem;
+                                               style="width: 55px; height: 21px; font-size: 0.85rem;
                                              font-family: Montserrat-Regular; padding-right: 56px;
                                               padding-bottom: 25px"
-                                                type="button" class="btn btn-danger modalNotice" data-backdrop="false"
-                                                data-toggle="modal"
-                                                data-target="#exampleModal_1">
+                                               type="button" class="btn btn-danger modalNotice" data-backdrop="false"
+                                               data-toggle="modal"
+                                               data-target="#exampleModal_1">
                                                 Cancel
                                             </a>
 
@@ -347,8 +348,12 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                             <a href="{{route('user.showHousePosted')}}" class="dropdown-item">My booking & posted</a>
-                            <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
-                            <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
+                            @foreach(\App\SocialAccount::all() as  $account)
+                                @if(auth()->user()->id != $account->user_id)
+                                    <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
+                                    <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
+                                @endif
+                            @endforeach
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -488,12 +493,20 @@
         $("#posted").click(function () {
             $(".booking").hide();
             $(".posted").show();
+            $(".historyARentalHouse").hide();
         });
         $("#booking").click(function () {
             $(".posted").hide();
             $(".booking").show();
+            $(".historyARentalHouse").hide();
         });
-    })
+        $(".oneHouseHistory").click(function () {
+            $(".posted").hide();
+            $(".booking").hide();
+            $(".historyARentalHouse").show();
+        })
+    });
+
 </script>
 <script>
     $(document).ready(function () {
