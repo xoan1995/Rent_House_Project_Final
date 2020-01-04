@@ -66,4 +66,9 @@ class HomeService extends BaseService implements HomeServiceInterface
 
         return $houses;
     }
+
+    public function getAllUser()
+    {
+        // TODO: Implement getAllUser() method.
+    }
 }

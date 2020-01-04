@@ -20,4 +20,13 @@ class BaseRepository
     {
         return $obj->get();
     }
+
+    public function save($obj)
+    {
+        return $obj->save();
+    }
+
+    public function delete($obj){
+       return $obj->delete();
+    }
 }

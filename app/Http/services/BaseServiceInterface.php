@@ -15,4 +15,5 @@ interface BaseServiceInterface
     public function getAllOrders();
 
     public function findCityById($id);
+
 }
