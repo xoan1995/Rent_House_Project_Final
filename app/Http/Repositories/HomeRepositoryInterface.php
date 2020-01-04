@@ -4,15 +4,10 @@
 namespace App\Http\Repositories;
 
 
-interface HomeRepositoryInterface
+interface HomeRepositoryInterface extends BaseRepositoryInterface
 {
-    public function getAll($obj);
-
-    public function findById($obj, $id);
-
     public function getDistrictByCity_id($district_id);
 
     public function searchByOneCondition($obj, $fields, $condition);
 
-    public function get($obj);
 }

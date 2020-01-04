@@ -56,7 +56,6 @@
                             </a>
                             <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
                             <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
-                            <a href="" class="dropdown-item">History</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                   style="display: none;">
                                 @csrf
