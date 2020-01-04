@@ -22,18 +22,34 @@ Route::get('/edit-profile', 'UserController@editUser')->name('editUser');
 Route::post('/update-profile', 'UserController@update')->name('users.update');
 Route::get('/change-password', 'UserController@viewChangePassword')->name('user.changePassword');
 Route::post('/change-password', 'UserController@changePassword')->name('user.changePassword');
+Route::get('/city/{id}/list-house', 'HomeController@showHouseForCity')->name('city.listHouse');
+
+
+Route::prefix('/user')->group(function () {
+    Route::get('house-posted', 'UserController@showHousePostedAndBooking')->name('user.showHousePosted');
+    Route::get('accept/{uid}', 'UserController@acceptAndSendEmail')->name('user.accept');
+    Route::post('reject', 'UserController@rejectAndSendEmail')->name('user.reject');
+    Route::post('reject-booking', 'UserController@rejectBooking')->name('user.rejectBooking');
+});
+
+
+Route::get('get-district-list', 'HomeController@getDistrictList');
+
 
 Route::prefix('houses')->group(function () {
-    Route::get('/create', 'HouseController@create')->name('createHouse');
-    Route::post('/store', 'HouseController@store')->name('storeHouse');
-    Route::get('image', 'HouseController@createImage')->name('createImage');
-    Route::post('store/image', 'HouseController@storeImage')->name('storeImage');
+    Route::get('/create', 'HouseController@create')->name('createHouse')->middleware('auth');
+    Route::post('/store', 'HouseController@store')->name('storeHouse')->middleware('auth');
+    Route::get('image', 'HouseController@createImage')->name('createImage')->middleware('auth');
+    Route::post('store/image', 'HouseController@storeImage')->name('storeImage')->middleware('auth');
     Route::get('totalHouse/{id}', 'HouseController@totalHouse')->name('totalHouse');
-    Route::get('search', 'HouseController@search')->name('search');
+    Route::post('search', 'HomeController@search')->name('search');
+    Route::post('rating/{id}', 'HouseController@rating')->name('rating');
+    Route::get('select-city-district', 'HouseController@selectCityandDistrict');
 });
 
 Route::prefix('order')->group(function () {
     Route::get('rentHouse', 'OrderController@RentHouse')->name('order.rent');
+    Route::get('{id}/histories', 'OrderController@Histories')->name('order.history');
 });
 
 Route::get('/redirect/{social}', 'SocialAuthController@redirect');

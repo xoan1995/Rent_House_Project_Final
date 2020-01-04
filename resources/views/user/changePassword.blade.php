@@ -64,7 +64,7 @@
                                 </a>
                                 <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
                                 <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
-
+                                <a href="" class="dropdown-item">History</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                       style="display: none;">
                                     @csrf
@@ -106,7 +106,10 @@
                                type="password" placeholder="*************" name="passwordNew1" required
                                autocomplete="new-password">
                         <button type="button" onclick="showHidePassword()">
-                            <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
+                            <img class="img-fluid" id="show" width="25px"
+                                 src="{{asset('storage/images/eyes_show.png')}}">
+                            <img style="display: none" class="img-fluid" id="hide" width="25px"
+                                 src="{{asset('storage/images/eyes_hide.png')}}">
                         </button>
 
                         <span class="focus-input100"></span>
@@ -117,7 +120,10 @@
                         <input id="password-confirm" class="input100" type="password" placeholder="*************"
                                name="passwordNew2" required autocomplete="passwordNew2">
                         <button type="button" onclick="showHidePasswordConfirm()">
-                            <img src="https://img.icons8.com/windows/18/000000/uchiha-eyes.png">
+                            <img class="img-fluid" id="show_confirm" width="25px"
+                                 src="{{asset('storage/images/eyes_show.png')}}">
+                            <img style="display: none" class="img-fluid" id="hide_confirm" width="25px"
+                                 src="{{asset('storage/images/eyes_hide.png')}}">
                         </button>
 
                         <span class="focus-input100"></span>

@@ -7,12 +7,12 @@
             <div class="row">
                 @foreach($houses as $house)
                     <div class="col-lg-3 mb-3">
-                        <div class="card" style="width: 100%; height: 350px">
+                        <div class="card" style="width: 100%; height: 390px">
                             <div class="card-body" style="margin: -1.25rem">
                                 <img height="200px" src="{{asset('storage/'.$house->images[0]->path)}}"
                                      class="card-img-top" alt="...">
                             </div>
-                            <div class="card-footer" style="border-top: 0px; height: 150px">
+                            <div class="card-footer" style="border-top: 0px; height: 190px">
                                 <h6 style="padding-top: -2rem">{{$house->kindRoom}}</h6>
                                 <h5 style="font-weight: bold;
                                 display: block;
@@ -31,7 +31,7 @@
                                 width: 100%;overflow: hidden;
                                 white-space: nowrap;
                                 text-overflow: ellipsis; ">
-                                    {{$house->address}}
+                                    {{$house->address}} - {{$house->district->name}} - {{$house->city->name}}
                                 </h6>
                             </div>
                         </div>
@@ -40,5 +40,4 @@
             </div>
         </div>
     </div>
-
 @endsection

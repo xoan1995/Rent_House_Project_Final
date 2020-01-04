@@ -1,41 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Vitamin hung hăng</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="shortcut icon" href="{{asset('favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({selector:'textarea'});</script>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <!--selector textarea-->
-    <script
-        src="https://cdn.tiny.cloud/1/xcof2eix88p59ocdt888tez8f99xx2kpbh0y6jliuxozkluj/tinymce/5/tinymce.min.js"></script>
-    <script>tinymce.init({selector: 'textarea'})</script>
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('storage/editProfile/css/style.css')}}">
 </head>
+<style>
+    .gift {
+        border-radius: 25px;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .1);
+        background-color: #fff;
+    }
+</style>
 <body>
-<nav class=" navbar navbar-expand-md">
-    <div class="container">
+<div class="header-welcome fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{route('home')}}">
             <img class="img-fluid" width="150px" src="{{asset('storage/images/logo/logo_2.jpg')}}" alt="">
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
 
-            <ul class="navbar-nav ml-auto" style="border-radius: 15px; background: rgba(186,186,186,0.31)">
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ">
+                <li class="nav-item ml-3 gift" style="margin-top: 5px">
+                    <a style="color: #1b1e21; font-size: 17px" href=""><img
+                            src="https://img.icons8.com/bubbles/40/000000/gift.png">Nhận ngay 10$</a>
+                </li>
 
                 @guest
+                @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <span class="">
+                            <img src="https://img.icons8.com/carbon-copy/35/000000/bell.png">
+                        </span>
+                            <span class="badge-light">
+                                <?php $count = 0 ?>
+                                @if (auth()->user())
+                                    @foreach (\App\Notification::all() as $notice)
+                                        @if(json_decode($notice->data)->receiver == auth()->user()->email)
+                                            <?php $count++ ?>
+                                        @endif
+                                    @endforeach
+                                @endif
+                                ({{$count}})
+                            </span>
+                        </a>
 
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
+                            style="width: 600px">
+                            @foreach(\App\Notification::all() as $notice)
+                                @if(json_decode($notice->data)->receiver == auth()->user()->email)
+                                    <div>
+                                        <a href="{{route('totalHouse', json_decode($notice->data)->house_id)}}">
+                                            {{json_decode($notice->data)->message}} {{json_decode($notice->data)->title}}
+                                            từ {{json_decode($notice->data)->checkin}}
+                                            đến {{json_decode($notice->data)->checkout}}
+                                            bởi {{json_decode($notice->data)->sender}}
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 57px; padding-bottom: 25px"
+                                           href="" class="btn btn-success">Confirm</a>
+                                        <a style="width: 55px; height: 21px; font-size: 0.85rem; font-family: Montserrat-Regular; padding-right: 57px; padding-bottom: 25px"
+                                           href="" class="btn btn-danger">Cancel</a>
+                                    </div>
+                                @endif
+                            @endforeach
+
+                        </ul>
+                    </li>
+                @endguest
+
+                @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
@@ -46,240 +96,283 @@
                     @endif
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        <a style="font-size: 17px" id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                           role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            {{ Auth::user()->name }}<span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{route('user.showHousePosted')}}" class="dropdown-item">My booking & posted</a>
+                            <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
+                            <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-                            <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
-                            <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                  style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </div>
                     </li>
                 @endguest
             </ul>
-        </div>
-    </div>
-</nav>
-<div class="wrapper">
-    <div class="inner">
-        <div class="image-holder">
-            <img src="{{asset('storage/editProfile/images/image_createHouse.jpg')}}" alt="">
-        </div>
-        <form action="{{route('storeHouse')}}" method="post">
-            @csrf
-            <h3>Add new House</h3>
-            <div class="form-wrapper">
 
-                <div class="row">
-                    <div class="col-12">
-                        @if(!$errors->has('title'))
-                            <input type="text" class="form-control text-info" id="" name="title" placeholder="*Title"
-                                   value="" >
-                        @else
-                            <input type="text" class="form-control border-danger"
-                                   name="title"
-                                   placeholder="*Title"
-                                   value="" >
-                            <i class="text-danger">{{$errors->first('title')}}</i>
-                        @endif
-                    </div>
-                    <div class="col-12">
-                        @if(!$errors->has('price'))
-                            <input type="number" class="form-control text-info" id="" name="price" placeholder="$"
-                                   value=""
-                                   >
-                        @else
-                            <input type="number" class="form-control border-danger" id="" name="price"
-                                   placeholder="$"
-                                   value=""
-                                   ><i class="text-danger">{{$errors->first('price')}}</i>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    @if(!$errors->has('kindHouse'))
-                        <select name="kindHouse" class="form-control ">
-                            <option value="" selected style="display: none">
-                                *Kind house
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::APRTMENT}}">
-                                {{\App\KindOfHouseInterface::APRTMENT}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::CONDOTEL}}">
-                                {{\App\KindOfHouseInterface::CONDOTEL}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::MOTEL}}">
-                                {{\App\KindOfHouseInterface::MOTEL}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::ENTIREHOME}}">
-                                {{\App\KindOfHouseInterface::ENTIREHOME}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::VILA}}">
-                                {{\App\KindOfHouseInterface::VILA}}
-                            </option>
-                        </select>
-                    @else
-                        <select name="kindHouse" class="form-control border-danger">
-                            <option value="" selected style="display: none">
-                                * Kind house
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::APRTMENT}}">
-                                {{\App\KindOfHouseInterface::APRTMENT}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::CONDOTEL}}">
-                                {{\App\KindOfHouseInterface::CONDOTEL}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::MOTEL}}">
-                                {{\App\KindOfHouseInterface::MOTEL}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::ENTIREHOME}}">
-                                {{\App\KindOfHouseInterface::ENTIREHOME}}
-                            </option>
-                            <option value="{{\App\KindOfHouseInterface::VILA}}">
-                                {{\App\KindOfHouseInterface::VILA}}
-                            </option>
-                        </select>
-                        <i class="text-danger">{{$errors->first('kindHouse')}}</i>
-                    @endif
-                </div>
-                <div class="col-6">
-                    @if(!$errors->has('kindRoom'))
-                        <select class="form-control" name="kindRoom">
-                            <option value="" selected style="display: none">
-                                * Kind room
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::SINGLE}}">
-                                {{\App\KindOfRoomInterface::SINGLE}}
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::COUPLE}}">
-                                {{\App\KindOfRoomInterface::COUPLE}}
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::FAMILY}}">
-                                {{\App\KindOfRoomInterface::FAMILY}}
-                            </option>
-                        </select>
-                    @else
-                        <select class="form-control border-danger" name="kindRoom" >
-                            <option value="" selected style="display: none">
-                                * Kind room
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::SINGLE}}">
-                                {{\App\KindOfRoomInterface::SINGLE}}
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::COUPLE}}">
-                                {{\App\KindOfRoomInterface::COUPLE}}
-                            </option>
-                            <option value="{{\App\KindOfRoomInterface::FAMILY}}">
-                                {{\App\KindOfRoomInterface::FAMILY}}
-                            </option>
-                        </select>
-                        <i class="text-danger">{{$errors->first('kindRoom')}}</i>
-                    @endif
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    @if(!$errors->has('numBedroom'))
-                        <input type="number" class="form-control" id="" name="numBedroom"
-                               placeholder="*Number bedroom"
-                               value="">
-                    @else
-                        <input type="number" class="form-control border-danger" id="" name="numBedroom"
-                               placeholder="*Number bedroom"
-                               value="">
-                        <i class="text-danger">{{$errors->first('numBedroom')}}</i>
-                    @endif
-                </div>
-                <div class="col-6">
-                    @if(!$errors->has('numBathroom'))
-                        <input type="number" class="form-control " id="" name="numBathroom"
-                               placeholder="*Number bathroom"
-                               value="">
-                    @else
-                        <input type="number" class="form-control  border-danger" id="" name="numBathroom"
-                               placeholder="*Number bathroom"
-                               value="">
-                        <i class="text-danger">{{$errors->first('numBathroom')}}</i>
-                    @endif
-                </div>
-            </div>
+        </div>
+    </nav>
+</div>
 
-            <div class="row">
-                <div class="col-6">
-                    @if(!$errors->has('address'))
-                        <input type="text" class="form-control" style="width: 100%" id="" name="address"
-                               placeholder="*Address"
-                               value="">
-                    @else
-                        <input type="text" class="form-control border-danger" style="width: 100%" id=""
-                               name="address"
-                               placeholder="*Address"
-                               value="">
-                        <i class="text-danger">{{$errors->first('address')}}</i>
-                    @endif
-                </div>
-                <div class="col-6">
-                    @if(!$errors->has('city_id'))
-                        <select class="form-control" name="city_id">
-                            <option value="" selected style=" display: none">
-                                *City
-                            </option>
-                            @foreach($cities as $city)
-                                <option value="{{$city->id}}">
-                                    {{$city->name}}
-                                </option>
-                            @endforeach
-                        </select>
-                    @else
-                        <select class="form-control border-danger" name="city_id">
-                            <option value="" selected style="display: none">
-                                * City
-                            </option>
-                            @foreach($cities as $city)
-                                <option value="{{$city->id}}">
-                                    {{$city->name}}
-                                </option>
-                                <i class="text-danger">{{$errors->first('city_id')}}</i>
-                            @endforeach
-                        </select>
-                        <i class="text-danger">{{$errors->first('city_id')}}</i>
-                    @endif
-                </div>
+<div class="container" style="margin-top: 6rem;">
+
+    <div class="container center">
+        <style>
+            body {
+                background-image: url('{{asset('storage/images/background-create_house.jpg')}}');
+
+            }
+        </style>
+        <div class="card">
+            <h5 class="card-header">Add House</h5>
+            <div class="card-body">
+                <form action="{{route('storeHouse')}}" method="post" novalidate enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Title<span class="text-danger">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control"
+                                           @if($errors->has('title')) style="border:solid 1px red" @endif id=""
+                                           name="title"
+                                           placeholder=""
+                                           value="">
+                                    @if($errors->has('title'))
+                                        <i class="text-danger">{{$errors->first('title')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Price<span class="text-danger">*</span></label>
+                                <div class="col-sm-9">
+
+                                    <input type="number" @if($errors->has('price')) style="border:solid 1px red" @endif
+                                    class="form-control text-info" id="" name="price"
+                                           placeholder="$"
+                                           value="">
+                                    @if($errors->has('price'))
+                                        <i class="text-danger">{{$errors->first('price')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Kind House
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+
+                                    <select name="kindHouse" class="form-control "
+                                            @if($errors->has('kindHouse')) style="border:solid 1px red" @endif>
+                                        <option value="" selected style="display: none">
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::APRTMENT}}">
+                                            {{\App\KindOfHouseInterface::APRTMENT}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::CONDOTEL}}">
+                                            {{\App\KindOfHouseInterface::CONDOTEL}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::MOTEL}}">
+                                            {{\App\KindOfHouseInterface::MOTEL}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::ENTIREHOME}}">
+                                            {{\App\KindOfHouseInterface::ENTIREHOME}}
+                                        </option>
+                                        <option value="{{\App\KindOfHouseInterface::VILA}}">
+                                            {{\App\KindOfHouseInterface::VILA}}
+                                        </option>
+                                    </select>
+                                    @if($errors->has('kindHouse'))
+                                        <i class="text-danger">{{$errors->first('kindHouse')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Kind Room
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="kindRoom"
+                                            @if($errors->has('kindRoom')) style="border:solid 1px red" @endif>
+                                        <option value="" selected style="display: none">
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::SINGLE}}">
+                                            {{\App\KindOfRoomInterface::SINGLE}}
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::COUPLE}}">
+                                            {{\App\KindOfRoomInterface::COUPLE}}
+                                        </option>
+                                        <option value="{{\App\KindOfRoomInterface::FAMILY}}">
+                                            {{\App\KindOfRoomInterface::FAMILY}}
+                                        </option>
+                                    </select>
+                                    @if($errors->has('kindRoom'))
+                                        <i class="text-danger">{{$errors->first('kindRoom')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Number bedroom
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+
+                                    <input type="number" @if($errors->has('numBedroom')) style="border:solid 1px red"
+                                           @endif class="form-control" id="" name="numBedroom"
+                                           placeholder=""
+                                           value="">
+                                    @if($errors->has('numBedroom'))
+                                        <i class="text-danger">{{$errors->first('numBedroom')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Number bathroom
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="number" @if($errors->has('numBathroom')) style="border:solid 1px red"
+                                           @endif class="form-control " id="" name="numBathroom"
+                                           placeholder=""
+                                           value="">
+                                    @if($errors->has('numBathroom'))
+                                        <i class="text-danger">{{$errors->first('numBathroom')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">City<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="city"
+                                            @if($errors->has('city_id')) style="border:solid 1px red"
+                                            @endif name="city_id">
+                                        <option value="" selected style=" display: none">
+                                            Select
+                                        </option>
+                                        @foreach($cities as $key => $city)
+                                            <option value="{{1+$key}}">{{$city->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('city_id'))
+                                        <i class="text-danger">{{$errors->first('city_id')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">District<span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="district_id" id="district">
+                                        <option>Huyện</option>
+                                    </select>
+                                    @if($errors->has('district_id'))
+                                        <i class="text-danger">{{$errors->first('district_id')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Address<span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"
+                                           @if($errors->has('address')) style="border:solid 1px red" @endif id=""
+                                           name="address"
+                                           placeholder=""
+                                           value="">
+                                    @if($errors->has('address'))
+                                        <i class="text-danger">{{$errors->first('address')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Descript<span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                <textarea class="form-control"
+                                          @if($errors->has('description')) style="border:solid 1px red" @endif rows="3"
+                                          name="description"></textarea>
+                                    <div class="invalid-feedback">Details!</div>
+                                    @if($errors->has('description'))
+                                        <i class="text-danger">{{$errors->first('description')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="col-sm-2 col-form-label">Image<span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input @if($errors->has('images')) style="border:solid 1px red" @endif type="file"
+                                           multiple class="custom-file-input" name="images[]"
+                                           id="inputGroupFile04" required>
+                                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                    @if($errors->has('images'))
+                                        <i class="text-danger">{{$errors->first('images')}}</i>
+                                    @endif
+                                </div>
+                            </div>
+                            <button type="submit" style="text-align: right; margin-left: 45%"
+                                    class="btn btn-primary mt-4">Submit
+                            </button>
+                            <a href="/" style="text-align: right" class="btn btn-danger mt-4">Cancel</a>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-wrapper">
-                <label for="review-text"><span class="text-danger">*</span>Description</label>
-                @if(!$errors->has('description'))
-                    <textarea class="form-control" rows="6" name="description"></textarea>
-                    <div class="invalid-feedback">Details!</div>
-                @else
-                    <p class="text-danger">{{$errors->first('description')}}</p>
-                    <textarea class="form-control text-info" rows="6" name="description"
-                             >
-                       </textarea>
-                    <div class="invalid-feedback">Details!</div>
-                @endif
-            </div>
-            <div class="form-wrapper" style="margin-top: -2rem">
-                <button type="submit">Next</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+    $('#city').change(function () {
+        let cityID = $(this).val();
+        if (cityID) {
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                data: {
+                    districtID: cityID
+                },
+                url: "http://127.0.0.1:8000/houses/select-city-district",
+                success: function (res) {
+                    if (res) {
+                        $('#district').empty();
+                        $('#district').append('<option>Huyện</option>');
+                        $.each(res, function (key, value) {
+                            $('#district').append('<option value="' + value.id + '">' + value.name + '</option>')
+                        });
+                    } else {
+                        $('#district').empty();
+                    }
+                }
+            })
+        } else {
+            $('#district').empty();
+            $('#city').empty();
+        }
+    });
+</script>
+
 </body>
 </html>
-
-
-

@@ -3,97 +3,81 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\District;
 use App\House;
 use App\Http\Requests\HouseRequestValidate;
+use App\Http\services\HouseServiceInterface;
 use App\Image;
+use App\Rating;
+use App\StatusInterface;
 use App\User;
 use http\Client\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use TJGazel\Toastr\Facades\Toastr;
+
 
 class HouseController extends Controller
 {
     protected $house;
     protected $user;
     protected $image;
+    protected $city;
+    protected $district;
+    protected $houseService;
 
     public function __construct(House $house,
                                 User $user,
-                                Image $image)
+                                Image $image,
+                                City $city,
+                                District $district, HouseServiceInterface $houseService)
     {
+        $this->houseService = $houseService;
         $this->house = $house;
         $this->user = $user;
         $this->image = $image;
-        $this->middleware('auth');
+        $this->district = $district;
+        $this->city = $city;
     }
 
     public function create()
     {
-        $cities = City::all();
-        return view('house.create', compact('cities'));
+        return view('house.create');
     }
 
 
     public function store(HouseRequestValidate $request)
     {
-        $house = new House();
-        $house->title = $request->title;
-        $house->kindHouse = $request->kindHouse;
-        $house->kindRoom = $request->kindRoom;
-        $house->address = $request->address;
-        $house->numBedroom = $request->numBedroom;
-        $house->numBathroom = $request->numBathroom;
-        $house->description = $request->description;
-        $house->price = $request->price;
-        $house->city_id = $request->city_id;
-        $house->save();
-        return view('house.images.create');
-    }
-
-    public function createImage()
-    {
-        return view('house.images.create');
-    }
-
-    public function storeImage(Request $request)
-    {
-        $house_id = DB::table('houses')->max('id');
-        $image = $request->file('file');
-        $path = $image->store('rooms', 'public');
-
-        $imageUpload = new Image();
-        $imageUpload->path = $path;
-        $imageUpload->house_id = $house_id;
-        $imageUpload->save();
-//        return response()->json(['success' => $path]);
-        return redirect()->route('home');
+        $this->houseService->createHouse($request);
+        Toastr::success('upload house success!');
+        return redirect('/');
     }
 
     public function totalHouse($id)
     {
-        $house = $this->house->findOrFail($id);
-        return view('totalHouse', compact('house'));
+        $ratings = $this->houseService->getAllRating();
+        $house = $this->houseService->findHouseById($id);
+        return view('totalHouse', compact('house', 'ratings'));
     }
 
-    public function search(Request $request)
+    public function rating(Request $request, $id)
     {
-        $search = $this->house;
-        if (!empty($request->get('keyword'))) {
-            $search = $search->where('address', $request->get('keyword'));
-        }
-        if (!empty($request->get('numBedRoom'))) {
-            $search = $search->where('numBedroom', $request->get('numBedRoom'));
-        }
-        if (!empty($request->get('numBathRoom'))) {
-            $search = $search->where('numBathroom', $request->get('numBathRoom'));
-        }
-        if (!empty($request->get('price'))) {
-            $search = $search->where('price', $request->get('price'));
-        }
+        $house = $this->houseService->findHouseById($id);
+        $user = Auth::user();
+        $rating = new Rating();
+        $rating->user_id = $user->id;
+        $rating->house_id = $house->id;
+        $rating->star = $request->star;
+        $rating->comment = $request->comment;
+        $rating->save();
+        return redirect()->route('home');
+    }
 
-        $cities = City::all();
-        $houses = $search->get();
+    public function selectCityandDistrict(Request $request)
+    {
+        $districts = $this->houseService->searchDistrictByCity_id("districts", 'city_id', $request->districtID);
 
-        return view('house.list', compact('houses', 'cities'));
+        return response()->json($districts);
     }
 }

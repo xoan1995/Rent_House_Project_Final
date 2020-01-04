@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "bootstrap-show-password": "^1.2.1",
-        "sweetalert2": "^9.5.3"
+        "sweetalert2": "^9.5.3",
+        "vue-star-rating": "^1.6.1"
     }
 }
