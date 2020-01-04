@@ -6,6 +6,7 @@ use App\City;
 use App\District;
 use App\House;
 use App\Http\Requests\HouseRequestValidate;
+use App\Http\services\HomeServiceInterface;
 use App\Http\services\HouseServiceInterface;
 use App\Image;
 use App\Rating;
@@ -26,12 +27,15 @@ class HouseController extends Controller
     protected $city;
     protected $district;
     protected $houseService;
+    protected $homeService;
+
 
     public function __construct(House $house,
                                 User $user,
                                 Image $image,
                                 City $city,
-                                District $district, HouseServiceInterface $houseService)
+                                District $district,
+                                HouseServiceInterface $houseService, HomeServiceInterface $homeService)
     {
         $this->houseService = $houseService;
         $this->house = $house;
@@ -39,6 +43,7 @@ class HouseController extends Controller
         $this->image = $image;
         $this->district = $district;
         $this->city = $city;
+        $this->homeService = $homeService;
     }
 
     public function create()
@@ -56,7 +61,7 @@ class HouseController extends Controller
 
     public function totalHouse($id)
     {
-        $ratings = $this->houseService->getAllRating();
+        $ratings = $this->homeService->getAllRating();
         $house = $this->houseService->findHouseById($id);
         return view('totalHouse', compact('house', 'ratings'));
     }

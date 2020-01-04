@@ -52,8 +52,9 @@
                                 </div>
                                 <div class="col-4 col-lg-4 pb-3">
                                     <div>
-                                        <a href="{{route('totalHouse',$house->id)}}"
-                                           style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem">{{$house->title}}</a>
+                                        <a style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem"
+                                           data-id="{{$house->id}}"
+                                           class="oneHouseHistory">{{$house->title}}</a>
                                     </div>
                                     <div>
                                         <h6>{{$house->kindHouse}} ◦ {{$house->kindRoom}}</h6>
@@ -250,6 +251,9 @@
                         @endforeach
                     </div>
                 @endif
+            </div>
+            <div class="historyARentalHouse" style="display: none">
+                dfasdfas
             </div>
         </div>
     </div>
