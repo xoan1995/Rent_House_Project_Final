@@ -85,4 +85,16 @@ class HouseController extends Controller
 
         return response()->json($districts);
     }
+
+    public function findHistoryHouseBooking(Request $request)
+    {
+        $house_id = $request->houseId;
+        $house = House::findOrFail($house_id);
+        $houses = DB::table('orders')->where('house_id', $house_id)->get();
+        $district = $house->district->name;
+        $city = $house->city->name;
+        $image = $house->images[0]->path;
+
+        return response()->json([$house, $houses,$district,$city,$image]);
+    }
 }
