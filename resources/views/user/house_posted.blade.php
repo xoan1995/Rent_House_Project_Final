@@ -10,6 +10,7 @@
         padding: 10px;
     }
 </style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @extends('header-footer')
 
@@ -22,6 +23,9 @@
                 </li>
                 <li class="nav-item">
                     <button id="booking" class="nav-link">My booking</button>
+                </li>
+                <li class="nav-item">
+                    <button id="historyOneHouse" class="nav-link">history one house</button>
                 </li>
             </ul>
         </div>
@@ -253,7 +257,7 @@
                 @endif
             </div>
             <div class="historyARentalHouse" style="display: none">
-                dfasdfas
+
             </div>
         </div>
     </div>
