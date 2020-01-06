@@ -52,5 +52,8 @@ Route::prefix('order')->group(function () {
     Route::get('{id}/histories', 'OrderController@Histories')->name('order.history');
 });
 
+Route::prefix('comment')->group(function () {
+    Route::get('');
+});
 Route::get('/redirect/{social}', 'SocialAuthController@redirect');
 Route::get('/callback/{social}', 'SocialAuthController@callback');

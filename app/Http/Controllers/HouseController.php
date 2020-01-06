@@ -81,12 +81,20 @@ class HouseController extends Controller
 
     public function totalHouse($id)
     {
-        $ratings= Rating::all();
+        $ratings = Rating::all();
         $house = $this->house->findOrFail($id);
-        return view('totalHouse', compact('house', 'ratings'));
+        $sumStar = 0;
+        foreach ($ratings as $rating) {
+            $sumStar = $rating->star + $sumStar;
+        }
+        $sumRating = DB::table('ratings')->max('id');
+        $muxStar= 5*$sumRating;
+        $with=120;
+        $average_user_rating=$sumStar/$muxStar*5;
+        return view('totalHouse', compact('house', 'ratings', 'average_user_rating','with'));
     }
 
-    public function rating(Request $request,$id)
+    public function rating(Request $request, $id)
     {
         $house = House::findOrFail($id);
         $user = Auth::user();
@@ -94,7 +102,6 @@ class HouseController extends Controller
         $rating->user_id = $user->id;
         $rating->house_id = $house->id;
         $rating->star = $request->star;
-        $rating->comment = $request->comment;
         $rating->save();
         return redirect()->route('home');
     }
