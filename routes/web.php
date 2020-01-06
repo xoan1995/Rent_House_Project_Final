@@ -30,6 +30,7 @@ Route::prefix('/user')->group(function () {
     Route::get('accept/{uid}', 'UserController@acceptAndSendEmail')->name('user.accept');
     Route::post('reject', 'UserController@rejectAndSendEmail')->name('user.reject');
     Route::post('reject-booking', 'UserController@rejectBooking')->name('user.rejectBooking');
+    Route::get('alert', 'UserController@alert')->middleware('auth');
 });
 
 

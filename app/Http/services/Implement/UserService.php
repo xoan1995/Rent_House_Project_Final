@@ -14,8 +14,10 @@ use App\Order;
 use App\StatusInterface;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use TJGazel\Toastr\Facades\Toastr;
 
 class UserService extends BaseService implements UserServiceInterface
@@ -158,9 +160,10 @@ class UserService extends BaseService implements UserServiceInterface
             if ($checkInTimestamp - $nowTimestamp >= 86400) {
                 $this->userRepository->delete($order);
                 Mail::to($email_host)->queue(new RejectRequestRentHouse($sender, $reasons));
-                Toastr::success('reject booking successfully');
+                session()->flash('reject booking successfully');
+                return back();
             } else {
-                Toastr::warning('You cannot cancel your reservation one day in advance');
+                session()->flash('alert', 'You cannot cancel your reservation one day in advance');
             }
         }
     }

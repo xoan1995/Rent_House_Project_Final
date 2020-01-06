@@ -520,7 +520,6 @@
         }
     });
 
-
     $(document).ready(function () {
         $("#posted").click(function () {
             $(".booking").hide();
@@ -582,7 +581,7 @@
                         </div>`);
                         $.each(res[1], function (key, house) {
                             for (let i = 0; i < res[5].length; i++) {
-                                if (res[5][i].id == house.user_id){
+                                if (res[5][i].id == house.user_id) {
                                     nameRenter = res[5][i].name;
                                 }
                             }

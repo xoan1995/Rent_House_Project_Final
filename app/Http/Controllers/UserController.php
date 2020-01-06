@@ -13,6 +13,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -110,6 +111,10 @@ class UserController extends Controller
     {
         $notification = $this->userService->findNotificationByUid($id, 'uid');
         $order_id = json_decode($notification[0]->data)->order_id;
+        $house_id = json_decode($notification[0]->data)->house_id;
+        $house = House::find($house_id);
+        $house->status = StatusInterface::UNREADY;
+        $house->save();
         $this->userService->acceptRent($notification, $order_id);
         return back();
     }

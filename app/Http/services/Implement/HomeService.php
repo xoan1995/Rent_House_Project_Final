@@ -3,6 +3,7 @@
 
 namespace App\Http\services\Implement;
 
+use App\Http\Controllers\SocialAuthController;
 use App\Http\services\BaseService;
 use App\Http\services\HomeServiceInterface;
 use App\StatusInterface;
@@ -40,7 +41,6 @@ class HomeService extends BaseService implements HomeServiceInterface
         return $houses;
     }
 
-
     public function search($request)
     {
         $houses = $this->getConditionSearch($request);
@@ -49,10 +49,16 @@ class HomeService extends BaseService implements HomeServiceInterface
 
         for ($i = 0; $i < count($housesOrder); $i++) {
             for ($j = 0; $j < count($houses); $j++) {
-                if ($housesOrder[$i]['house_id'] == $houses[$j]['id']
-                    && ($housesOrder[$i]["status"] == StatusInterface::PENDING || $housesOrder[$i]["status"] == StatusInterface::UNREADY)
-                ) {
+                if ((+$houses[$j]['status'] == StatusInterface::UNREADY || +$houses[$j]['status'] == StatusInterface::PENDING)) {
+
                     array_splice($houses, $j, 1);
+
+                    if ((+$housesOrder[$i]["status"] == StatusInterface::PENDING
+                            || +$housesOrder[$i]["status"] == StatusInterface::UNREADY)
+                    ) {
+                        array_splice($houses, $j, 1);
+                    }
+
                 }
                 if (!empty($request->checkin) && !empty($request->checkout)) {
                     if ((Carbon::parse($request->get('checkin'))->timestamp >= Carbon::parse($housesOrder[$i]->checkin)->timestamp

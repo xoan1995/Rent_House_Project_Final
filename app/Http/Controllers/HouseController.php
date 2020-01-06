@@ -96,19 +96,26 @@ class HouseController extends Controller
         $image = $house->images[0]->path;
         $users = User::all();
 
-        return response()->json([$house, $houses, $district, $city, $image,$users]);
+        return response()->json([$house, $houses, $district, $city, $image, $users]);
     }
 
     public function changeStatus(Request $request)
     {
-        $house = House::find($request->houseId);
-        $house->status = $request->status;
+        $houseId = $request->houseId;
+        $house = House::find($houseId);
+        $status = $request->status;
+        $house->status = $status;
         $house->save();
+        $housesOrder = DB::table('orders')->where('house_id', $houseId)->get();
+        foreach ($housesOrder as $item) {
+            $item->status = $status;
+            $item->save();
+        }
     }
 
     public function showMap($id)
     {
         $house = House::findOrFail($id);
-        return view('house.map',compact('house'));
+        return view('house.map', compact('house'));
     }
 }
