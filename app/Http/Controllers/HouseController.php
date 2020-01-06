@@ -95,6 +95,12 @@ class HouseController extends Controller
         $city = $house->city->name;
         $image = $house->images[0]->path;
 
-        return response()->json([$house, $houses,$district,$city,$image]);
+        return response()->json([$house, $houses, $district, $city, $image]);
+    }
+
+    public function showMap($id)
+    {
+        $house = House::findOrFail($id);
+        return view('house.map',compact('house'));
     }
 }
