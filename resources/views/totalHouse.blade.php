@@ -1,3 +1,5 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
 @extends('header-footer')
 @section('content')
     <div class="mt-4">
@@ -34,7 +36,8 @@
                 </div>
                 <div class="offset-1 mt-3" style="font-size: 20px; font-weight: bold">
                     <img style="width: 30px"
-                         src="https://img.icons8.com/plasticine/100/000000/address.png"><a href="{{route('showMap',$house->id)}}">{{$house->address}}</a>
+                         src="https://img.icons8.com/plasticine/100/000000/address.png"><a
+                        href="{{route('showMap',$house->id)}}">{{$house->address}}</a>
                 </div>
                 <div class="offset-1 mt-2" style="font-size: 20px; font-weight: bold">
                     <img src="https://img.icons8.com/officel/30/000000/four-beds.png">{{$house->kindRoom}}
@@ -143,8 +146,8 @@
 
                                         <h4>Average user rating</h4>
                                         <h2 class="bold padding-bottom-7">
-                                            {{$average_user_rating}}<small>/ 5</small></h2>
-                                        @if($average_user_rating>1)
+                                            {{round($average_user_rating)}}<small>/ 5</small></h2>
+                                        @if(round($average_user_rating)>1)
                                             @for($i=1; $i<=$average_user_rating; ++$i)
                                                 <button type="button" class="btn btn-warning btn-sm"
                                                         aria-label="Left Align">
@@ -205,74 +208,72 @@
                     </div>
                     <div class="row">
                         @foreach($ratings as $rating)
-                            <div class="col-sm-7">
-                                <hr/>
-                                <div class="review-block">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <div class="review-block-name"><a href="">{{$rating->user_id}}</a></div>
-                                            <div class="review-block-date">{{$rating->created_at}}</div>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="review-block-rate">
-                                                @if($rating->star==2)
-                                                    <button type="button" class="btn btn-warning btn-xs"
-                                                            aria-label="Left Align">
+                            @if($rating->house_id == $house->id)
+                                <div class="col-sm-7">
+                                    <hr/>
+                                    <div class="review-block">
+                                        <div class="row">
+                                            @foreach(\App\User::all() as $user)
+                                                @if($rating->user_id == $user->id)
+                                                    <div class="col-sm-3">
+                                                        <div class="review-block-name"><p>
+
+                                                                {{$user->name}}
+
+                                                            </p></div>
+                                                        <div class="review-block-date">{{$rating->created_at}}</div>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="review-block-rate">
+
+                                                            <button type="button" class="btn btn-warning btn-xs"
+                                                                    aria-label="Left Align">
                                                         <span class="glyphicon glyphicon-star"
                                                               aria-hidden="true"></span>
-                                                    </button>
-                                                @elseif($rating->star==2)
-                                                @elseif($rating->star==3)
-                                                @elseif($rating->star==4)
-                                                @elseif($rating->star==5)
-                                                @endif
-                                                {{--                                                    @switch($login_error)--}}
-                                                {{--                                                        @case(1)--}}
+                                                            </button>
 
-                                                {{--                                                        <span> `E-mail` input is empty! </span>--}}
+                                                            {{--                                                    @switch($login_error)--}}
+                                                            {{--                                                        @case(1)--}}
 
-                                                {{--                                                        @break--}}
+                                                            {{--                                                        <span> `E-mail` input is empty! </span>--}}
 
-                                                {{--                                                        @case(2)--}}
+                                                            {{--                                                        @break--}}
 
-                                                {{--                                                        <span>`Password` input is empty! </span>--}}
+                                                            {{--                                                        @case(2)--}}
 
-                                                {{--                                                        @break--}}
+                                                            {{--                                                        <span>`Password` input is empty! </span>--}}
 
-                                                {{--                                                        @default--}}
+                                                            {{--                                                        @break--}}
 
-                                                {{--                                                        <span>Something went wrong, please try again </span>--}}
+                                                            {{--                                                        @default--}}
 
-                                                {{--                                                    @endswitch--}}
-                                            </div>
-                                            <div class="review-block-description">
+                                                            {{--                                                        <span>Something went wrong, please try again </span>--}}
 
-                                            </div>
+                                                            {{--                                                    @endswitch--}}
+                                                        </div>
+                                                        @endif
+
+                                                        @endforeach
+                                                        <div class="review-block-description">
+
+                                                            @foreach(\App\Comment::all() as $comment)
+                                                                    @if($comment->house_id == $house->id)
+                                                                        {{$comment->content}}
+                                                                    @endif
+                                                            @endforeach
+
+
+                                                        </div>
+                                                    </div>
                                         </div>
+                                        <hr/>
                                     </div>
-                                    <hr/>
-
-
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                     <br>
-
-                    <p>chua co danh gia</p>
                 </div>
-                <div class="offset-1 mt-4">
-
-                    {{--                    <div class="row">--}}
-                    {{--                        @foreach($ratings as $rating)--}}
-                    {{--                            @if($rating->user_id==$post->id)--}}
-                    {{--                            @endif--}}
-                    {{--                        @endforeach--}}
-                    {{--                    </div>--}}
-
-
-                </div> <!-- /container -->
-
 
                 <form action="{{route('rating',$house->id)}}" method="post">
                     @csrf
@@ -294,14 +295,20 @@
                                 star</label>
                         </div>
                     </div>
-                    <div class="offset-1 mt-4">
-                        <textarea class="form-control" rows="3"
-                                  name="comment"></textarea>
-                    </div>
+
                     <div class="offset-1 mt-4">
                         <button type="submit" class="btn btn-success">Submit</button>
                     </div>
                 </form>
+                <form action="{{route('addComment', $house->id)}}" method="post">
+                    @csrf
+                    <div class="offset-1 mt-4">
+                        <textarea class="form-control" rows="3"
+                                  name="comment"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">add</button>
+                </form>
+
             </div>
             <div class="col-lg-5 ml-5">
                 <div class="row">
@@ -385,4 +392,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 {!! toastr()->render() !!}
