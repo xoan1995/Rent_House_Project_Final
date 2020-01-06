@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\House;
 use App\Http\Requests\EditUserRequest;
-use App\Mail\OrderShipped;
+use App\Http\services\UserServiceInterface;
 use App\Mail\Reject_rent_house_by_the_host;
 use App\Mail\RejectRequestRentHouse;
-use App\Notifications\RepliedRequestRentHouse;
 use App\Order;
 use App\StatusInterface;
 use App\User;
@@ -24,39 +23,24 @@ use TJGazel\Toastr\Facades\Toastr;
 class UserController extends Controller
 {
     protected $user;
+    protected $userService;
 
-    public function __construct(User $user)
+    public function __construct(User $user, UserServiceInterface $userService)
     {
         $this->user = $user;
+        $this->userService = $userService;
         $this->middleware('auth');
     }
 
     public function editUser()
     {
-        $user = Auth::user();
+        $user = $this->userService->getUserCurrentlyLoggedIn();
         return view('user.editUser', compact('user'));
     }
 
     public function update(EditUserRequest $request)
     {
-        $user = Auth::user();
-        $user->name = $request->name;
-        if ($request->dob) {
-            $user->dob = $request->dob;
-        }
-        if ($request->idCard) {
-            $user->idCard = $request->idCard;
-        }
-        if ($request->gender) {
-            $user->gender = $request->gender;
-        }
-        if ($request->address) {
-            $user->address = $request->address;
-        }
-        if ($request->phone) {
-            $user->phone = $request->phone;
-        }
-        $user->save();
+        $this->userService->update($request);
         Toastr::success('Successfully updated');
         return redirect()->route('home');
     }
@@ -91,10 +75,7 @@ class UserController extends Controller
             } else {
                 $current_password = Auth::user()->password;
                 if (Hash::check($request_data['passwordOld'], $current_password)) {
-                    $user_id = Auth::user()->id;
-                    $obj_user = User::find($user_id);
-                    $obj_user->password = Hash::make($request_data['passwordNew1']);;
-                    $obj_user->save();
+                    $this->userService->changePassword($request_data);
                     Toastr::success('Successfully updated');
                     return redirect()->route('home');
                 } else {
@@ -109,40 +90,27 @@ class UserController extends Controller
 
     public function showHousePostedAndBooking()
     {
-        $user = Auth::user();
+        $user = $this->userService->getUserCurrentlyLoggedIn();
         $totalPrice = $user->orders;
         $totalPriceForMonth = 0;
         for ($i = 0; $i < count($totalPrice); $i++) {
             $totalPriceForMonth += +($totalPrice[$i]->totalPrice);
         }
-        $user_id = \auth()->id();
-        $houses_posted = House::where('user_id', 'LIKE', $user_id)->get();
-        $notifications_booking = \App\Notification::where('notifiable_id', 'LIKE', $user_id)->get();
-        $houses_booking = Order::where('user_id', $user_id)->get();
+
+        $user_id = $this->userService->getUserCurrentlyLoggedIn()->id;
+
+        $houses_posted = $this->userService->findHousePosted($user_id, 'user_id');
+
+        $houses_booking = $this->userService->findHouseBooking($user_id, 'user_id');
 
         return view('user.house_posted', compact('houses_posted', 'houses_booking'));
     }
 
     public function acceptAndSendEmail($id)
     {
-        $notification = \App\Notification::where('uid', $id)->get();
+        $notification = $this->userService->findNotificationByUid($id, 'uid');
         $order_id = json_decode($notification[0]->data)->order_id;
-        $houseOrder = null;
-        try {
-            $houseOrder = Order::findOrFail($order_id);
-        } catch (\Exception $exception) {
-            Toastr::warning('this house has been canceled for rent!');
-        }
-        if ($houseOrder) {
-            $houseOrder->status = StatusInterface::UNREADY;
-            $houseOrder->save();
-            $sender = 'tg.bluesky66@gmail.com';
-            $receive = json_decode($notification[0]->data)->sender;
-            Mail::to($receive)
-                ->send(new \App\Mail\RepliedRequestRentHouse($sender));
-            Toastr::success('This rental is complete!');
-        }
-        $notification[0]->delete();
+        $this->userService->acceptRent($notification, $order_id);
         return back();
     }
 
@@ -160,25 +128,9 @@ class UserController extends Controller
         array_push($reasons, $reasonThree);
         array_push($reasons, $reasonFour);
 
-        $notification = \App\Notification::where('uid', $id)->get();
+        $notification = $this->userService->findNotificationByUid($id, 'uid');
         $order_id = json_decode($notification[0]->data)->order_id;
-        $houseOrder = null;
-        try {
-            $houseOrder = Order::findOrFail($order_id);
-        } catch (\Exception $exception) {
-            Toastr::warning('this house has been canceled for rent!');
-        }
-        if ($houseOrder) {
-            $houseOrder->status = StatusInterface::READY;
-            $houseOrder->save();
-            $sender = 'tg.bluesky66@gmail.com';
-            $receive = json_decode($notification[0]->data)->sender;
-            Mail::to($receive)
-                ->send(new Reject_rent_house_by_the_host($sender, $reasons));
-            Toastr::warning('Feedback decline to rent successfully');
-            $houseOrder->delete();
-        }
-        $notification[0]->delete();
+        $this->userService->rejectRent($reasons, $notification, $order_id);
         return back();
     }
 
@@ -195,20 +147,9 @@ class UserController extends Controller
         array_push($reasons, $reasonThree);
         array_push($reasons, $reasonFour);
 
-        $order = Order::findOrFail($id);
-        $email_host = User::findOrFail($order->user_id)->email;
-        $nowTimestamp = Carbon::now('Asia/Ho_Chi_Minh')->timestamp;
-        $checkInTimestamp = Carbon::parse($order->checkin)->timestamp;
-        $sender = 'tg.bluesky66@gmail.com';
-
-        if ($checkInTimestamp - $nowTimestamp >= 86400) {
-            $order->delete();
-            Mail::to($email_host)
-                ->send(new RejectRequestRentHouse($sender, $reasons));
-            Toastr::success('reject booking successfully');
-        } else {
-            Toastr::warning('You cannot cancel your reservation one day in advance');
-        }
-        return redirect()->route('home');
+        $order = $this->userService->findOrderById($id);
+        $email_host = $this->userService->findUserById($order->user_id)->email;
+        $this->userService->rejectBooking($order, $email_host, $reasons);
+        return back();
     }
 }

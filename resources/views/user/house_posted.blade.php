@@ -10,6 +10,7 @@
         padding: 10px;
     }
 </style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @extends('header-footer')
 
@@ -22,6 +23,9 @@
                 </li>
                 <li class="nav-item">
                     <button id="booking" class="nav-link">My booking</button>
+                </li>
+                <li class="nav-item">
+                    <button id="historyOneHouse" class="nav-link">history one house</button>
                 </li>
             </ul>
         </div>
@@ -52,8 +56,9 @@
                                 </div>
                                 <div class="col-4 col-lg-4 pb-3">
                                     <div>
-                                        <a href="{{route('totalHouse',$house->id)}}"
-                                           style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem">{{$house->title}}</a>
+                                        <a style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem"
+                                           data-id="{{$house->id}}"
+                                           class="oneHouseHistory">{{$house->title}}</a>
                                     </div>
                                     <div>
                                         <h6>{{$house->kindHouse}} ◦ {{$house->kindRoom}}</h6>
@@ -250,6 +255,9 @@
                         @endforeach
                     </div>
                 @endif
+            </div>
+            <div class="historyARentalHouse" style="display: none">
+
             </div>
         </div>
     </div>
