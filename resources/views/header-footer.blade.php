@@ -348,12 +348,19 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                             <a href="{{route('user.showHousePosted')}}" class="dropdown-item">My booking & posted</a>
-                            @foreach(\App\SocialAccount::all() as  $account)
-                                @if(auth()->user()->id != $account->user_id)
-                                    <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
-                                    <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
-                                @endif
-                            @endforeach
+                            @if(count(\App\SocialAccount::all())!=0)
+                                @foreach(\App\SocialAccount::all() as  $account)
+                                    @if(\Illuminate\Support\Facades\Auth::user()->id != $account->user_id)
+                                        <a href="{{route('user.changePassword')}}" class="dropdown-item">Change
+                                            password</a>
+                                        <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
+                                    @endif
+                                @endforeach
+                            @else
+                                <a href="{{route('user.changePassword')}}" class="dropdown-item">Change
+                                    password</a>
+                                <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
