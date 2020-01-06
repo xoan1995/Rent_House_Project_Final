@@ -222,7 +222,7 @@
                                     <div style="float: left; font-weight: bold; font-size: 17px" class="mt-3">
                                         Giá tiền 1 đêm
                                     </div>
-                                    <div style="float: left; padding-left: 65px; padding-top: 20px">
+                                    <div style="float: left; padding-top: 20px">
                                         <h5>($)</h5>
                                     </div>
                                     <div style="float: right" class="mt-3">
@@ -241,8 +241,8 @@
                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ngày
                             </a>
-                            <div class="dropdown-menu item" aria-labelledby="navbarDropdown" style="width: 400px">
-                                <div style="float: left" class="pl-2">
+                            <div class="dropdown-menu item" aria-labelledby="navbarDropdown" style="width: 440px">
+                                <div style="float: left" class="pl-3">
                                     <div style="text-align: center; font-size: 17px; font-weight: bold">Từ</div>
                                     <input type="date" name="checkin" class="form-control">
                                 </div>
