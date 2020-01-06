@@ -35,7 +35,7 @@
                 </div>
                 <div class="offset-1 mt-3" style="font-size: 20px; font-weight: bold">
                     <img style="width: 30px"
-                         src="https://img.icons8.com/plasticine/100/000000/address.png">{{$house->address}}
+                         src="https://img.icons8.com/plasticine/100/000000/address.png"><a href="{{route('showMap',$house->id)}}">{{$house->address}}</a>
                 </div>
                 <div class="offset-1 mt-2" style="font-size: 20px; font-weight: bold">
                     <img src="https://img.icons8.com/officel/30/000000/four-beds.png">{{$house->kindRoom}}

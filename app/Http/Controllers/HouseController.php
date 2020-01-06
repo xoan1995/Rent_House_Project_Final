@@ -105,5 +105,12 @@ class HouseController extends Controller
         $house->status = $request->status;
         $house->save();
 
+
+        return response()->json([$house, $houses, $district, $city, $image]);
+    }
+
+    public function showMap($id)
+    {
+        $house = House::findOrFail($id);
     }
 }

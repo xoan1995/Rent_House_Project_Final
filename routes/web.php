@@ -47,6 +47,7 @@ Route::prefix('houses')->group(function () {
     Route::get('select-city-district', 'HouseController@selectCityandDistrict');
     Route::get('find-house-by-history-booking', 'HouseController@findHistoryHouseBooking')->middleware('auth');
     Route::get('change-status', 'HouseController@changeStatus')->middleware('auth');
+    Route::get('showMap/{id}', 'HouseController@showMap')->name('showMap');
 });
 
 Route::prefix('order')->group(function () {
