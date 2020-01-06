@@ -94,6 +94,17 @@ class HouseController extends Controller
         $district = $house->district->name;
         $city = $house->city->name;
         $image = $house->images[0]->path;
+        $users = User::all();
+
+        return response()->json([$house, $houses, $district, $city, $image,$users]);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $house = House::find($request->houseId);
+        $house->status = $request->status;
+        $house->save();
+
 
         return response()->json([$house, $houses, $district, $city, $image]);
     }
@@ -101,6 +112,5 @@ class HouseController extends Controller
     public function showMap($id)
     {
         $house = House::findOrFail($id);
-        return view('house.map',compact('house'));
     }
 }

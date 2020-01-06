@@ -469,6 +469,29 @@
     });
 </script>
 <script>
+    $(".status").change(function () {
+        if (confirm('Are you sure you want to change the status! ')) {
+            let status = $(this).val();
+            let houseId = $(this).data('id');
+            console.log(houseId);
+            if (status) {
+                $.ajax({
+                    url: "http://localhost:8000/houses/change-status",
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        houseId: houseId,
+                        status: status,
+                    },
+                    success: function (res) {
+
+                    }
+                });
+            }
+        }
+
+    });
+
     $('#city').change(function () {
         let cityID = $(this).val();
         if (cityID) {
@@ -536,8 +559,7 @@
                     },
                     contentType: "application/json",
                     success: function (res) {
-                        console.log(res[0]);
-                        console.log(res[1]);
+                        let nameRenter;
                         $(".historyARentalHouse").empty();
                         $(".historyARentalHouse").append(`
                     <div class="col-12">
@@ -559,6 +581,11 @@
                             </div>
                         </div>`);
                         $.each(res[1], function (key, house) {
+                            for (let i = 0; i < res[5].length; i++) {
+                                if (res[5][i].id == house.user_id){
+                                    nameRenter = res[5][i].name;
+                                }
+                            }
                             $(".historyARentalHouse").append(
                                 `
                                 <div class="row mt-3">
@@ -607,8 +634,8 @@
                                 <div class="col-2 col-lg-2 text-center">
                                     <h6 class="mr-4">$ ${house.totalPrice}</h6>
                                 </div>
-                                <div class="col-2 col-lg-2 text-center">
-                                    <h6 class="mr-4">${house.user_id}</h6>
+                                <div class="col-2 col-lg-2">
+                                   <h6 class="mr-4">${nameRenter}</h6>
                                 </div>
                         </div>
 `
