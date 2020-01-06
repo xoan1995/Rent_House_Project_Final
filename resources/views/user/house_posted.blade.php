@@ -19,13 +19,13 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <button id="posted" class="nav-link active">My posted</button>
+                    <button id="posted" class="nav-link">My posted</button>
                 </li>
                 <li class="nav-item">
-                    <button id="booking" class="nav-link">My booking</button>
+                    <button id="booking" class="nav-link active">My booking</button>
                 </li>
                 <li class="nav-item">
-                    <button id="historyOneHouse" class="nav-link">history one house</button>
+                    <button id="historyOneHouse" class="nav-link">History one house</button>
                 </li>
             </ul>
         </div>

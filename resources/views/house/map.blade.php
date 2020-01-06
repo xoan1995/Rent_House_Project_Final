@@ -6,6 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <style>
     .leftr {
@@ -117,55 +119,28 @@
 </style>
 <body>
 <div class="row">
-    <div class="col-lg-4 leftr" style="float: left">
-        <div class="light"><h2>Enter your Address:</h2><input type="text" name="s" id="s"
-                                                              value="{{$house->city->name}} - {{$house->district->name}} -{{$house->address}}"
-                                                              placeholder="Enter Adress" data-role="none"></div>
-
-        <div class="other"><h3 class="mapz">Map Zoom </h3>
-            <button class="btns" data-role="none">-</button>
-            <input data-role="none" id="zoom" type="range" min="1" max="20" step="2" value="13"
-                   onchange="console.log(this.value)">
-            <button class="btn" data-role="none">+</button>
-            <img src="" alt="" class="" id="img"></div>
-        <div class="clear"></div>
-        <div class="container d">
-            <div class="right">
-                <div class="input-group" style=" margin-top: 11px;"><input type="text" name="width"
-                                                                           class="form-control" id="width"
-                                                                           value="600" placeholder=""
-                                                                           style="height: 10px;font-size: 14px;padding-top: 10px;line-height: 0;"
-                                                                           data-role="none"><span
-                        class="input-group-addon" data-role="none"
-                        style="height: 12px;font-size: 13px;border-radius: 0px 3px 3px 0px;margin-left: -1px;">px</span>
-                </div>
-            </div>
-            <div class="left">Width:
-                <div id="slider" data-role="none"
-                     class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><span
-                        tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
-                        style="left: 55.5144%;"></span></div>
-            </div>
+    <div class="col-lg-4 leftr" style="width: 400px">
+        <div>
+            <a class="btn btn-outline-info" style="width: 80px" href="{{route('totalHouse',$house->id)}}">
+                Back
+            </a>
         </div>
-        <div class="container e">
-            <div class="right">
-                <div class="input-group"><input type="text" name="ac" class="form-control" id="ac" value="500"
-                                                placeholder="" data-role="none"><span class="input-group-addon"
-                                                                                      data-role="none">px</span>
-                </div>
-            </div>
-            <div class="left">Height:
-                <div id="slider2" data-role="none" style="float:left;width:100%;"
-                     class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><span
-                        tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
-                        style="left: 46.2465%;"></span></div>
-            </div>
+        <div class="light">
+            <h2 style="text-align: center; font-weight: bold; font-family: Arial">Enter your Address:</h2>
+            <input type="text" name="s" id="s" style="height: 40px; width: 350px" class="form-control"
+                   value="{{$house->city->name}} - {{$house->district->name}} - {{$house->address}}"
+                   placeholder="Enter Adress" data-role="none">
+        </div>
+        <div class="clear"></div>
+        <div style="text-align: center; margin-top: 100px">
+            <img height="300px" width="300px"
+                 src="{{asset('storage/images/google-maps-png-google-maps-icon-1600.png')}}" alt="">
         </div>
         <div class="clear"></div>
 
     </div>
 
-    <div class="col-lg-8" style="float: right">
+    <div class="col-lg-8" style="margin-left: 400px">
         <div class="mapouter">
             <div class="gmap_canvas">
                 <iframe width="600" height="500" id="gmap_canvas"
@@ -180,3 +155,13 @@
 </div>
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
