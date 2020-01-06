@@ -6,6 +6,8 @@ use App\City;
 use App\District;
 use App\House;
 use App\Http\Requests\HouseRequestValidate;
+use App\Http\services\HomeServiceInterface;
+use App\Http\services\HouseServiceInterface;
 use App\Image;
 use App\Rating;
 use App\StatusInterface;
@@ -24,18 +26,24 @@ class HouseController extends Controller
     protected $image;
     protected $city;
     protected $district;
+    protected $houseService;
+    protected $homeService;
+
 
     public function __construct(House $house,
                                 User $user,
                                 Image $image,
                                 City $city,
-                                District $district)
+                                District $district,
+                                HouseServiceInterface $houseService, HomeServiceInterface $homeService)
     {
+        $this->houseService = $houseService;
         $this->house = $house;
         $this->user = $user;
         $this->image = $image;
         $this->district = $district;
         $this->city = $city;
+        $this->homeService = $homeService;
     }
 
     public function create()
@@ -46,35 +54,7 @@ class HouseController extends Controller
 
     public function store(HouseRequestValidate $request)
     {
-        $house = new House();
-        $house->title = $request->title;
-        $house->kindHouse = $request->kindHouse;
-        $house->kindRoom = $request->kindRoom;
-        $house->address = $request->address;
-        $house->numBedroom = $request->numBedroom;
-        $house->numBathroom = $request->numBathroom;
-        $house->description = $request->description;
-        $house->price = $request->price;
-        $house->city_id = $request->city_id;
-        $house->user_id = auth()->user()->id;
-        $house->status = StatusInterface::READY;
-        $house->district_id = $request->district_id;
-        $house->save();
-
-        if ($request->images) {
-            $house_id = DB::table('houses')->max('id');
-            foreach ($request->images as $image) {
-
-                $path = $image->store('rooms', 'public');
-
-                $imageUpload = new Image();
-                $imageUpload->path = $path;
-                $imageUpload->house_id = $house_id;
-                $imageUpload->save();
-            }
-        } else {
-            return back();
-        }
+        $this->houseService->createHouse($request);
         Toastr::success('upload house success!');
         return redirect('/');
     }
@@ -92,11 +72,12 @@ class HouseController extends Controller
         $with=120;
         $average_user_rating=$sumStar/$muxStar*5;
         return view('totalHouse', compact('house', 'ratings', 'average_user_rating','with'));
+
     }
 
     public function rating(Request $request, $id)
     {
-        $house = House::findOrFail($id);
+        $house = $this->houseService->findHouseById($id);
         $user = Auth::user();
         $rating = new Rating();
         $rating->user_id = $user->id;
@@ -108,9 +89,34 @@ class HouseController extends Controller
 
     public function selectCityandDistrict(Request $request)
     {
-        $districts = DB::table("districts")
-            ->where('city_id', 'LIKE', $request->districtID)->get();
+        $districts = $this->houseService->searchDistrictByCity_id("districts", 'city_id', $request->districtID);
 
         return response()->json($districts);
+    }
+
+    public function findHistoryHouseBooking(Request $request)
+    {
+        $house_id = $request->houseId;
+        $house = House::findOrFail($house_id);
+        $houses = DB::table('orders')->where('house_id', $house_id)->get();
+        $district = $house->district->name;
+        $city = $house->city->name;
+        $image = $house->images[0]->path;
+        $users = User::all();
+
+        return response()->json([$house, $houses, $district, $city, $image,$users]);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $house = House::find($request->houseId);
+        $house->status = $request->status;
+        $house->save();
+    }
+
+    public function showMap($id)
+    {
+        $house = House::findOrFail($id);
+        return view('house.map',compact('house'));
     }
 }

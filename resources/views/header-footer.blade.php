@@ -164,6 +164,7 @@
     .item {
         box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .1);
     }
+
     input[type=checkbox] {
         /* Double-sized Checkboxes */
         -ms-transform: scale(2); /* IE */
@@ -224,7 +225,7 @@
                                     <div style="float: left; font-weight: bold; font-size: 17px" class="mt-3">
                                         Giá tiền 1 đêm
                                     </div>
-                                    <div style="float: left; padding-left: 65px; padding-top: 20px">
+                                    <div style="float: left; padding-top: 20px">
                                         <h5>($)</h5>
                                     </div>
                                     <div style="float: right" class="mt-3">
@@ -243,8 +244,8 @@
                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ngày
                             </a>
-                            <div class="dropdown-menu item" aria-labelledby="navbarDropdown" style="width: 400px">
-                                <div style="float: left" class="pl-2">
+                            <div class="dropdown-menu item" aria-labelledby="navbarDropdown" style="width: 440px">
+                                <div style="float: left" class="pl-3">
                                     <div style="text-align: center; font-size: 17px; font-weight: bold">Từ</div>
                                     <input type="date" name="checkin" class="form-control">
                                 </div>
@@ -309,12 +310,12 @@
                                                class="btn btn-success">Confirm</a>
 
                                             <a data-id="{{$notice->uid}}"
-                                                style="width: 55px; height: 21px; font-size: 0.85rem;
+                                               style="width: 55px; height: 21px; font-size: 0.85rem;
                                              font-family: Montserrat-Regular; padding-right: 56px;
                                               padding-bottom: 25px"
-                                                type="button" class="btn btn-danger modalNotice" data-backdrop="false"
-                                                data-toggle="modal"
-                                                data-target="#exampleModal_1">
+                                               type="button" class="btn btn-danger modalNotice" data-backdrop="false"
+                                               data-toggle="modal"
+                                               data-target="#exampleModal_1">
                                                 Cancel
                                             </a>
 
@@ -350,8 +351,19 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                             <a href="{{route('user.showHousePosted')}}" class="dropdown-item">My booking & posted</a>
-                            <a href="{{route('user.changePassword')}}" class="dropdown-item">Change password</a>
-                            <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
+                            @if(count(\App\SocialAccount::all())!=0)
+                                @foreach(\App\SocialAccount::all() as  $account)
+                                    @if(\Illuminate\Support\Facades\Auth::user()->id != $account->user_id)
+                                        <a href="{{route('user.changePassword')}}" class="dropdown-item">Change
+                                            password</a>
+                                        <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
+                                    @endif
+                                @endforeach
+                            @else
+                                <a href="{{route('user.changePassword')}}" class="dropdown-item">Change
+                                    password</a>
+                                <a href="{{route('editUser')}}" class="dropdown-item">Edit profile</a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -460,6 +472,29 @@
     });
 </script>
 <script>
+    $(".status").change(function () {
+        if (confirm('Are you sure you want to change the status! ')) {
+            let status = $(this).val();
+            let houseId = $(this).data('id');
+            console.log(houseId);
+            if (status) {
+                $.ajax({
+                    url: "http://localhost:8000/houses/change-status",
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        houseId: houseId,
+                        status: status,
+                    },
+                    success: function (res) {
+
+                    }
+                });
+            }
+        }
+
+    });
+
     $('#city').change(function () {
         let cityID = $(this).val();
         if (cityID) {
@@ -487,16 +522,135 @@
             $('#city').empty();
         }
     });
+
+
     $(document).ready(function () {
         $("#posted").click(function () {
             $(".booking").hide();
+            $("#booking").removeClass('active');
             $(".posted").show();
+            $("#posted").addClass('active');
+            $(".historyARentalHouse").hide();
+            $("#historyOneHouse").removeClass('active');
         });
         $("#booking").click(function () {
             $(".posted").hide();
+            $("#posted").removeClass('active');
             $(".booking").show();
+            $("#booking").addClass('active');
+            $(".historyARentalHouse").hide();
+            $("#historyOneHouse").removeClass('active');
         });
-    })
+        $(".oneHouseHistory").click(function () {
+            $(".posted").hide();
+            $("#posted").removeClass('active');
+            $(".booking").hide();
+            $("#booking").removeClass('active');
+            $(".historyARentalHouse").show();
+            $("#historyOneHouse").addClass('active');
+            let houseId = $(this).data('id');
+            if (houseId) {
+                $.ajax({
+                    url: "http://localhost:8000/houses/find-house-by-history-booking",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        houseId: houseId,
+                    },
+                    contentType: "application/json",
+                    success: function (res) {
+                        let nameRenter;
+                        $(".historyARentalHouse").empty();
+                        $(".historyARentalHouse").append(`
+                    <div class="col-12">
+                        <div class="row" style="width: 100%; height: 35px; background-color: rgba(0,0,0,0.03)">
+                            <div class="col-4 pt-2 pl-5">
+                                <h5 style="font-family: Arial">House</h5>
+                            </div>
+                            <div class="col-2 col-lg-2 pt-2 text-center">
+                                <h6 style="font-family: Arial">Checkin</h6>
+                            </div>
+                            <div class="col-2 col-lg-2 pt-2  text-center">
+                                <h6 style="font-family: Arial">Checkout</h6>
+                            </div>
+                            <div class="col-2 col-lg-2 pt-2 text-center" >
+                                <h6 style="font-family: Arial;">Price</h6>
+                            </div>
+                            <div class="col-2 col-lg-2 pt-2 text-center">
+                                <h6 style="font-family: Arial;" class="text-center ">Renter</h6>
+                            </div>
+                        </div>`);
+                        $.each(res[1], function (key, house) {
+                            for (let i = 0; i < res[5].length; i++) {
+                                if (res[5][i].id == house.user_id){
+                                    nameRenter = res[5][i].name;
+                                }
+                            }
+                            $(".historyARentalHouse").append(
+                                `
+                                <div class="row mt-3">
+                                <div class="col-5 col-lg-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <img class="card-img" width="80px"
+                                                 src="http://localhost:8000/storage/${res[4]}"
+                                                 alt="...">
+                                        </div>
+                                        <div class="col-6">
+                                            <div>
+                                                <h6
+                                                   style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem;
+                                                   font-weight: bold;
+                                                   display: block;
+                                                   width: 100%; max-lines: 2;
+                                                   overflow: hidden;
+                                                   white-space: nowrap;
+                                                   text-overflow: ellipsis;">
+                                                    ${res[0].title}
+                                                </h6
+                                                   style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem;
+                                                   font-weight: bold;
+                                                   display: block;
+                                                   width: 100%; max-lines: 2;
+                                                   overflow: hidden;
+                                                   white-space: nowrap;
+                                                   text-overflow: ellipsis;">
+                                            </div>
+                                            <div>
+                                                <h6>${res[0].kindHouse} ◦ ${res[0].kindRoom}</h6>
+                                            </div>
+                                        <div>
+                                         <p style="font-family: 'Arial Rounded MT Bold'">Address: ${res[2]} - ${res[3]}</p>
+                                   </div>
+                                    </div>
+                             </div>
+                            </div>
+                                <div class="col-2 col-lg-2 text-center">
+                                    <h6 class="mr-4">${house.checkin}</h6>
+                            </div>
+                                <div class="col-2 col-lg-2 text-center">
+                                    <h6 class="mr-4">${house.checkout}</h6>
+                                </div>
+                                <div class="col-2 col-lg-2 text-center">
+                                    <h6 class="mr-4">$ ${house.totalPrice}</h6>
+                                </div>
+                                <div class="col-2 col-lg-2">
+                                   <h6 class="mr-4">${nameRenter}</h6>
+                                </div>
+                        </div>
+`
+                            )
+                        });
+                        $(".historyARentalHouse").append(`</div>`)
+                    },
+                })
+            }
+        })
+    });
+
 </script>
 <script>
     $(document).ready(function () {

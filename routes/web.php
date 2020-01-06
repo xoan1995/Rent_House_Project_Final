@@ -45,6 +45,9 @@ Route::prefix('houses')->group(function () {
     Route::post('search', 'HomeController@search')->name('search');
     Route::post('rating/{id}', 'HouseController@rating')->name('rating');
     Route::get('select-city-district', 'HouseController@selectCityandDistrict');
+    Route::get('find-house-by-history-booking', 'HouseController@findHistoryHouseBooking')->middleware('auth');
+    Route::get('change-status', 'HouseController@changeStatus')->middleware('auth');
+    Route::get('showMap/{id}', 'HouseController@showMap')->name('showMap');
 });
 
 Route::prefix('order')->group(function () {

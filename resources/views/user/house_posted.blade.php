@@ -10,6 +10,7 @@
         padding: 10px;
     }
 </style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @extends('header-footer')
 
@@ -18,10 +19,13 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <button id="posted" class="nav-link active">My posted</button>
+                    <button id="posted" class="nav-link">My posted</button>
                 </li>
                 <li class="nav-item">
-                    <button id="booking" class="nav-link">My booking</button>
+                    <button id="booking" class="nav-link active">My booking</button>
+                </li>
+                <li class="nav-item">
+                    <button id="historyOneHouse" class="nav-link">History one house</button>
                 </li>
             </ul>
         </div>
@@ -52,8 +56,9 @@
                                 </div>
                                 <div class="col-4 col-lg-4 pb-3">
                                     <div>
-                                        <a href="{{route('totalHouse',$house->id)}}"
-                                           style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem">{{$house->title}}</a>
+                                        <a style="font-family: Ubuntu;font-weight: bolder; font-size: 1rem"
+                                           data-id="{{$house->id}}"
+                                           class="oneHouseHistory">{{$house->title}}</a>
                                     </div>
                                     <div>
                                         <h6>{{$house->kindHouse}} ◦ {{$house->kindRoom}}</h6>
@@ -66,17 +71,18 @@
                                     </div>
                                 </div>
                                 <div class="col-2 col-lg-2 text-center">
-                                    <h5>
-                                        @foreach($house->orders as $item)
-                                            @if(\Carbon\Carbon::parse($item->checkin)->timestamp <= time() && \Carbon\Carbon::parse($item->checkout)->timestamp >=time())
-                                                @if($item->status == \App\StatusInterface::PENDING)
-                                                    Pending Request
-                                                @else
-                                                    Are Rented
-                                                @endif
+                                    <select data-id="{{$house->id}}" class="custom-select status">
+                                        <option
+                                            @if($house->status == \App\StatusInterface::READY)
+                                                selected
                                             @endif
-                                        @endforeach
-                                    </h5>
+                                            value="{{\App\StatusInterface::READY}}">Ready</option>
+                                        <option
+                                            @if($house->status == \App\StatusInterface::UNREADY)
+                                            selected
+                                            @endif
+                                            value="{{\App\StatusInterface::UNREADY}}">Unready</option>
+                                    </select>
                                 </div>
                                 <div class="col-3 col-lg-3 text-center">
                                     <h5>{{$house->price}}$/đêm</h5>
@@ -250,6 +256,9 @@
                         @endforeach
                     </div>
                 @endif
+            </div>
+            <div class="historyARentalHouse" style="display: none">
+
             </div>
         </div>
     </div>
