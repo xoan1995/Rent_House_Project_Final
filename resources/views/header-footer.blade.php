@@ -501,18 +501,27 @@
     $(document).ready(function () {
         $("#posted").click(function () {
             $(".booking").hide();
+            $("#booking").removeClass('active');
             $(".posted").show();
+            $("#posted").addClass('active');
             $(".historyARentalHouse").hide();
+            $("#historyOneHouse").removeClass('active');
         });
         $("#booking").click(function () {
             $(".posted").hide();
+            $("#posted").removeClass('active');
             $(".booking").show();
+            $("#booking").addClass('active');
             $(".historyARentalHouse").hide();
+            $("#historyOneHouse").removeClass('active');
         });
         $(".oneHouseHistory").click(function () {
             $(".posted").hide();
+            $("#posted").removeClass('active');
             $(".booking").hide();
+            $("#booking").removeClass('active');
             $(".historyARentalHouse").show();
+            $("#historyOneHouse").addClass('active');
             let houseId = $(this).data('id');
             if (houseId) {
                 $.ajax({
