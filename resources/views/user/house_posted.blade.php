@@ -71,17 +71,18 @@
                                     </div>
                                 </div>
                                 <div class="col-2 col-lg-2 text-center">
-                                    <h5>
-                                        @foreach($house->orders as $item)
-                                            @if(\Carbon\Carbon::parse($item->checkin)->timestamp <= time() && \Carbon\Carbon::parse($item->checkout)->timestamp >=time())
-                                                @if($item->status == \App\StatusInterface::PENDING)
-                                                    Pending Request
-                                                @else
-                                                    Are Rented
-                                                @endif
+                                    <select data-id="{{$house->id}}" class="custom-select status">
+                                        <option
+                                            @if($house->status == \App\StatusInterface::READY)
+                                                selected
                                             @endif
-                                        @endforeach
-                                    </h5>
+                                            value="{{\App\StatusInterface::READY}}">Ready</option>
+                                        <option
+                                            @if($house->status == \App\StatusInterface::UNREADY)
+                                            selected
+                                            @endif
+                                            value="{{\App\StatusInterface::UNREADY}}">Unready</option>
+                                    </select>
                                 </div>
                                 <div class="col-3 col-lg-3 text-center">
                                     <h5>{{$house->price}}$/đêm</h5>
