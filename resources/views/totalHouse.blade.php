@@ -35,7 +35,8 @@
                 </div>
                 <div class="offset-1 mt-3" style="font-size: 20px; font-weight: bold">
                     <img style="width: 30px"
-                         src="https://img.icons8.com/plasticine/100/000000/address.png"><a href="{{route('showMap',$house->id)}}">{{$house->address}}</a>
+                         src="https://img.icons8.com/plasticine/100/000000/address.png"><a
+                        href="{{route('showMap',$house->id)}}">{{$house->address}}</a>
                 </div>
                 <div class="offset-1 mt-2" style="font-size: 20px; font-weight: bold">
                     <img src="https://img.icons8.com/officel/30/000000/four-beds.png">{{$house->kindRoom}}
@@ -138,7 +139,6 @@
                 <div class="offset-1 mt-4">
 
                 </div>
-
                 <form action="{{route('rating',$house->id)}}" method="post">
                     @csrf
                     <div class="offset-1 mt-4">
@@ -184,26 +184,31 @@
                         <form action="{{route('order.rent')}}">
                             <div class="card card_1" style="float: right;background: #f8fafc">
                                 <div class="card-body">
-                                    <div class="ml-5"
-                                         style="text-align: left; font-size: 40px; font-weight: bold; float: left">{{$house->price}}
+                                    <div data-value="{{$house->price}}" class="ml-5" id="price"
+                                         style="text-align: left; font-size: 40px; font-weight: bold; float: left">
+                                        {{$house->price}}
                                         $/đêm
                                     </div>
                                 </div>
 
                                 <div class="ml-4">
-                                    <p style="width: 200px;text-align: center;background: coral;color: white">Giảm 30% từ chủ nhà</p>
+                                    <p style="width: 200px;text-align: center;background: coral;color: white">Giảm 30%
+                                        từ chủ nhà</p>
                                     <p>Giảm 30% cho đặt phòng có checkin từ 07/12 đến 31/12</p>
-                                    <p style="width: 200px;text-align: center;background: coral;color: white">Giảm 40% từ chủ nhà</p>
+                                    <p style="width: 200px;text-align: center;background: coral;color: white">Giảm 40%
+                                        từ chủ nhà</p>
                                     <p>Giảm 40% cho đặt phòng có checkin từ 01/01/20 đến 23/01/20</p>
                                 </div>
                                 <div class="ml-2">
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="date" name="checkin" style="border-radius: 10px">
+                                                <input type="date" class="checkin" id="checkin" name="checkin"
+                                                       style="border-radius: 10px">
                                             </div>
                                             <div class="col-6">
-                                                <input type="date" name="checkout" style="border-radius: 10px">
+                                                <input type="date" class="checkout" id="checkout" name="checkout"
+                                                       style="border-radius: 10px">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -248,4 +253,31 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".checkin").change(function () {
+            $(".checkout").change(function () {
+                var checkin = $('#checkin').val();
+                var checkout = $('#checkout').val();
+                var price = $("#price").data('value');
+                if (checkin <= checkout) {
+                    $.ajax({
+                        url: "http://127.0.0.1:8000/houses/total-Day-And-Price",
+                        type: "GET",
+                        dataType: "json",
+                        data: {
+                            checkInNew: checkin,
+                            checkOutNew: checkout,
+                            price: price,
+                        },
+                        success: function (res) {
+                            $("#price").html(`${res[0]} $/${res[1]}đêm`)
+                        }
+                    })
+                }
+            })
+        })
+    })
+</script>
 {!! toastr()->render() !!}

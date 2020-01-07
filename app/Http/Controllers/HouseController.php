@@ -12,6 +12,7 @@ use App\Image;
 use App\Rating;
 use App\StatusInterface;
 use App\User;
+use Carbon\Carbon;
 use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -117,5 +118,15 @@ class HouseController extends Controller
     {
         $house = House::findOrFail($id);
         return view('house.map', compact('house'));
+    }
+
+    public function totalDayAndPrice(Request $request)
+    {
+        $checkInNew = Carbon::parse($request->checkInNew)->timestamp;
+        $checkOutNew = Carbon::parse($request->checkOutNew)->timestamp;
+        $price = $request->price;
+        $totalDay = floatval((($checkOutNew - $checkInNew) / 60 / 60 / 24));
+        $totalPrice = $totalDay * $price;
+        return \response()->json([$totalPrice, $totalDay]);
     }
 }
