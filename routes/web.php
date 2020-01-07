@@ -49,6 +49,7 @@ Route::prefix('houses')->group(function () {
     Route::get('find-house-by-history-booking', 'HouseController@findHistoryHouseBooking')->middleware('auth');
     Route::get('change-status', 'HouseController@changeStatus')->middleware('auth');
     Route::get('showMap/{id}', 'HouseController@showMap')->name('showMap');
+    Route::get('total-Day-And-Price', 'HouseController@totalDayAndPrice')->name('totalDayAndPrice');
 });
 
 Route::prefix('order')->group(function () {

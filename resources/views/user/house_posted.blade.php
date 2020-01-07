@@ -190,13 +190,19 @@
                                             </h6>
                                         </div>
                                         <div class="col-6">
-                                            <a type="button" data-id="{{$house->id}}" class="modalReject"
-                                               data-toggle="modal"
-                                               data-target="#staticBackdrop">
-                                                <img src="https://img.icons8.com/office/30/000000/cancel.png">
-                                            </a>
-
-                                            <!-- Modal -->
+                                            @if(\Carbon\Carbon::now()->timestamp <= (\Carbon\Carbon::parse($house->checkin)->timestamp)-86400)
+                                                <a type="button" data-id="{{$house->id}}" class="modalReject"
+                                                   data-toggle="modal"
+                                                   data-target="#staticBackdrop">
+                                                    <img src="https://img.icons8.com/office/30/000000/cancel.png">
+                                                </a>
+                                            @else
+                                                <a href="">
+                                                    <img
+                                                        src="https://img.icons8.com/officel/30/000000/hotel-check-in.png">
+                                                </a>
+                                        @endif
+                                        <!-- Modal -->
                                             <div class="modal fade" id="staticBackdrop" data-backdrop="static"
                                                  tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
                                                  aria-hidden="true">
