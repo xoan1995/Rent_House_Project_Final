@@ -223,7 +223,6 @@
                         @endif
                     @endforeach
                 </div>
-
                 <form action="{{route('rating',$house->id)}}" method="post">
                     @csrf
                     <div class="offset-1 mt-4">
@@ -269,8 +268,9 @@
                         <form action="{{route('order.rent')}}">
                             <div class="card card_1" style="float: right;background: #f8fafc">
                                 <div class="card-body">
-                                    <div class="ml-5"
-                                         style="text-align: left; font-size: 40px; font-weight: bold; float: left">{{$house->price}}
+                                    <div data-value="{{$house->price}}" class="ml-5" id="price"
+                                         style="text-align: left; font-size: 40px; font-weight: bold; float: left">
+                                        {{$house->price}}
                                         $/đêm
                                     </div>
                                 </div>
@@ -287,10 +287,12 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="date" name="checkin" style="border-radius: 10px">
+                                                <input type="date" class="checkin" id="checkin" name="checkin"
+                                                       style="border-radius: 10px">
                                             </div>
                                             <div class="col-6">
-                                                <input type="date" name="checkout" style="border-radius: 10px">
+                                                <input type="date" class="checkout" id="checkout" name="checkout"
+                                                       style="border-radius: 10px">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -335,6 +337,33 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".checkin").change(function () {
+            $(".checkout").change(function () {
+                var checkin = $('#checkin').val();
+                var checkout = $('#checkout').val();
+                var price = $("#price").data('value');
+                if (checkin <= checkout) {
+                    $.ajax({
+                        url: "http://127.0.0.1:8000/houses/total-Day-And-Price",
+                        type: "GET",
+                        dataType: "json",
+                        data: {
+                            checkInNew: checkin,
+                            checkOutNew: checkout,
+                            price: price,
+                        },
+                        success: function (res) {
+                            $("#price").html(`${res[0]} $/${res[1]}đêm`)
+                        }
+                    })
+                }
+            })
+        })
+    })
+</script>
 {!! toastr()->render() !!}

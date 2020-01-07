@@ -30,6 +30,7 @@ Route::prefix('/user')->group(function () {
     Route::get('accept/{uid}', 'UserController@acceptAndSendEmail')->name('user.accept');
     Route::post('reject', 'UserController@rejectAndSendEmail')->name('user.reject');
     Route::post('reject-booking', 'UserController@rejectBooking')->name('user.rejectBooking');
+    Route::get('alert', 'UserController@alert')->middleware('auth');
 });
 
 
@@ -49,6 +50,7 @@ Route::prefix('houses')->group(function () {
     Route::get('find-house-by-history-booking', 'HouseController@findHistoryHouseBooking')->middleware('auth');
     Route::get('change-status', 'HouseController@changeStatus')->middleware('auth');
     Route::get('showMap/{id}', 'HouseController@showMap')->name('showMap');
+    Route::get('total-Day-And-Price', 'HouseController@totalDayAndPrice')->name('totalDayAndPrice');
 });
 
 Route::prefix('order')->group(function () {

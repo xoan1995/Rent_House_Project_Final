@@ -15,6 +15,15 @@
 @extends('header-footer')
 
 @section('content')
+
+    @if(\Illuminate\Support\Facades\Session::has('alert'))
+        <div class="alert alert-warning" role="alert">
+            {{\Illuminate\Support\Facades\Session::get('alert')}}
+        </div>
+    @endif
+
+
+
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -30,7 +39,7 @@
             </ul>
         </div>
         <div class="card-body">
-            <div class="posted">
+            <div class="posted" style="display: none">
                 @if(!count($houses_posted))
                     No data
                 @else
@@ -74,14 +83,16 @@
                                     <select data-id="{{$house->id}}" class="custom-select status">
                                         <option
                                             @if($house->status == \App\StatusInterface::READY)
-                                                selected
+                                            selected
                                             @endif
-                                            value="{{\App\StatusInterface::READY}}">Ready</option>
+                                            value="{{\App\StatusInterface::READY}}">Ready
+                                        </option>
                                         <option
                                             @if($house->status == \App\StatusInterface::UNREADY)
                                             selected
                                             @endif
-                                            value="{{\App\StatusInterface::UNREADY}}">Unready</option>
+                                            value="{{\App\StatusInterface::UNREADY}}">Unready
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="col-3 col-lg-3 text-center">
@@ -92,7 +103,7 @@
                     </div>
                 @endif
             </div>
-            <div class="booking" style="display: none">
+            <div class="booking">
                 @if(!count($houses_booking))
                     No data
                 @else
@@ -179,13 +190,19 @@
                                             </h6>
                                         </div>
                                         <div class="col-6">
-                                            <a type="button" data-id="{{$house->id}}" class="modalReject"
-                                               data-toggle="modal"
-                                               data-target="#staticBackdrop">
-                                                <img src="https://img.icons8.com/office/30/000000/cancel.png">
-                                            </a>
-
-                                            <!-- Modal -->
+                                            @if(\Carbon\Carbon::now()->timestamp <= (\Carbon\Carbon::parse($house->checkin)->timestamp)-86400)
+                                                <a type="button" data-id="{{$house->id}}" class="modalReject"
+                                                   data-toggle="modal"
+                                                   data-target="#staticBackdrop">
+                                                    <img src="https://img.icons8.com/office/30/000000/cancel.png">
+                                                </a>
+                                            @else
+                                                <a href="">
+                                                    <img
+                                                        src="https://img.icons8.com/officel/30/000000/hotel-check-in.png">
+                                                </a>
+                                        @endif
+                                        <!-- Modal -->
                                             <div class="modal fade" id="staticBackdrop" data-backdrop="static"
                                                  tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
                                                  aria-hidden="true">
@@ -286,3 +303,4 @@
         })
     })
 </script>
+
