@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\Comment;
 use App\District;
 use App\House;
 use App\Http\Requests\HouseRequestValidate;
@@ -62,9 +63,17 @@ class HouseController extends Controller
 
     public function totalHouse($id)
     {
-        $ratings = $this->homeService->getAllRating();
-        $house = $this->houseService->findHouseById($id);
-        return view('totalHouse', compact('house', 'ratings'));
+        $ratings = Rating::all();
+        $house = $this->house->findOrFail($id);
+        $sumStar = 0;
+        foreach ($ratings as $rating) {
+            $sumStar = $rating->star + $sumStar;
+        }
+        $sumRating = DB::table('ratings')->max('id');
+        $muxStar= 5*$sumRating;
+        $with=120;
+        $average_user_rating=$sumStar/$muxStar*5;
+        return view('totalHouse', compact('house', 'ratings', 'average_user_rating','with'));
     }
 
     public function rating(Request $request, $id)
@@ -74,12 +83,22 @@ class HouseController extends Controller
         $rating = new Rating();
         $rating->user_id = $user->id;
         $rating->house_id = $house->id;
-        $rating->star = $request->star;
-        $rating->comment = $request->comment;
+        $rating->content = $request->comment;
         $rating->save();
         return redirect()->route('home');
     }
 
+    public function addComment(Request $request, $id)
+    {
+        $house = $this->houseService->findHouseById($id);
+        $user = Auth::user();
+        $comment = new Comment();
+        $comment->user_id = $user->id;
+        $comment->house_id = $house->id;
+        $comment->content = $request->comment;
+        $comment->save();
+        return redirect()->route('totalHouse', compact('comment'));
+    }
     public function selectCityandDistrict(Request $request)
     {
         $districts = $this->houseService->searchDistrictByCity_id("districts", 'city_id', $request->districtID);

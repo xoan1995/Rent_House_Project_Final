@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rating extends Model
+class Comment extends Model
 {
-    protected $fillable = ['star', 'user_id', 'house_id'];
+    protected $fillable = ['user_id', 'house_id', 'content'];
 
     public function user()
     {

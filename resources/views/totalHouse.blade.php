@@ -1,6 +1,7 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
 @extends('header-footer')
 @section('content')
-
     <div class="mt-4">
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner" style="height: 400px">
@@ -137,7 +138,141 @@
                         check-in, được hoàn lại 100% tổng số tiền đã trả (trừ phí dịch vụ).</p>
                 </div>
                 <div class="offset-1 mt-4">
+                    <div class="row">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="rating-block">
 
+                                        <h4>Average user rating</h4>
+                                        <h2 class="bold padding-bottom-7">
+                                            {{round($average_user_rating)}}<small>/ 5</small></h2>
+                                        @if(round($average_user_rating)>1)
+                                            @for($i=1; $i<=$average_user_rating; ++$i)
+                                                <button type="button" class="btn btn-warning btn-sm"
+                                                        aria-label="Left Align">
+                                                        <span class="glyphicon glyphicon-star"
+                                                              aria-hidden="true"></span>
+                                                </button>
+                                                @for($j=1; $j>=$average_user_rating; --$j)
+                                                    <button type="button"
+                                                            class="btn btn-default btn-grey btn-sm"
+                                                            aria-label="Left Align">
+                                                        <span class="glyphicon glyphicon-star"
+                                                              aria-hidden="true"></span>
+                                                    </button>
+                                                @endfor
+                                            @endfor
+                                        @else
+                                            @for($i=1;$i<=5; $i++)
+                                                <button type="button" class="btn btn-default btn-grey btn-xs"
+                                                        aria-label="Left Align">
+                                                        <span class="glyphicon glyphicon-star"
+                                                              aria-hidden="true"></span>
+                                                </button>
+                                            @endfor
+                                        @endif
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <h4>Rating breakdown</h4>
+                                            @for($i=5; $i>=1; $i--)
+                                                <div class="pull-left">
+                                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                                        <div style="height:9px; margin:5px 0;">{{$i}}
+                                                            <span class="glyphicon glyphicon-star"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pull-left" style="width:180px;">
+                                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                                            <div class="progress-bar progress-bar-success"
+                                                                 role="progressbar"
+                                                                 aria-valuenow="5"
+                                                                 aria-valuemin="0" aria-valuemax="5"
+                                                                 style="width:{{$with=$with-20}}%">
+                                                                <span class="sr-only">80% Complete(danger)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @foreach($ratings as $rating)
+                            @if($rating->house_id == $house->id)
+                                <div class="col-sm-7">
+                                    <hr/>
+                                    <div class="review-block">
+                                        <div class="row">
+                                            @foreach(\App\User::all() as $user)
+                                                @if($rating->user_id == $user->id)
+                                                    <div class="col-sm-3">
+                                                        <div class="review-block-name"><p>
+
+                                                                {{$user->name}}
+
+                                                            </p></div>
+                                                        <div class="review-block-date">{{$rating->created_at}}</div>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="review-block-rate">
+
+                                                            <button type="button" class="btn btn-warning btn-xs"
+                                                                    aria-label="Left Align">
+                                                        <span class="glyphicon glyphicon-star"
+                                                              aria-hidden="true"></span>
+                                                            </button>
+
+                                                            {{--                                                    @switch($login_error)--}}
+                                                            {{--                                                        @case(1)--}}
+
+                                                            {{--                                                        <span> `E-mail` input is empty! </span>--}}
+
+                                                            {{--                                                        @break--}}
+
+                                                            {{--                                                        @case(2)--}}
+
+                                                            {{--                                                        <span>`Password` input is empty! </span>--}}
+
+                                                            {{--                                                        @break--}}
+
+                                                            {{--                                                        @default--}}
+
+                                                            {{--                                                        <span>Something went wrong, please try again </span>--}}
+
+                                                            {{--                                                    @endswitch--}}
+                                                        </div>
+                                                        @endif
+
+                                                        @endforeach
+                                                        <div class="review-block-description">
+
+                                                            @foreach(\App\Comment::all() as $comment)
+                                                                    @if($comment->house_id == $house->id)
+                                                                        {{$comment->content}}
+                                                                    @endif
+                                                            @endforeach
+
+
+                                                        </div>
+                                                    </div>
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    <br>
                 </div>
                 <form action="{{route('rating',$house->id)}}" method="post">
                     @csrf
@@ -159,14 +294,20 @@
                                 star</label>
                         </div>
                     </div>
-                    <div class="offset-1 mt-4">
-                        <textarea class="form-control" rows="3"
-                                  name="comment"></textarea>
-                    </div>
+
                     <div class="offset-1 mt-4">
                         <button type="submit" class="btn btn-success">Submit</button>
                     </div>
                 </form>
+                <form action="{{route('addComment', $house->id)}}" method="post">
+                    @csrf
+                    <div class="offset-1 mt-4">
+                        <textarea class="form-control" rows="3"
+                                  name="comment"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">add</button>
+                </form>
+
             </div>
             <div class="col-lg-5 ml-5">
                 <div class="row">
@@ -254,6 +395,8 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
     $(document).ready(function () {
         $(".checkin").change(function () {
