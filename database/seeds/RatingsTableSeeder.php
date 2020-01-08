@@ -13,24 +13,28 @@ class RatingsTableSeeder extends Seeder
     {
         $rating = new \App\Rating();
         $rating->star= 2;
+        $rating->content='Good!';
         $rating->user_id=1;
         $rating->house_id=2;
         $rating->save();
 
         $rating = new \App\Rating();
         $rating->star= 2;
+        $rating->content='Good!';
         $rating->user_id=1;
         $rating->house_id=1;
         $rating->save();
 
         $rating = new \App\Rating();
         $rating->star= 2;
+        $rating->content='Good!';
         $rating->user_id=1;
         $rating->house_id=2;
         $rating->save();
 
         $rating = new \App\Rating();
         $rating->star= 2;
+        $rating->content='Good!';
         $rating->user_id=1;
         $rating->house_id=1;
         $rating->save();

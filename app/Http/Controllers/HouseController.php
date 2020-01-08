@@ -67,8 +67,16 @@ class HouseController extends Controller
         $ratings = Rating::all();
         $house = $this->house->findOrFail($id);
         $sumStar = 0;
-        foreach ($ratings as $rating) {
-            $sumStar = $rating->star + $sumStar;
+        if (count($ratings) > 0) {
+
+            foreach ($ratings as $rating) {
+                $sumStar = $rating->star + $sumStar;
+            }
+            $sumRating = DB::table('ratings')->max('id');
+            $muxStar = 5 * $sumRating;
+            $average_user_rating = $sumStar / $muxStar * 5;
+        } else {
+            $average_user_rating = $sumStar;
         }
         $sumRating = DB::table('ratings')->max('id');
         $muxStar = 5 * $sumRating;
@@ -84,9 +92,10 @@ class HouseController extends Controller
         $rating = new Rating();
         $rating->user_id = $user->id;
         $rating->house_id = $house->id;
-        $rating->content = $request->comment;
+        $rating->star = $request->star;
+        $rating->content = $request->inputContent;
         $rating->save();
-        return redirect()->route('home');
+        return back();
     }
 
     public function addComment(Request $request, $id)
@@ -96,7 +105,7 @@ class HouseController extends Controller
         $comment = new Comment();
         $comment->user_id = $user->id;
         $comment->house_id = $house->id;
-        $comment->content = $request->comment;
+        $comment->content = $request->inputContent;
         $comment->save();
         return redirect()->route('totalHouse', compact('comment'));
     }
