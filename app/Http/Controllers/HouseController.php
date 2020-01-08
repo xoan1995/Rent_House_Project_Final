@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\RevenueStatisticsByMonth;
 use App\City;
 use App\Comment;
 use App\District;
@@ -154,4 +155,5 @@ class HouseController extends Controller
         $totalPrice = $totalDay * $price;
         return \response()->json([$totalPrice, $totalDay]);
     }
+
 }

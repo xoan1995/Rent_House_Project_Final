@@ -31,6 +31,8 @@ Route::prefix('/user')->group(function () {
     Route::post('reject', 'UserController@rejectAndSendEmail')->name('user.reject');
     Route::post('reject-booking', 'UserController@rejectBooking')->name('user.rejectBooking');
     Route::get('alert', 'UserController@alert')->middleware('auth');
+    Route::get('revenue-statistics-by-month', 'UserController@revenueStatisticsByMonth')->name('user.statistics');
+    Route::post('revenue-statistics-by-month', 'UserController@revenueStatisticsByMonth')->name('user.statistics');
 });
 
 

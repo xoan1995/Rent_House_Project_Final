@@ -274,9 +274,7 @@
                     </div>
                 @endif
             </div>
-            <div class="historyARentalHouse" style="display: none">
-
-            </div>
+            <div class="historyARentalHouse" style="display: none"></div>
         </div>
     </div>
 
