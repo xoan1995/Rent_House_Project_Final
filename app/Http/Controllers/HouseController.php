@@ -157,13 +157,4 @@ class HouseController extends Controller
         return \response()->json([$totalPrice, $totalDay]);
     }
 
-    public function revenueStatisticsByMonth()
-    {
-        $year = "2019";
-        $chart = new RevenueStatisticsByMonth();
-        $chart->labels(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
-        $chart->dataset("My Revenue Statistics in {$year}", 'line', [4, 3, 4]);
-
-        return view('house.statisticsByMonth', compact('chart'));
-    }
 }

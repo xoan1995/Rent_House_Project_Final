@@ -350,6 +350,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                             <a href="{{route('user.showHousePosted')}}" class="dropdown-item">My booking & posted</a>
+                            <a href="{{route('user.statistics')}}" class="dropdown-item">My Statistics</a>
                             @if(count(\App\SocialAccount::all())!=0)
                                 @foreach(\App\SocialAccount::all() as  $account)
                                     @if(\Illuminate\Support\Facades\Auth::user()->id != $account->user_id)
@@ -539,6 +540,7 @@
             $(".historyARentalHouse").hide();
             $("#historyOneHouse").removeClass('active');
         });
+
         $(".oneHouseHistory").click(function () {
             $(".posted").hide();
             $("#posted").removeClass('active');
