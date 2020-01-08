@@ -45,65 +45,6 @@
         margin-top: 3px;
     }
 
-    .flipout {
-        width: 49%;
-        float: left;
-        margin-top: 34px;
-    }
-
-    #flipswitchWrapper {
-        display: inline;
-    }
-
-    .other {
-        width: 49%;
-        float: left;
-        margin-left: 2%;
-        margin-top: 34px;
-    }
-
-    .clear {
-        clear: both;
-    }
-
-    h3.mapz {
-        display: block;
-        margin-right: 10px;
-        margin-bottom: 0;
-        margin-top: 0px;
-        font-weight: 500;
-        font-size: 15px;
-    }
-
-    button.btn, button.btns {
-        background-color: #51a976;
-        border: none;
-        border-radius: 3px;
-        color: #FFF;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        text-transform: uppercase;
-        transition: all 300ms ease-out;
-        display: inline;
-        width: 24px;
-        height: 29px;
-    }
-
-    #zoom {
-        position: relative;
-        top: 7px;
-        width: 80px;
-        margin: 0px 5px;
-    }
-
-    .mapouter {
-        position: relative;
-        text-align: right;
-        height: 700px;
-        width: 1150px;
-    }
-
     #gmap_canvas {
         overflow: hidden;
         background: none !important;
@@ -119,32 +60,35 @@
 </style>
 <body>
 <div class="row">
-    <div class="col-lg-4 leftr" style="width: 400px">
-        <div>
+    <div class="col-3 col-lg-3">
+        <div class="mt-3 ml-3">
             <a class="btn btn-outline-info" style="width: 80px" href="{{route('totalHouse',$house->id)}}">
                 Back
             </a>
         </div>
         <div class="light">
-            <h2 style="text-align: center; font-weight: bold; font-family: Arial">Enter your Address:</h2>
-            <input type="text" name="s" id="s" style="height: 40px; width: 350px" class="form-control"
-                   value="{{$house->city->name}} - {{$house->district->name}} - {{$house->address}}"
-                   placeholder="Enter Adress" data-role="none">
+            <div>
+                <h2 style="text-align: center; font-weight: bold; font-family: Arial">Enter your Address:</h2>
+            </div>
+            <div class=" d-flex justify-content-center">
+                <input type="text" name="s" id="s" style="height: 40px; width: 350px"
+                       class="form-control"
+                       value="{{$house->city->name}} - {{$house->district->name}} - {{$house->address}}"
+                       placeholder="Enter Adress" data-role="none">
+            </div>
         </div>
         <div class="clear"></div>
         <div style="text-align: center; margin-top: 100px">
             <img height="300px" width="300px"
                  src="{{asset('storage/images/google-maps-png-google-maps-icon-1600.png')}}" alt="">
         </div>
-        <div class="clear"></div>
-
     </div>
 
-    <div class="col-lg-8" style="margin-left: 400px">
-        <div class="mapouter">
+    <div class="col-9 col-lg-9">
+        <div class="">
             <div class="gmap_canvas">
-                <iframe width="600" height="500" id="gmap_canvas"
-                        src="https://maps.google.com/maps?q={{$house->address}}=&z=13&ie=UTF8&iwloc=&output=embed"
+                <iframe id="gmap_canvas"
+                        src="https://maps.google.com/maps?q={{$house->address}}-{{$house->district->name}}-{{$house->city->name}}=&z=13&ie=UTF8&iwloc=&output=embed"
                         frameborder="0"
                         scrolling="no" marginheight="0" marginwidth="0">
                     <a href="https://www.embedgooglemap.net"></a>
