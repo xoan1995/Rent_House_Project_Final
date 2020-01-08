@@ -24,7 +24,13 @@ class RatingRequestValidate extends FormRequest
     public function rules()
     {
         return [
-            //
+           'star'=>'required'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'star.required'=>''
         ];
     }
 }
