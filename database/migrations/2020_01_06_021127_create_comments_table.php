@@ -24,7 +24,6 @@ class CreateCommentsTable extends Migration
 
             $table->string('content');
 
-            $table->string('replies')->nullable();
             $table->timestamps();
         });
     }

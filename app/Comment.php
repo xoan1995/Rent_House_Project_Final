@@ -17,4 +17,9 @@ class Comment extends Model
     {
         return $this->belongsTo('App\House');
     }
+
+    public function parentsComments()
+    {
+        return $this->hasMany('App\ParentComment');
+    }
 }
