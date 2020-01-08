@@ -85,7 +85,7 @@
     </div>
 
     <div class="col-9 col-lg-9">
-        <div class="">
+        <div class="mt-3">
             <div class="gmap_canvas">
                 <iframe id="gmap_canvas"
                         src="https://maps.google.com/maps?q={{$house->address}}-{{$house->district->name}}-{{$house->city->name}}=&z=13&ie=UTF8&iwloc=&output=embed"
