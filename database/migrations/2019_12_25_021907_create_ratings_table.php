@@ -23,7 +23,7 @@ class CreateRatingsTable extends Migration
             $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');
 
             $table->integer('star');
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->timestamps();
         });
     }
