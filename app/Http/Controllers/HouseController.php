@@ -101,8 +101,7 @@ class HouseController extends Controller
         $comment = new Comment();
         $comment->content = $request->inputContent;
         $comment->save();
-
-        return redirect()->route('totalHouse', compact('comment','ratings'));
+        return back();
     }
 
     public function selectCityandDistrict(Request $request)

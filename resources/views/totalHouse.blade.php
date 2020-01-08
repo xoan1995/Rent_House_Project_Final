@@ -222,7 +222,7 @@
                                             </div>
                                             <form action="{{route('addComment',$rating->id)}}" method="post">
                                                 @csrf
-                                            <input type="text" name="inpuContent" class="form-control">
+                                            <input type="text" name="inputContent" class="form-control">
                                                 <button type="submit">save</button>
                                             </form>
                                         </div>
