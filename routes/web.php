@@ -51,6 +51,7 @@ Route::prefix('houses')->group(function () {
     Route::get('change-status', 'HouseController@changeStatus')->middleware('auth');
     Route::get('showMap/{id}', 'HouseController@showMap')->name('showMap');
     Route::get('total-Day-And-Price', 'HouseController@totalDayAndPrice')->name('totalDayAndPrice');
+    Route::get('revenue-statistics-by-month', 'HouseController@revenueStatisticsByMonth')->name('house.statistics');
 });
 
 Route::prefix('order')->group(function () {

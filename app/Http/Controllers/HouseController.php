@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\RevenueStatisticsByMonth;
 use App\City;
 use App\Comment;
 use App\District;
@@ -152,5 +153,15 @@ class HouseController extends Controller
         $totalDay = floatval((($checkOutNew - $checkInNew) / 60 / 60 / 24));
         $totalPrice = $totalDay * $price;
         return \response()->json([$totalPrice, $totalDay]);
+    }
+
+    public function revenueStatisticsByMonth()
+    {
+        $year = "2019";
+        $chart = new RevenueStatisticsByMonth();
+        $chart->labels(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
+        $chart->dataset("My Revenue Statistics in {$year}", 'line', [4, 3, 4]);
+
+        return view('house.statisticsByMonth', compact('chart'));
     }
 }
