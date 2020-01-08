@@ -453,6 +453,15 @@
 <script src="{{asset('storage/slick/slideCity.js')}}"></script>
 <script>
     $(document).ready(function () {
+        $('.buttonReply').click(function () {
+            $('.sendReply').show();
+            $('.reply').show();
+            $(".buttonReply").hide();
+        })
+    })
+</script>
+<script>
+    $(document).ready(function () {
         $(".modalNotice").click(function () {
             let id = $(this).data('id');
             $("#modalNotice").val(id);
@@ -475,7 +484,6 @@
         if (confirm('Are you sure you want to change the status! ')) {
             let status = $(this).val();
             let houseId = $(this).data('id');
-            console.log(houseId);
             if (status) {
                 $.ajax({
                     url: "http://localhost:8000/houses/change-status",
@@ -486,7 +494,7 @@
                         status: status,
                     },
                     success: function (res) {
-
+console.log(1)
                     }
                 });
             }
@@ -691,6 +699,32 @@
 
         });
     });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".checkin").change(function () {
+            $(".checkout").change(function () {
+                var checkin = $('#checkin').val();
+                var checkout = $('#checkout').val();
+                var price = $("#price").data('value');
+                if (checkin <= checkout) {
+                    $.ajax({
+                        url: "http://127.0.0.1:8000/houses/total-Day-And-Price",
+                        type: "GET",
+                        dataType: "json",
+                        data: {
+                            checkInNew: checkin,
+                            checkOutNew: checkout,
+                            price: price,
+                        },
+                        success: function (res) {
+                            $("#price").html(`${res[0]} $/${res[1]}đêm`)
+                        }
+                    })
+                }
+            })
+        })
+    })
 </script>
 <script>
     $(document).ready(function () {

@@ -1,4 +1,3 @@
-
 @extends('header-footer')
 @section('content')
     <div class="mt-4">
@@ -209,21 +208,43 @@
                                                     <p>
                                                         {{$rating->content}}
                                                     </p>
-                                                    <p>
-                                                        @foreach($comments as $comment)
-                                                        {{$comment->content}}
-                                                            @endforeach
-                                                    </p>
-                                                    <p>
-                                                        <a class="float-right btn btn-outline-primary ml-2"> <i
-                                                                class="fa fa-reply"></i> Reply</a>
-                                                    </p>
+                                                    @foreach($rating->comments as $comment)
+                                                        @if($rating->id == $comment->rating_id)
+                                                            <div class="ml-5 mb-4">
+                                                                <div style="color: #1da1f2; font-weight: bold">
+                                                                {{$comment->user->name}}
+                                                                </div>
+                                                                {{($comment->content)}}
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
                                                 </div>
                                             </div>
-                                            <form action="{{route('addComment',$rating->id)}}" method="post">
+                                            <form action="{{route('addComment')}}" method="post">
                                                 @csrf
-                                            <input type="text" name="inputContent" class="form-control">
-                                                <button type="submit">save</button>
+                                                <div class="row">
+                                                    <input type="text" name="ratings_id"
+                                                           value="{{$rating->id}}"
+                                                           style="display: none">
+
+                                                    <div class="col-lg-8 reply" style="display: none">
+                                                        <input type="text" name="inputContent"
+                                                               class="form-control">
+                                                    </div>
+
+                                                    <div class="col-lg-4 ">
+                                                        <a class=" buttonReply float-right btn btn-outline-primary ml-2">
+                                                            <i
+                                                                class="fa fa-reply"></i> Reply</a>
+                                                        <input style="display: none" type="text" name="user_id"
+                                                               value="{{\Illuminate\Support\Facades\Auth::id()}}">
+                                                        <button style="display: none"
+                                                                class="btn btn-success sendReply"
+                                                                type="submit">
+                                                            Gửi
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -232,6 +253,8 @@
                         @endif
                     @endforeach
                 </div>
+                @guest()
+                @else
                     <form action="{{route('rating',$house->id)}}" method="post">
                         @csrf
                         <div class="offset-1 mt-4">
@@ -257,9 +280,10 @@
                                   name="inputContent"></textarea>
                         </div>
                         <div class="offset-1 mt-4">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-success">Gửi</button>
                         </div>
                     </form>
+                @endguest
             </div>
             <div class="col-lg-5 ml-5">
                 <div class="row">
@@ -347,32 +371,4 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".checkin").change(function () {
-            $(".checkout").change(function () {
-                var checkin = $('#checkin').val();
-                var checkout = $('#checkout').val();
-                var price = $("#price").data('value');
-                if (checkin <= checkout) {
-                    $.ajax({
-                        url: "http://127.0.0.1:8000/houses/total-Day-And-Price",
-                        type: "GET",
-                        dataType: "json",
-                        data: {
-                            checkInNew: checkin,
-                            checkOutNew: checkout,
-                            price: price,
-                        },
-                        success: function (res) {
-                            $("#price").html(`${res[0]} $/${res[1]}đêm`)
-                        }
-                    })
-                }
-            })
-        })
-    })
-</script>
 {!! toastr()->render() !!}

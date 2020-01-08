@@ -45,7 +45,7 @@ Route::prefix('houses')->group(function () {
     Route::get('totalHouse/{id}', 'HouseController@totalHouse')->name('totalHouse');
     Route::post('search', 'HomeController@search')->name('search');
     Route::post('rating/{id}', 'HouseController@rating')->name('rating');
-    Route::post('comment/{id}', 'HouseController@addComment')->name('addComment');
+    Route::post('comment', 'HouseController@addComment')->name('addComment');
     Route::get('select-city-district', 'HouseController@selectCityandDistrict');
     Route::get('find-house-by-history-booking', 'HouseController@findHistoryHouseBooking')->middleware('auth');
     Route::get('change-status', 'HouseController@changeStatus')->middleware('auth');
