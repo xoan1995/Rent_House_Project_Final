@@ -64,8 +64,8 @@ class HouseController extends Controller
 
     public function totalHouse($id)
     {
-        $comments= Comment::all();
-        $ratings = Rating::all();
+        $comments = Comment::all();
+        $ratings = Rating::where('house_id', $id)->get();
         $house = $this->house->findOrFail($id);
         $sumStar = 0;
         if (count($ratings) > 0) {
@@ -96,11 +96,12 @@ class HouseController extends Controller
         return back();
     }
 
-    public function addComment(Request $request, $id)
+    public function addComment(Request $request)
     {
-        $ratings= Rating::findOrFail($id);
         $comment = new Comment();
+        $comment->user_id = $request->user_id;
         $comment->content = $request->inputContent;
+        $comment->rating_id = $request->ratings_id;
         $comment->save();
         return back();
     }
