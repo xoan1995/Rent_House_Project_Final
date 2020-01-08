@@ -1,4 +1,3 @@
-{{--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--}}
 
 @extends('header-footer')
 @section('content')
@@ -147,7 +146,7 @@
                                         <h5>Average user rating</h5>
                                         <h2 class="bold padding-bottom-7">
                                             {{round($average_user_rating)}}<small>/ 5</small></h2>
-                                        @for($i=0; $i<=$average_user_rating; ++$i)
+                                        @for($i=1; $i<=$average_user_rating; ++$i)
                                             <span class="fa fa-star" style="color: orange"></span>
                                         @endfor
                                     </div>
@@ -211,11 +210,21 @@
                                                         {{$rating->content}}
                                                     </p>
                                                     <p>
+                                                        @foreach($comments as $comment)
+                                                        {{$comment->content}}
+                                                            @endforeach
+                                                    </p>
+                                                    <p>
                                                         <a class="float-right btn btn-outline-primary ml-2"> <i
                                                                 class="fa fa-reply"></i> Reply</a>
                                                     </p>
                                                 </div>
                                             </div>
+                                            <form action="{{route('addComment',$rating->id)}}" method="post">
+                                                @csrf
+                                            <input type="text" name="inputContent" class="form-control">
+                                                <button type="submit">save</button>
+                                            </form>
                                         </div>
                                     </div>
                                 @endif
@@ -223,34 +232,34 @@
                         @endif
                     @endforeach
                 </div>
-                <form action="{{route('rating',$house->id)}}" method="post">
-                    @csrf
-                    <div class="offset-1 mt-4">
-                        <div class="rating ">
-                            <input type="radio" id="star5" name="star" value="5"/><label for="star5" title="Meh">5
-                                stars</label>
-                            <input type="radio" id="star4" name="star" value="4"/><label for="star4"
-                                                                                         title="Kinda bad">4
-                                stars</label>
-                            <input type="radio" id="star3" name="star" value="3"/><label for="star3"
-                                                                                         title="Kinda bad">3
-                                stars</label>
-                            <input type="radio" id="star2" name="star" value="2"/><label for="star2"
-                                                                                         title="Sucks big tim">2
-                                stars</label>
-                            <input type="radio" id="star1" name="star" value="1"/><label for="star1"
-                                                                                         title="Sucks big time">1
-                                star</label>
+                    <form action="{{route('rating',$house->id)}}" method="post">
+                        @csrf
+                        <div class="offset-1 mt-4">
+                            <div class="rating ">
+                                <input type="radio" id="star5" name="star" value="5"/><label for="star5" title="Meh">5
+                                    stars</label>
+                                <input type="radio" id="star4" name="star" value="4"/><label for="star4"
+                                                                                             title="Kinda bad">4
+                                    stars</label>
+                                <input type="radio" id="star3" name="star" value="3"/><label for="star3"
+                                                                                             title="Kinda bad">3
+                                    stars</label>
+                                <input type="radio" id="star2" name="star" value="2"/><label for="star2"
+                                                                                             title="Sucks big tim">2
+                                    stars</label>
+                                <input type="radio" id="star1" name="star" value="1"/><label for="star1"
+                                                                                             title="Sucks big time">1
+                                    star</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="offset-1 mt-4">
+                        <div class="offset-1 mt-4">
                         <textarea class="form-control" rows="3"
                                   name="inputContent"></textarea>
-                    </div>
-                    <div class="offset-1 mt-4">
-                        <button type="submit" class="btn btn-success">Submit</button>
-                    </div>
-                </form>
+                        </div>
+                        <div class="offset-1 mt-4">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
             </div>
             <div class="col-lg-5 ml-5">
                 <div class="row">

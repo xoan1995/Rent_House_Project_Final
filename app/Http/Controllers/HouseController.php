@@ -64,6 +64,7 @@ class HouseController extends Controller
 
     public function totalHouse($id)
     {
+        $comments= Comment::all();
         $ratings = Rating::all();
         $house = $this->house->findOrFail($id);
         $sumStar = 0;
@@ -79,7 +80,7 @@ class HouseController extends Controller
             $average_user_rating = $sumStar;
         }
         $with = 120;
-        return view('totalHouse', compact('house', 'ratings', 'average_user_rating', 'with'));
+        return view('totalHouse', compact('house', 'ratings', 'average_user_rating', 'with', 'comments'));
     }
 
     public function rating(Request $request, $id)
@@ -97,14 +98,11 @@ class HouseController extends Controller
 
     public function addComment(Request $request, $id)
     {
-        $house = $this->houseService->findHouseById($id);
-        $user = Auth::user();
+        $ratings= Rating::findOrFail($id);
         $comment = new Comment();
-        $comment->user_id = $user->id;
-        $comment->house_id = $house->id;
         $comment->content = $request->inputContent;
         $comment->save();
-        return redirect()->route('totalHouse', compact('comment'));
+        return back();
     }
 
     public function selectCityandDistrict(Request $request)
