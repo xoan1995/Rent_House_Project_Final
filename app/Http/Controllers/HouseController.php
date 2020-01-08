@@ -78,10 +78,7 @@ class HouseController extends Controller
         } else {
             $average_user_rating = $sumStar;
         }
-        $sumRating = DB::table('ratings')->max('id');
-        $muxStar = 5 * $sumRating;
         $with = 120;
-        $average_user_rating = $sumStar / $muxStar * 5;
         return view('totalHouse', compact('house', 'ratings', 'average_user_rating', 'with'));
     }
 
