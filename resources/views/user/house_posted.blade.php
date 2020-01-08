@@ -274,9 +274,10 @@
                     </div>
                 @endif
             </div>
-            <div class="historyARentalHouse" style="display: none">
+            <div class="historyARentalHouse" style="display: none">/div>
+                <div class="statictics">
 
-            </div>
+                </div>
         </div>
     </div>
 
