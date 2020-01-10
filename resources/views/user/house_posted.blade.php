@@ -16,13 +16,16 @@
 
 @section('content')
 
-    @if(\Illuminate\Support\Facades\Session::has('alert'))
+    @if(\Illuminate\Support\Facades\Session::has('reject-cancel'))
         <div class="alert alert-warning" role="alert">
-            {{\Illuminate\Support\Facades\Session::get('alert')}}
+            {{\Illuminate\Support\Facades\Session::get('reject-cancel')}}
         </div>
     @endif
-
-
+    @if(\Illuminate\Support\Facades\Session::has('reject-done'))
+        <div class="alert alert-success" role="alert">
+            {{\Illuminate\Support\Facades\Session::get('reject-done')}}
+        </div>
+    @endif
 
     <div class="card">
         <div class="card-header">
