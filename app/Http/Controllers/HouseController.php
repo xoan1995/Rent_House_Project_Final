@@ -142,7 +142,7 @@ class HouseController extends Controller
 
     public function showMap($id)
     {
-        $house = House::findOrFail($id);
+        $house = $this->houseService->findHouseById($id);
         return view('house.map', compact('house'));
     }
 

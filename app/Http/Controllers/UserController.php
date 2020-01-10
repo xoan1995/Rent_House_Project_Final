@@ -166,60 +166,8 @@ class UserController extends Controller
         } else {
             $nowYear = Carbon::parse(Carbon::now())->format('y');
         }
-        $userId = Auth::user()->id;
-
-        $houseOrders = Order::all();
-
-        $ord = [];
-        for ($i = 0; $i < 12; $i++) {
-            array_push($ord, []);
-        }
-        foreach ($houseOrders as $key1 => $order) {
-            foreach ($ord as $key2 => $abc) {
-                if ($order->user_id == $userId) {
-                    if (+Carbon::parse($order->checkin)->format('y') == +$nowYear) {
-                        if (+Carbon::parse($order->checkin)->format('m') == ($key2 + 1)) {
-                            array_push($ord[$key2], $order);
-                        }
-                    }
-                }
-            }
-        }
-        $incomeOnMonth = [];
-        for ($i = 0; $i < 12; $i++) {
-            array_push($incomeOnMonth, []);
-        }
-        foreach ($ord as $key1 => $value) {
-            foreach ($value as $key2 => $item) {
-                foreach ($incomeOnMonth as $key3 => $value) {
-                    if (+Carbon::parse($item->checkin)->format('m') == ($key3 + 1)) {
-                        array_push($incomeOnMonth[$key3], $item->totalPrice);
-                    }
-                }
-            }
-        }
-        $moneyOnMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        foreach ($incomeOnMonth as $key => $item) {
-            foreach ($item as $value) {
-                $moneyOnMonth[$key] = $moneyOnMonth[$key] + $value;
-            }
-        }
-        $chart = new RevenueStatisticsByMonth();
-        $chart->labels(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
-        $chart->dataset("My Revenue Statistics in 20{$nowYear}", 'line', [
-            $moneyOnMonth[0],
-            $moneyOnMonth[1],
-            $moneyOnMonth[2],
-            $moneyOnMonth[3],
-            $moneyOnMonth[4],
-            $moneyOnMonth[5],
-            $moneyOnMonth[6],
-            $moneyOnMonth[7],
-            $moneyOnMonth[8],
-            $moneyOnMonth[9],
-            $moneyOnMonth[10],
-            $moneyOnMonth[11],
-        ]);
+        $moneyOnMonth = $this->userService->getIncomeOfMonth($nowYear);
+        $chart = $this->userService->creatChart($moneyOnMonth, $nowYear);
         return view('house.statisticsByMonth', compact('chart'));
     }
 }
