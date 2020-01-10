@@ -604,7 +604,7 @@ console.log(1)
                                     <div class="row">
                                         <div class="col-6">
                                             <img class="card-img" width="80px"
-                                                 src="http://localhost:8000/storage/${res[4]}"
+                                                 src="http://localhost:8084/storage/${res[4]}"
                                                  alt="...">
                                         </div>
                                         <div class="col-6">
@@ -711,7 +711,7 @@ console.log(1)
                 var price = $("#price").data('value');
                 if (checkin <= checkout) {
                     $.ajax({
-                        url: "http://127.0.0.1:8000/houses/total-Day-And-Price",
+                        url: "http://localhost:8084/houses/total-Day-And-Price",
                         type: "GET",
                         dataType: "json",
                         data: {
