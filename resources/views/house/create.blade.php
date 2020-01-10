@@ -354,7 +354,7 @@
                 data: {
                     districtID: cityID
                 },
-                url: "http://127.0.0.1:8000/houses/select-city-district",
+                url: "http://localhost:8084/houses/select-city-district",
                 success: function (res) {
                     if (res) {
                         $('#district').empty();

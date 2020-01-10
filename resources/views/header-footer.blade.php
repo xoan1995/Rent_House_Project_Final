@@ -479,7 +479,7 @@
             console.log(houseId);
             if (status) {
                 $.ajax({
-                    url: "http://localhost:8000/houses/change-status",
+                    url: "http://localhost:8084/houses/change-status",
                     type: "GET",
                     dataType: "json",
                     data: {
@@ -504,7 +504,7 @@
                 data: {
                     districtID: cityID
                 },
-                url: "http://127.0.0.1:8000/get-district-list",
+                url: "http://localhost:8084/get-district-list",
                 success: function (res) {
                     if (res) {
                         $('#district').empty();
@@ -551,7 +551,7 @@
             let houseId = $(this).data('id');
             if (houseId) {
                 $.ajax({
-                    url: "http://localhost:8000/houses/find-house-by-history-booking",
+                    url: "http://localhost:8084/houses/find-house-by-history-booking",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
