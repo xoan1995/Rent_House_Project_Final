@@ -29,4 +29,8 @@ interface UserServiceInterface extends BaseServiceInterface
     function rejectRent($reasons, $notification, $order_id);
 
     function rejectBooking($order ,$email_host,$reasons);
+
+    public function getIncomeOfMonth($nowYear);
+
+    public function creatChart($moneyOnMonth,$nowYear);
 }
