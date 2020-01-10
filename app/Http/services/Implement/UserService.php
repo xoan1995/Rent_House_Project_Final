@@ -160,10 +160,10 @@ class UserService extends BaseService implements UserServiceInterface
             if ($checkInTimestamp - $nowTimestamp >= 86400) {
                 $this->userRepository->delete($order);
                 Mail::to($email_host)->queue(new RejectRequestRentHouse($sender, $reasons));
-                session()->flash('reject booking successfully');
+                session()->flash('reject-done', 'you reject booking done');
                 return back();
             } else {
-                session()->flash('alert', 'You cannot cancel your reservation one day in advance');
+                session()->flash('reject-cancel', 'You cannot cancel your reservation one day in advance');
             }
         }
     }
