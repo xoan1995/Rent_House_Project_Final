@@ -292,7 +292,7 @@
                             </span>
                         </a>
 
-                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
+                        <ul class="dropdown-menu dropdown-menu-right" aria  -labelledby="navbarDropdown"
                             style="width: 600px">
                             @if(count(\App\Notification::all()) > 0)
                                 @foreach(\App\Notification::all() as $notice)
